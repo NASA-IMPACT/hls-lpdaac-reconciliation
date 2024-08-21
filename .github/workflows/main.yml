@@ -1,0 +1,171 @@
+name: HLS LPDAAC Reconciliation Report
+
+on:
+  workflow_dispatch:
+  release:
+    types:
+      - published
+  push:
+    branches:
+      - main
+      - develop
+    tags-ignore:
+      - "*"
+    paths:
+      - ".github/workflows/*"
+      - "cdk/**"
+      - "src/**"
+      - "cdk.json"
+      - "Makefile"
+      - "setup.py"
+      - "tox.ini"
+  pull_request:
+    types:
+      - edited
+      - opened
+      - reopened
+      - synchronize
+    branches:
+      - main
+      - develop
+    paths:
+      - ".github/workflows/*"
+      - "cdk/**"
+      - "src/**"
+      - "cdk.json"
+      - "Makefile"
+      - "setup.py"
+      - "tox.ini"
+
+# See https://docs.github.com/en/actions/deployment/security-hardening-your-deployments/configuring-openid-connect-in-amazon-web-services#updating-your-github-actions-workflow
+permissions:
+  id-token: write # required for requesting the JWT
+  contents: read # required for actions/checkout
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  config:
+    # This is a hack to work around the lack of support for two other possiblities for
+    # avoiding duplication of configuration values:
+    #
+    # (1) YAML anchors (https://yaml.org/spec/1.1/current.html#id899912) and aliases
+    #     (https://yaml.org/spec/1.1/current.html#id902561)
+    # (2) Availability of `env` context within `jobs.<job-id>.with.<with-id>` (see
+    #     https://docs.github.com/en/actions/learn-github-actions/contexts#context-availability)
+    #
+    # Alternative hack: https://github.com/actions/runner/issues/1182#issuecomment-1262870831
+    runs-on: ubuntu-22.04
+    outputs:
+      PYTHON_VERSION: "${{ steps.python.outputs.PYTHON_VERSION }}"
+      TOX_MIN_VERSION: "${{ steps.tox.outputs.TOX_MIN_VERSION }}"
+    steps:
+      - id: python
+        name: Set Python version
+        run: echo "PYTHON_VERSION=3.12" >> "$GITHUB_OUTPUT"
+      - id: tox
+        name: Set minimum tox version
+        # `allowlist_externals` replaces `whitelist_externals`
+        run: echo "TOX_MIN_VERSION=3.18.0" >> "$GITHUB_OUTPUT"
+
+  unit-tests:
+    runs-on: ubuntu-22.04
+    needs: config
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "${{ needs.config.outputs.PYTHON_VERSION }}"
+          cache: pip
+          cache-dependency-path: setup.py
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install "tox>=${{ needs.config.outputs.TOX_MIN_VERSION }}"
+      - name: Run unit tests
+        run: |
+          make unit-tests
+
+  integration-tests:
+    runs-on: ubuntu-22.04
+    environment: dev
+    needs: config
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "${{ needs.config.outputs.PYTHON_VERSION }}"
+          cache: pip
+          cache-dependency-path: setup.py
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install "tox>=${{ needs.config.outputs.TOX_MIN_VERSION }}"
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-region: ${{ vars.AWS_DEFAULT_REGION }}
+          role-to-assume: ${{ vars.AWS_ROLE_TO_ASSUME_ARN }}
+          role-session-name: ${{ github.actor }}
+      - name: Convert secrets to environment variables
+        env:
+          SECRETS_JSON: ${{ toJson(secrets) }}
+        run: |
+          while read -rd $'' line; do
+            echo "$line" >> $GITHUB_ENV
+          done < <(
+            jq -r <<<"$SECRETS_JSON" 'to_entries|map("\(.key)=\(.value)\u0000")[]'
+          )
+      - name: Convert vars to environment variables
+        env:
+          VARS_JSON: ${{ toJson(vars) }}
+        run: |
+          while read -rd $'' line; do
+            echo "$line" >> $GITHUB_ENV
+          done < <(
+            jq -r <<<"$VARS_JSON" 'to_entries|map("\(.key)=\(.value)\u0000")[]'
+          )
+      - name: Deploy notification integration test stack
+        run: |
+          make deploy-it
+      - name: Run notification integration tests
+        run: |
+          make integration-tests
+      - name: Destroy notification integration test stack
+        if: !cancelled()
+        run: |
+          make destroy-it
+
+  deploy-dev:
+    # Deploy to Dev only on push (including merged PR) to `develop` branch
+    if: github.event_name == 'push' && github.event.ref == 'refs/heads/develop'
+    needs:
+      - config
+      - unit-tests
+      - integration-tests
+    uses: ./.github/workflows/deploy.yml
+    with:
+      environment: dev
+      PYTHON_VERSION: "${{ needs.config.outputs.PYTHON_VERSION }}"
+      TOX_MIN_VERSION: "${{ needs.config.outputs.TOX_MIN_VERSION }}"
+    secrets: inherit
+
+  deploy-prod:
+    # Deploy to Prod only on publishing a release (tag) on `main` branch
+    if: github.event_name == 'release' && github.event.action == 'published'
+    needs:
+      - config
+      - unit-tests
+      - integration-tests
+    uses: ./.github/workflows/deploy.yml
+    with:
+      environment: prod
+      PYTHON_VERSION: "${{ needs.config.outputs.PYTHON_VERSION }}"
+      TOX_MIN_VERSION: "${{ needs.config.outputs.TOX_MIN_VERSION }}"
+    secrets: inherit
