@@ -138,7 +138,7 @@ jobs:
         run: |
           make integration-tests
       - name: Destroy notification integration test stack
-        if: !cancelled()
+        if: "${{ !cancelled() }}"
         run: |
           make destroy-it
 
