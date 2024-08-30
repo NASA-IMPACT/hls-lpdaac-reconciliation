@@ -131,13 +131,13 @@ jobs:
           done < <(
             jq -r <<<"$VARS_JSON" 'to_entries|map("\(.key)=\(.value)\u0000")[]'
           )
-      - name: Deploy notification integration test stack
+      - name: Deploy integration test stack
         run: |
           make deploy-it
-      - name: Run notification integration tests
+      - name: Run integration tests
         run: |
           make integration-tests
-      - name: Destroy notification integration test stack
+      - name: Destroy integration test stack
         if: "${{ !cancelled() }}"
         run: |
           make destroy-it

@@ -16,4 +16,4 @@ def test_lambda(lambda_: LambdaClient, ssm: SSMClient):
     response = lambda_.invoke(FunctionName=function_name, Payload="{}")
 
     assert response["StatusCode"] == 200
-    assert response["Payload"].read().decode("utf-8") == "Hello world!"
+    assert response["Payload"].read() == b'"Hello world!"'
