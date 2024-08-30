@@ -8,11 +8,10 @@ from stack import HlsLpdaacReconciliationStack
 stack_name = os.environ["HLS_LPDAAC_STACK"]
 managed_policy_name = os.getenv("HLS_LPDAAC_MANAGED_POLICY_NAME", "mcp-tenantOperator")
 
-app = cdk.App()
-
 stack = HlsLpdaacReconciliationStack(
-    app,
+    app := cdk.App(),
     f"{stack_name}-lpdaac-reconciliation-it",
+    managed_policy_name=managed_policy_name,
 )
 
 ssm.StringParameter(

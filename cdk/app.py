@@ -8,11 +8,10 @@ from stack import HlsLpdaacReconciliationStack
 stack_name = os.environ["HLS_LPDAAC_STACK"]
 managed_policy_name = os.getenv("HLS_LPDAAC_MANAGED_POLICY_NAME", "mcp-tenantOperator")
 
-app = cdk.App()
-
 HlsLpdaacReconciliationStack(
-    app,
-    f"{stack_name}LpdaacReconciliation",
+    app := cdk.App(),
+    f"{stack_name}-lpdaac-reconciliation",
+    managed_policy_name=managed_policy_name,
 )
 
 for k, v in dict(
