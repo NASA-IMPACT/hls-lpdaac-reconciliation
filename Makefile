@@ -1,6 +1,4 @@
-CDK_CONTEXT=--context permissions-boundary=mcp-tenantOperator
-# CDK version must match the version specified in setup.py
-CDK_VERSION=2.153.0
+CDK_VERSION=$$(<.cdk-version)
 NODE_VERSION=20.16.0
 SHELL=/usr/bin/env bash
 TOX=tox $(TOX_OPTS)

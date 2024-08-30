@@ -1,7 +1,8 @@
+from pathlib import Path
 from setuptools import find_packages, setup  # type: ignore
 
 aws_cdk_extras = [
-    "aws-cdk-lib==2.153.0",
+    f"aws-cdk-lib=={Path('.cdk-version').read_text()}",
     "constructs>=10.0.0,<11.0.0",
 ]
 
