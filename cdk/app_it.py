@@ -24,10 +24,10 @@ managed_policy_name = os.getenv("HLS_LPDAAC_MANAGED_POLICY_NAME", "mcp-tenantOpe
 stack = HlsLpdaacReconciliationStack(
     app := cdk.App(),
     f"{stack_name}-lpdaac-reconciliation-it",
+    hls_forward_bucket=forward_bucket,
+    hls_historical_bucket=historical_bucket,
+    response_sns_topic_arn=response_sns_topic_arn,
     managed_policy_name=managed_policy_name,
-    hls_forward_bucket="forward",
-    hls_historical_bucket="historical",
-    response_sns_topic_arn="arn:aws:sns:us-east-1:123456789012:MyTopic",
 )
 
 ssm.StringParameter(
