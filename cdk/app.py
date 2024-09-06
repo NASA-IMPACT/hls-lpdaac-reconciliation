@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 import os
-from turtle import forward
 
 import aws_cdk as cdk
 

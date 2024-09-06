@@ -84,7 +84,6 @@ def handler(
 
     message = sns_message["Message"]
     report_bucket_name, report_key = extract_report_location(message)
-    print(report_bucket_name, report_key)
     report = read_report(report_bucket_name, report_key)
     data_bucket_name = (
         hls_historical_bucket or os.environ["HLS_FORWARD_BUCKET"]
@@ -205,7 +204,7 @@ def process_granule(
         (indicating HLS reprocessing is required)
     """
     if granule_in_cmr(short_name=short_name, version=version, granule_id=granule_id):
-        print(f"{granule_id} is already available in CMR.  Skipping.")
+        print(f"{granule_id} is already available in CMR. Skipping.")
         return Status.SKIPPED
 
     if s3_object_exists(data_bucket_name, key := notification_trigger_key(granule_id)):
