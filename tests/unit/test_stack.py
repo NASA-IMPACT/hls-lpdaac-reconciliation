@@ -6,7 +6,13 @@ from hls_lpdaac_reconciliation import HlsLpdaacReconciliationStack
 
 def test_stack_created():
     app = core.App()
-    stack = HlsLpdaacReconciliationStack(app, "test")
+    stack = HlsLpdaacReconciliationStack(
+        app,
+        "test",
+        hls_forward_bucket="forward",
+        hls_historical_bucket="historical",
+        response_sns_topic_arn="arn:aws:sns:us-east-1:123456789012:MyTopic",
+    )
     template = assertions.Template.from_stack(stack)
 
     assert template

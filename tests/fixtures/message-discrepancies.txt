@@ -1,0 +1,5 @@
+{'HLSL30___2.0': 'Sent: 109170. Total diff: 0 = missing: 0 + failed: 0 + other: 0', 'HLSS30___2.0': 'Sent: 153720. Total diff: 84 = missing: 0 + failed: 84 + other: 0'}
+
+Discrepencies found comparing the report at lp-prod-reconciliation/submissions/reconciliation_reports/2024239/HLS_reconcile_2024239_2.0.rpt with our database. Report available at lp-prod-reconciliation/reports/HLS_reconcile_2024239_2.0.json.
+
+Retrieve via command line with: "aws s3 cp s3://lp-prod-reconciliation/reports/HLS_reconcile_2024239_2.0.json ./" or download from the AWS S3 console.

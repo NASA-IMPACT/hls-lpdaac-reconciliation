@@ -1,0 +1,80 @@
+Test decode_collection_id:
+
+    >>> from hls_lpdaac_reconciliation.response import decode_collection_id
+    >>> decode_collection_id("HLSS30___2.0")
+    ('HLSS30', '2.0')
+    >>> decode_collection_id("HLSS30_VI___2.0")
+    ('HLSS30_VI', '2.0')
+
+Test extract_report_location:
+
+    >>> from hls_lpdaac_reconciliation.response import extract_report_location
+    >>> message = '''
+    ... {'HLSL30___2.0': '...', 'HLSS30___2.0': '...'}
+    ...
+    ... Discrepencies found comparing the report at ... with our database. Report
+    ... available at lp-prod-reconciliation/reports/HLS_reconcile_2024239_2.0.json.
+    ...
+    ... Retrieve via command line with:
+    ... "aws s3 cp s3://lp-prod-reconciliation/reports/HLS_reconcile_2024239_2.0.json ."
+    ... or download from the AWS S3 console.
+    ... '''
+
+    >>> extract_report_location(message)
+    ('lp-prod-reconciliation', 'reports/HLS_reconcile_2024239_2.0.json')
+
+    >>> extract_report_location("")
+    Traceback (most recent call last):
+      ...
+    ValueError: Cannot determine report location from message: ''
+
+Test notification_trigger_key:
+
+    >>> from hls_lpdaac_reconciliation.response import notification_trigger_key
+    >>> notification_trigger_key("HLS.S30.T15XWH.2024237T194859.v2.0")
+    'S30/data/2024237/HLS.S30.T15XWH.2024237T194859.v2.0/HLS.S30.T15XWH.2024237T194859.v2.0.json'
+
+Test group_granule_ids:
+
+    >>> from hls_lpdaac_reconciliation.response import group_granule_ids
+    >>> report = [
+    ...     {
+    ...         "HLSL30___2.0": {
+    ...             "sent": 12345,
+    ...             "failed": 123,
+    ...             "report": {
+    ...                 "B01.tif": {
+    ...                     "granuleId": "HLS.L30.ABC.v2.0",
+    ...                     "status": "failed"
+    ...                 },
+    ...                 "B02.tif": {
+    ...                     "granuleId": "HLS.L30.ABC.v2.0",
+    ...                     "status": "failed"
+    ...                 },
+    ...                 "B01.tif": {
+    ...                     "granuleId": "HLS.L30.XYZ.v2.0",
+    ...                     "status": "failed"
+    ...                 },
+    ...             }
+    ...         },
+    ...         "HLSS30___2.0": {
+    ...             "sent": 12345,
+    ...             "failed": 123,
+    ...             "report": {
+    ...                 "B01.tif": {
+    ...                     "granuleId": "HLS.S30.ABC.v2.0",
+    ...                     "status": "failed"
+    ...                 },
+    ...                 "B02.tif": {
+    ...                     "granuleId": "HLS.S30.ABC.v2.0",
+    ...                     "status": "failed"
+    ...                 }
+    ...             }
+    ...         },
+    ...         "HLSS30_VI___2.0": {"sent": 12345, "failed": 0, "report": {}}
+    ...     }
+    ... ]
+    >>> group_granule_ids(report)
+    {('HLSL30', '2.0'): ('HLS.L30.ABC.v2.0', 'HLS.L30.XYZ.v2.0'),
+     ('HLSS30', '2.0'): ('HLS.S30.ABC.v2.0',),
+     ('HLSS30_VI', '2.0'): ()}

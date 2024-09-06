@@ -3,6 +3,8 @@ from typing import Optional
 from aws_cdk import Duration, Stack
 from aws_cdk import aws_iam as iam
 from aws_cdk import aws_lambda as lambda_
+from aws_cdk import aws_sns as sns
+from aws_cdk import aws_sns_subscriptions as subs
 from constructs import Construct
 
 
@@ -12,6 +14,9 @@ class HlsLpdaacReconciliationStack(Stack):
         scope: Construct,
         construct_id: str,
         *,
+        hls_forward_bucket: str,
+        hls_historical_bucket: str,
+        response_sns_topic_arn: str,
         managed_policy_name: Optional[str] = None,
         **kwargs,
     ) -> None:
@@ -36,4 +41,13 @@ class HlsLpdaacReconciliationStack(Stack):
             runtime=lambda_.Runtime.PYTHON_3_12,
             memory_size=128,
             timeout=Duration.minutes(15),
+            environment={
+                "HLS_FORWARD_BUCKT": hls_forward_bucket,
+                "HLS_HISTORICAL_BUCKET": hls_historical_bucket,
+            },
         )
+
+        topic = sns.Topic.from_topic_arn(
+            self, "ResponseTopic", topic_arn=response_sns_topic_arn
+        )
+        topic.add_subscription(subs.LambdaSubscription(self.response_lambda))  # type: ignore
