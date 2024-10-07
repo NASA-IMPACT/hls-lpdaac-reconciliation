@@ -69,8 +69,9 @@ def handler(
 
     Returns
     -------
-    Mapping from collection ID (`"<SHORT_NAME>___<VERSION>"`) to mapping from granule
-    `Status` to sequence of granule IDs resulting in each status after processing.
+    Mapping from collection ID (`"<SHORT_NAME>___<VERSION>"`) to a sub-mapping from
+    granule `Status` to sequence of granule IDs resulting in each status after
+    processing.
     """
     sns_message = event["Records"][0]["Sns"]
     subject = sns_message["Subject"]
@@ -87,7 +88,7 @@ def handler(
     report = read_report(report_bucket_name, report_key)
     data_bucket_name = (
         hls_historical_bucket or os.environ["HLS_FORWARD_BUCKET"]
-        if "historical" in ""  # report_key
+        if "historical" in report_key
         else hls_forward_bucket or os.environ["HLS_HISTORICAL_BUCKET"]
     )
 
@@ -95,7 +96,32 @@ def handler(
 
 
 def read_report(bucket_name: str, key: str) -> Sequence[Mapping[str, Any]]:
-    """Read JSON reconciliation report from S3."""
+    """Read JSON reconciliation report from S3.
+
+    Parameters
+    ----------
+    bucket_name:
+        Name of the bucket containing the JSON reconciliation report file
+    key:
+        Key of the JSON reconciliation report file
+
+    Returns
+    -------
+    Reconciliation report as a sequence of sub-reports, one per collection.
+    Each collection sub-report is a mapping of the following form (abridged,
+    excluding additional elements of no importance to this functionality):
+
+        {
+            "<SHORT_NAME>___<VERSION>": {
+                "report": {
+                    "<FILENAME>": {
+                        "granuleId": "<GRANULE_ID>",
+                    },
+                    ...
+                }
+            }
+        }
+    """
 
     obj = s3_resource.Object(bucket_name, key)
     return json.loads(obj.get()["Body"].read().decode("utf-8"))
@@ -119,7 +145,15 @@ def process_report(
     Returns
     -------
     Mapping from collection ID (`"<SHORT_NAME>___<VERSION>"`) to mapping from granule
-    `Status` to sequence of granule IDs resulting in each status after processing.
+    `Status` to sequence of granule IDs resulting in each status after processing:
+
+        {
+            "<SHORT_NAME>___<VERSION>": {
+                "failed": ["<GRANULE_ID_1>", ..., "<GRANULE_ID_N>"],
+                ...
+            },
+            ...
+        }
     """
 
     return {
@@ -156,7 +190,12 @@ def process_collection(
 
     Returns
     -------
-    Mapping from granule `Status` to sequence of granule IDs with the status.
+    Mapping from granule `Status` to sequence of granule IDs with the status:
+
+        {
+            "failed": ["<GRANULE_ID_1>", ..., "<GRANULE_ID_N>"],
+            ...
+        }
     """
     print(f"{len(granule_ids)} missing from {short_name}___{version}")
 

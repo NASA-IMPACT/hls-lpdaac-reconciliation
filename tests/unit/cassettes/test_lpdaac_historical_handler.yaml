@@ -1,0 +1,197 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Connection:
+      - close
+      Host:
+      - cmr.earthdata.nasa.gov
+      User-Agent:
+      - Python-urllib/3.12
+    method: GET
+    uri: https://cmr.earthdata.nasa.gov/search/granules?short_name=HLSS30&version=2.0&readable_granule_name=HLS.S30.T15XWH.2024237T194859.v2.0
+  response:
+    body:
+      string: <?xml version="1.0" encoding="UTF-8"?><results><hits>1</hits><took>566</took><references><reference><name>HLS.S30.T15XWH.2024237T194859.v2.0</name><id>G3217258739-LPCLOUD</id><location>https://cmr.earthdata.nasa.gov:443/search/concepts/G3217258739-LPCLOUD/1</location><revision-id>1</revision-id></reference></references></results>
+    headers:
+      Access-Control-Allow-Origin:
+      - '*'
+      Access-Control-Expose-Headers:
+      - CMR-Hits, CMR-Request-Id, X-Request-Id, CMR-Scroll-Id, CMR-Search-After, CMR-Timed-Out,
+        CMR-Shapefile-Original-Point-Count, CMR-Shapefile-Simplified-Point-Count
+      CMR-Hits:
+      - '0'
+      CMR-Request-Id:
+      - 187991ec-c1af-4b9c-bb51-2260812a50a4
+      CMR-Search-After:
+      - '["lpcloud",1724529119870,3217258739]'
+      CMR-Took:
+      - '567'
+      Connection:
+      - close
+      Content-MD5:
+      - 30015e191d02981012611dfe03c734bf
+      Content-SHA1:
+      - 865e1f86edaf7977c0803b1a74da8311d584ba10
+      Content-Type:
+      - application/xml; charset=utf-8
+      Date:
+      - Fri, 06 Sep 2024 17:36:07 GMT
+      Server:
+      - ServerTokens ProductOnly
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      Transfer-Encoding:
+      - chunked
+      Vary:
+      - Accept-Encoding, User-Agent
+      Via:
+      - 1.1 7c1248297a08764c17a9223ad5c211f8.cloudfront.net (CloudFront)
+      X-Amz-Cf-Id:
+      - GrFmsiIHaaJHA46JFqp7bNO461gnGALbXnSZafHM5_CkzVRU6x1tFg==
+      X-Amz-Cf-Pop:
+      - JFK50-P7
+      X-Cache:
+      - Miss from cloudfront
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Request-Id:
+      - GrFmsiIHaaJHA46JFqp7bNO461gnGALbXnSZafHM5_CkzVRU6x1tFg==
+      X-XSS-Protection:
+      - 1; mode=block
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Connection:
+      - close
+      Host:
+      - cmr.earthdata.nasa.gov
+      User-Agent:
+      - Python-urllib/3.12
+    method: GET
+    uri: https://cmr.earthdata.nasa.gov/search/granules?short_name=HLSS30&version=2.0&readable_granule_name=HLS.S30.T36PWU.2024237T080609.v2.0
+  response:
+    body:
+      string: <?xml version="1.0" encoding="UTF-8"?><results><hits>1</hits><took>50</took><references><reference><name>HLS.S30.T36PWU.2024237T080609.v2.0</name><id>G3217258797-LPCLOUD</id><location>https://cmr.earthdata.nasa.gov:443/search/concepts/G3217258797-LPCLOUD/1</location><revision-id>1</revision-id></reference></references></results>
+    headers:
+      Access-Control-Allow-Origin:
+      - '*'
+      Access-Control-Expose-Headers:
+      - CMR-Hits, CMR-Request-Id, X-Request-Id, CMR-Scroll-Id, CMR-Search-After, CMR-Timed-Out,
+        CMR-Shapefile-Original-Point-Count, CMR-Shapefile-Simplified-Point-Count
+      CMR-Hits:
+      - '0'
+      CMR-Request-Id:
+      - cb0fb5c5-0ebd-4d6b-84ec-19b8a79cee1f
+      CMR-Search-After:
+      - '["lpcloud",1724488004425,3217258797]'
+      CMR-Took:
+      - '50'
+      Connection:
+      - close
+      Content-MD5:
+      - 00432b37a5e35726aa5d72f3f3ba3e7e
+      Content-SHA1:
+      - eafc2891d5d190d484aa32e79b027f21507b7e7f
+      Content-Type:
+      - application/xml; charset=utf-8
+      Date:
+      - Fri, 06 Sep 2024 17:36:07 GMT
+      Server:
+      - ServerTokens ProductOnly
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      Transfer-Encoding:
+      - chunked
+      Vary:
+      - Accept-Encoding, User-Agent
+      Via:
+      - 1.1 021c711549f5f4a7c98f2f921f46beba.cloudfront.net (CloudFront)
+      X-Amz-Cf-Id:
+      - 3G4b-OOcL5ODY_gJIUDgrqHo6e4R_PpmRGASPfMVQ5XuW4oQZ_IDAw==
+      X-Amz-Cf-Pop:
+      - JFK50-P7
+      X-Cache:
+      - Miss from cloudfront
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Request-Id:
+      - 3G4b-OOcL5ODY_gJIUDgrqHo6e4R_PpmRGASPfMVQ5XuW4oQZ_IDAw==
+      X-XSS-Protection:
+      - 1; mode=block
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Connection:
+      - close
+      Host:
+      - cmr.earthdata.nasa.gov
+      User-Agent:
+      - Python-urllib/3.12
+    method: GET
+    uri: https://cmr.earthdata.nasa.gov/search/granules?short_name=HLSS30&version=2.0&readable_granule_name=HLS.S30.T46TDQ.2024237T044659.v2.0
+  response:
+    body:
+      string: <?xml version="1.0" encoding="UTF-8"?><results><hits>1</hits><took>19</took><references><reference><name>HLS.S30.T46TDQ.2024237T044659.v2.0</name><id>G3217258775-LPCLOUD</id><location>https://cmr.earthdata.nasa.gov:443/search/concepts/G3217258775-LPCLOUD/1</location><revision-id>1</revision-id></reference></references></results>
+    headers:
+      Access-Control-Allow-Origin:
+      - '*'
+      Access-Control-Expose-Headers:
+      - CMR-Hits, CMR-Request-Id, X-Request-Id, CMR-Scroll-Id, CMR-Search-After, CMR-Timed-Out,
+        CMR-Shapefile-Original-Point-Count, CMR-Shapefile-Simplified-Point-Count
+      CMR-Hits:
+      - '1'
+      CMR-Request-Id:
+      - f1078de6-fa61-4f31-8d9c-a51ba9fcdbdf
+      CMR-Search-After:
+      - '["lpcloud",1724475371010,3217258775]'
+      CMR-Took:
+      - '19'
+      Connection:
+      - close
+      Content-MD5:
+      - 3eeb98b2bcaf8a060cd5b62f598fbfb5
+      Content-SHA1:
+      - a497d064357b77c35f3050697195467ec2c57cf9
+      Content-Type:
+      - application/xml; charset=utf-8
+      Date:
+      - Fri, 06 Sep 2024 17:36:07 GMT
+      Server:
+      - ServerTokens ProductOnly
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      Transfer-Encoding:
+      - chunked
+      Vary:
+      - Accept-Encoding, User-Agent
+      Via:
+      - 1.1 33b70e58e860e3444a806072eb0401a6.cloudfront.net (CloudFront)
+      X-Amz-Cf-Id:
+      - _VBIQcyN-nRfSv5hxcnOXLCozIKvIuOF3F9ljwS4HDsCIQnTOhWuQg==
+      X-Amz-Cf-Pop:
+      - JFK50-P7
+      X-Cache:
+      - Miss from cloudfront
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Request-Id:
+      - _VBIQcyN-nRfSv5hxcnOXLCozIKvIuOF3F9ljwS4HDsCIQnTOhWuQg==
+      X-XSS-Protection:
+      - 1; mode=block
+    status:
+      code: 200
+      message: OK
+version: 1
