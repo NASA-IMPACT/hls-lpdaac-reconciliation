@@ -52,7 +52,7 @@ def s3_trigger_object(s3_bucket: Bucket) -> Object:
 
 @pytest.fixture(scope="function")
 def s3_report_bucket(s3_resource: S3ServiceResource) -> Bucket:
-    bucket = s3_resource.Bucket("lp-prod-reconciliation")
+    bucket = s3_resource.Bucket("reconciliation-reports")
     bucket.create()
 
     return bucket
@@ -84,7 +84,9 @@ def sns_event_no_discrepancies() -> SNSEvent:
 
 
 @pytest.fixture(scope="function")
-def sns_event_discrepancies(s3_reconciliation_report: Object) -> SNSEvent:
+def sns_event_discrepancies(
+    s3_report_bucket: Bucket, s3_reconciliation_report: Object
+) -> SNSEvent:
     # We don't explicitly use the value of s3_reconciliation_report here, but depending
     # on it ensures it exists in our test bucket before the SNS event is generated.
     # However, the S3 key of the report object must match the S3 key given within the
@@ -93,12 +95,13 @@ def sns_event_discrepancies(s3_reconciliation_report: Object) -> SNSEvent:
 
     return make_sns_event(
         subject="Rec-Report HLS lp-prod HLS_reconcile_2024239_2.0.rpt",
-        message=message_fixture.read_text(),
+        message=message_fixture.read_text().format(bucket=s3_report_bucket.name),
     )
 
 
 @pytest.fixture(scope="function")
 def sns_event_discrepancies_historical(
+    s3_report_bucket: Bucket,
     s3_historical_reconciliation_report: Object,
 ) -> SNSEvent:
     # We don't explicitly use the value of s3_reconciliation_report here, but depending
@@ -111,7 +114,7 @@ def sns_event_discrepancies_historical(
 
     return make_sns_event(
         subject="Rec-Report HLS lp-prod HLS_historical_reconcile_2024239_2.0.rpt",
-        message=message_fixture.read_text(),
+        message=message_fixture.read_text().format(bucket=s3_report_bucket.name),
     )
 
 
