@@ -22,9 +22,9 @@ def test_lpdaac_forward_handler(
         "HLSS30___2.0": {
             # CMR-Hits is 0 and "trigger" file exists in forward bucket (as
             # written for the s3_forward_trigger_object test fixture)
-            Status.TRIGGERED: ["HLS.S30.T15XWH.2024237T194859.v2.0"],
+            Status.TRIGGERED: ["HLS.S30.T15XWH.2124237T194859.v2.0"],
             # CMR-Hits is 0 and "trigger" file does NOT exist in forward bucket
-            Status.MISSING: ["HLS.S30.T36PWU.2024237T080609.v2.0"],
+            Status.MISSING: ["HLS.S30.T36PWU.2124237T080609.v2.0"],
             # CMR-Hits is 1
             Status.SKIPPED: ["HLS.S30.T46TDQ.2024237T044659.v2.0"],
         },
@@ -50,9 +50,9 @@ def test_lpdaac_historical_handler(
         "HLSS30___2.0": {
             # CMR-Hits is 0 and "trigger" file exists in forward bucket (as
             # written for the s3_forward_trigger_object test fixture)
-            Status.TRIGGERED: ["HLS.S30.T15XWH.2024237T194859.v2.0"],
+            Status.TRIGGERED: ["HLS.S30.T15XWH.2124237T194859.v2.0"],
             # CMR-Hits is 0 and "trigger" file does NOT exist in forward bucket
-            Status.MISSING: ["HLS.S30.T36PWU.2024237T080609.v2.0"],
+            Status.MISSING: ["HLS.S30.T36PWU.2124237T080609.v2.0"],
             # CMR-Hits is 1
             Status.SKIPPED: ["HLS.S30.T46TDQ.2024237T044659.v2.0"],
         },

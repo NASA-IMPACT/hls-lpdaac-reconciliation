@@ -36,15 +36,15 @@ def s3_bucket(s3_resource: S3ServiceResource) -> Bucket:
 
 @pytest.fixture(scope="function")
 def s3_trigger_object(s3_bucket: Bucket) -> Object:
-    # NOTE: This aligns with the entry for HLS.S30.T15XWH.2024237T194859.v2.0 in
+    # NOTE: This aligns with the entry for HLS.S30.T15XWH.2124237T194859.v2.0 in
     # tests/unit/cassettes/test_lpdaac_forward_handler.yaml, where we have manually
     # set the CMR-Hits header to 0 to force a "not in CMR" result, which should then
     # attempt to "touch" this "trigger" object.  We don't care what's inside the file,
     # only that it exists, so we simply make the contents an empty JSON object.
     return s3_bucket.put_object(
         Key=(
-            "S30/data/2024237/HLS.S30.T15XWH.2024237T194859.v2.0/"
-            "HLS.S30.T15XWH.2024237T194859.v2.0.json"
+            "S30/data/2124237/HLS.S30.T15XWH.2124237T194859.v2.0/"
+            "HLS.S30.T15XWH.2124237T194859.v2.0.json"
         ),
         Body=b"{}",
     )
