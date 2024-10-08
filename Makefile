@@ -68,16 +68,16 @@ destroy:
 
 ## synth-it: Run CDK synth for integration stack
 synth-it:
-	$(TOX) -e dev -- synth --app "python cdk/app_it.py"
+	$(TOX) -e dev -- synth --app "python cdk/app_it.py" --all
 
 ## diff-it: Run CDK diff for integration stack
 diff-it:
-	$(TOX) -e dev -- diff --app "python cdk/app_it.py"
+	$(TOX) -e dev -- diff --app "python cdk/app_it.py" --all
 
 ## deploy-it: Run CDK deploy for integration stack
 deploy-it:
-	$(TOX) -e dev -- deploy --app "python cdk/app_it.py" --progress events --require-approval never
+	$(TOX) -e dev -- deploy --app "python cdk/app_it.py" --all --progress events --require-approval never
 
 ## destroy-it: Run CDK destroy for integration stack
 destroy-it:
-	$(TOX) -e dev -- destroy --app "python cdk/app_it.py" --progress events --force
+	$(TOX) -e dev -- destroy --app "python cdk/app_it.py" --all --progress events --force

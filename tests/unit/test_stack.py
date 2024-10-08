@@ -1,7 +1,7 @@
 import aws_cdk as core
 import aws_cdk.assertions as assertions
 
-from hls_lpdaac_reconciliation import HlsLpdaacReconciliationStack
+from cdk import HlsLpdaacReconciliationStack
 
 
 def test_stack_created():

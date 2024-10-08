@@ -4,7 +4,7 @@ import json
 import os
 import urllib.parse
 import urllib.request
-from enum import Enum, auto
+from enum import StrEnum, auto
 from functools import reduce
 from typing import Any, Mapping, Optional, Sequence, TYPE_CHECKING
 
@@ -23,7 +23,7 @@ s3_client = boto3.client("s3")
 s3_resource = boto3.resource("s3")
 
 
-class Status(Enum):
+class Status(StrEnum):
     SKIPPED = auto()
     TRIGGERED = auto()
     MISSING = auto()
@@ -75,9 +75,9 @@ def handler(
     """
     sns_message = event["Records"][0]["Sns"]
     subject = sns_message["Subject"]
-    print(subject)
+    print("Subject:", subject)
 
-    if "Ok" in subject:
+    if subject and "Ok" in subject:
         # When the subject contains (ends with) "Ok", the message itself
         # indicates that there are no discrepencies, so there's nothing to do.
         # Example: "[External] Rec-Report HLS lp-prod HLS_reconcile_2024240_2.0.rpt Ok"
@@ -87,12 +87,15 @@ def handler(
     report_bucket_name, report_key = extract_report_location(message)
     report = read_report(report_bucket_name, report_key)
     data_bucket_name = (
-        hls_historical_bucket or os.environ["HLS_FORWARD_BUCKET"]
+        hls_historical_bucket or os.environ["HLS_HISTORICAL_BUCKET"]
         if "historical" in report_key
-        else hls_forward_bucket or os.environ["HLS_HISTORICAL_BUCKET"]
+        else hls_forward_bucket or os.environ["HLS_FORWARD_BUCKET"]
     )
 
-    return process_report(report, data_bucket_name)
+    summary = process_report(report, data_bucket_name)
+    print(f"Processing summary: {summary}")
+
+    return summary
 
 
 def read_report(bucket_name: str, key: str) -> Sequence[Mapping[str, Any]]:
@@ -123,6 +126,7 @@ def read_report(bucket_name: str, key: str) -> Sequence[Mapping[str, Any]]:
         }
     """
 
+    print(f"Reading report from s3://{bucket_name}/{key}")
     obj = s3_resource.Object(bucket_name, key)
     return json.loads(obj.get()["Body"].read().decode("utf-8"))
 
@@ -149,7 +153,7 @@ def process_report(
 
         {
             "<SHORT_NAME>___<VERSION>": {
-                "failed": ["<GRANULE_ID_1>", ..., "<GRANULE_ID_N>"],
+                <Status.MISSING: 'missing'>: ["<GRANULE_ID_1>", ..., "<GRANULE_ID_N>"],
                 ...
             },
             ...
@@ -193,7 +197,7 @@ def process_collection(
     Mapping from granule `Status` to sequence of granule IDs with the status:
 
         {
-            "failed": ["<GRANULE_ID_1>", ..., "<GRANULE_ID_N>"],
+            <Status.MISSING: 'missing'>: ["<GRANULE_ID_1>", ..., "<GRANULE_ID_N>"],
             ...
         }
     """
@@ -255,7 +259,10 @@ def process_granule(
         )
         return Status.TRIGGERED
 
-    print(f"{granule_id} needs to be resubmitted to the step function execution.")
+    print(
+        f"{granule_id} needs to be resubmitted to the step function execution:"
+        f"notification trigger file not found: s3://{data_bucket_name}/{key}"
+    )
 
     return Status.MISSING
 

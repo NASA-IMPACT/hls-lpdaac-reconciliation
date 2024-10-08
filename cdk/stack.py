@@ -4,6 +4,7 @@ from aws_cdk import Duration, Stack
 from aws_cdk import aws_iam as iam
 from aws_cdk import aws_lambda as lambda_
 from aws_cdk import aws_sns as sns
+from aws_cdk import aws_s3 as s3
 from aws_cdk import aws_sns_subscriptions as subs
 from constructs import Construct
 
@@ -36,18 +37,28 @@ class HlsLpdaacReconciliationStack(Stack):
         self.response_lambda = lambda_.Function(
             self,
             "ReconciliationResponseHandler",
-            code=lambda_.Code.from_asset("src/hls_lpdaac_reconciliation/response"),
-            handler="index.handler",
+            code=lambda_.Code.from_asset("src", exclude=["**/*.egg-info"]),
+            handler="hls_lpdaac_reconciliation/response/index.handler",
             runtime=lambda_.Runtime.PYTHON_3_12,
             memory_size=128,
             timeout=Duration.minutes(15),
             environment={
-                "HLS_FORWARD_BUCKT": hls_forward_bucket,
+                "HLS_FORWARD_BUCKET": hls_forward_bucket,
                 "HLS_HISTORICAL_BUCKET": hls_historical_bucket,
             },
         )
 
-        topic = sns.Topic.from_topic_arn(
+        # Subscribe lambda function to topic
+        sns.Topic.from_topic_arn(
             self, "ResponseTopic", topic_arn=response_sns_topic_arn
+        ).add_subscription(
+            subs.LambdaSubscription(self.response_lambda)  # type: ignore
         )
-        topic.add_subscription(subs.LambdaSubscription(self.response_lambda))  # type: ignore
+
+        # Allow lambda function to read/write forward and historical buckets
+        s3.Bucket.from_bucket_name(
+            self, "ForwardBucket", hls_forward_bucket
+        ).grant_read_write(self.response_lambda)
+        s3.Bucket.from_bucket_name(
+            self, "HistoricalBucket", hls_historical_bucket
+        ).grant_read_write(self.response_lambda)
