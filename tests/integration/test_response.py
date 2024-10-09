@@ -20,6 +20,8 @@ def get_ssm_parameter(ssm: SSMClient, name: str) -> str:
 def wait_until_modified(
     s3: S3Client, *, since: datetime, bucket: str, key: str
 ) -> datetime:
+    modified = since
+
     for _ in range(10):
         if since < (modified := s3.head_object(Bucket=bucket, Key=key)["LastModified"]):
             break
