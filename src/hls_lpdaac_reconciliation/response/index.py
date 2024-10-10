@@ -19,14 +19,15 @@ from hls_lpdaac_reconciliation.response import (
     notification_trigger_key,
 )
 
-s3_client = boto3.client("s3")
-s3_resource = boto3.resource("s3")
-
 
 class Status(StrEnum):
     SKIPPED = auto()
     TRIGGERED = auto()
     MISSING = auto()
+
+
+s3_client = boto3.client("s3")
+s3_resource = boto3.resource("s3")
 
 
 def handler(
