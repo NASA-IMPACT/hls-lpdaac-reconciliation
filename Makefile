@@ -1,5 +1,3 @@
-CDK_VERSION=$$(<.cdk-version)
-NODE_VERSION=20.16.0
 SHELL=/usr/bin/env bash
 TOX=tox $(TOX_OPTS)
 TOX_OPTS?=-v
@@ -27,15 +25,15 @@ tox:
 # NOTE: Intended only for use from tox.ini.
 # Install Node.js within the tox virtualenv, if it's not installed or it's the wrong version.
 install-node: tox
-	@if [[ ! $$(type node 2>/dev/null) =~ $${VIRTUAL_ENV} || ! $$(node -v) =~ $(NODE_VERSION) ]]; then \
-	    set -x; nodeenv --node $(NODE_VERSION) --python-virtualenv; \
+	@if [[ ! $$(type node 2>/dev/null) =~ $${VIRTUAL_ENV} ]]; then \
+	    set -x; nodeenv --node lts --python-virtualenv; \
 	fi
 
 # NOTE: Intended only for use from tox.ini
 # Install the CDK CLI within the tox virtualenv, if it's not installed or it's the wrong version.
 install-cdk: tox install-node
-	@if [[ ! $$(type cdk 2>/dev/null) =~ $${VIRTUAL_ENV} || ! $$(cdk --version) =~ $(CDK_VERSION) ]]; then \
-	    set -x; npm install --location global "aws-cdk@$(CDK_VERSION)"; \
+	@if [[ ! $$(type cdk 2>/dev/null) =~ $${VIRTUAL_ENV} ]]; then \
+	    set -x; npm install --location global "aws-cdk@v2.*"; \
 	fi
 
 ## venv: Create Python virtual environment in directory `venv`

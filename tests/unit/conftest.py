@@ -5,7 +5,7 @@ from typing import Iterator
 import boto3
 import pytest
 from aws_lambda_typing.events import SNSEvent
-from moto import mock_s3
+from moto import mock_aws
 from mypy_boto3_s3 import S3ServiceResource
 from mypy_boto3_s3.service_resource import Bucket, Object
 
@@ -22,7 +22,7 @@ def aws_credentials():
 
 @pytest.fixture(scope="function")
 def s3_resource(aws_credentials) -> Iterator[S3ServiceResource]:
-    with mock_s3():
+    with mock_aws():
         yield boto3.resource("s3")
 
 
