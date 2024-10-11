@@ -23,7 +23,7 @@ extras_require_test = [
 extras_require_dev = [
     *extras_require_test,
     "aws_lambda_typing",
-    "boto3-stubs[iam,lambda,s3,sns,sqs,ssm]",
+    "boto3-stubs[iam,lambda,s3,sns,sqs]",
     "botocore-stubs",
     "isort",
     "mypy",

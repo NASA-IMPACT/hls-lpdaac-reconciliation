@@ -29,3 +29,37 @@ not affect the virtual environment for your IDE:
 ```plain
 make unit-tests
 ```
+
+To run integration tests, you must have active AWS credentials.  To obtain
+AWS short-term access keys:
+
+- Connect to the NASA VPN.
+- Login to [NASA's MCP portal](https://login.mcp.nasa.gov/login).
+- From the IMPACT-HLS project, generate short-term access keys (either set
+  environment variables or add an AWS profile, whichever you prefer).
+- Set the environment variable `HLS_STACK_NAME` to a unique value (such as your
+  username), which will be used as a prefix for the integration tests stack.
+
+At this point, you may disconnect from the NASA VPN and run the following to
+deploy your own integration tests stack:
+
+```plain
+make deploy-it
+```
+
+To run integration tests, use the following command, which will use your
+deployed integration tests stack:
+
+```plain
+make integration-tests
+```
+
+Redeploy your integration tests stack as many times as necessary while
+developing and running integration tests.
+
+When you're finished, cleanup your integration tests stack with the following
+command:
+
+```plain
+make destroy-it
+```

@@ -1,10 +1,11 @@
 from typing import Optional
 
-from aws_cdk import RemovalPolicy, Stack
+from aws_cdk import CfnOutput, RemovalPolicy, Stack
 from aws_cdk import aws_iam as iam
 from aws_cdk import aws_s3 as s3
 from aws_cdk import aws_sns as sns
-from aws_cdk import aws_ssm as ssm
+from aws_cdk import aws_sns_subscriptions as subs
+from aws_cdk import aws_sqs as sqs
 from constructs import Construct
 
 
@@ -30,41 +31,59 @@ class HlsLpdaacReconciliationStackIT(Stack):
                 )
             )
 
+        self.hls_inventory_reports_bucket = s3.Bucket(
+            self,
+            "HlsInventoryReports",
+            auto_delete_objects=True,
+            removal_policy=RemovalPolicy.DESTROY,
+        )
         self.hls_forward_bucket = s3.Bucket(
             self,
-            "test-forward",
+            "HlsForward",
             auto_delete_objects=True,
             removal_policy=RemovalPolicy.DESTROY,
         )
         self.hls_historical_bucket = s3.Bucket(
             self,
-            "test-historical",
+            "HlsHistorical",
             auto_delete_objects=True,
             removal_policy=RemovalPolicy.DESTROY,
         )
-        self.response_sns_topic = sns.Topic(self, "test-response")
 
-        # Set SSM Parameters for use within integration tests
+        self.lpdaac_request_topic = sns.Topic(self, "LpdaacRequestTopic")
+        self.lpdaac_request_queue = sqs.Queue(self, "LpdaacRequestQueue")
+        self.lpdaac_response_topic = sns.Topic(self, "LpdaacResponseTopic")
 
-        ssm.StringParameter(
-            self,
-            "forward_bucket_name",
-            string_value=self.hls_forward_bucket.bucket_name,
-            parameter_name=("/hls/tests/hls-lpdaac-reconciliation/forward-bucket-name"),
+        # Subscribe a queue to the topic so we can receive messages from the queue
+        # to confirm that an message was sent to the topic via the lambda handler.
+        self.lpdaac_request_topic.add_subscription(
+            subs.SqsSubscription(self.lpdaac_request_queue)
         )
 
-        ssm.StringParameter(
-            self,
-            "historical_bucket_name",
-            string_value=self.hls_historical_bucket.bucket_name,
-            parameter_name=(
-                "/hls/tests/hls-lpdaac-reconciliation/historical-bucket-name"
-            ),
-        )
+        # Set outputs for use within integration tests
 
-        ssm.StringParameter(
+        CfnOutput(
             self,
-            "response_topic_arn",
-            string_value=self.response_sns_topic.topic_arn,
-            parameter_name=("/hls/tests/hls-lpdaac-reconciliation/response-topic-arn"),
+            "HlsInventoryReportsBucketName",
+            value=self.hls_inventory_reports_bucket.bucket_name,
+        )
+        CfnOutput(
+            self,
+            "LpdaacRequestQueueUrl",
+            value=self.lpdaac_request_queue.queue_url,
+        )
+        CfnOutput(
+            self,
+            "HlsForwardBucketName",
+            value=self.hls_forward_bucket.bucket_name,
+        )
+        CfnOutput(
+            self,
+            "HlsHistoricalBucketName",
+            value=self.hls_historical_bucket.bucket_name,
+        )
+        CfnOutput(
+            self,
+            "LpdaacResponseTopicArn",
+            value=self.lpdaac_response_topic.topic_arn,
         )

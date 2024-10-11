@@ -1,20 +1,12 @@
 from __future__ import annotations
 
+from collections.abc import Mapping
 from datetime import datetime
-
 from pathlib import Path
 from time import sleep
 
 from mypy_boto3_s3 import S3Client
 from mypy_boto3_sns import SNSClient
-from mypy_boto3_ssm import SSMClient
-
-
-def get_ssm_parameter(ssm: SSMClient, name: str) -> str:
-    prefix = "/hls/tests/hls-lpdaac-reconciliation"
-    value = ssm.get_parameter(Name=f"{prefix}/{name}")["Parameter"].get("Value")
-    assert value is not None  # make type checker happy
-    return value
 
 
 def wait_until_modified(
@@ -30,9 +22,11 @@ def wait_until_modified(
     return modified
 
 
-def test_response_handler(s3: S3Client, sns: SNSClient, ssm: SSMClient) -> None:
-    bucket = get_ssm_parameter(ssm, "forward-bucket-name")
-    topic_arn = get_ssm_parameter(ssm, "response-topic-arn")
+def test_response_handler(
+    cdk_outputs: Mapping[str, str], s3: S3Client, sns: SNSClient
+) -> None:
+    bucket = cdk_outputs["HlsForwardBucketName"]
+    topic_arn = cdk_outputs["LpdaacResponseTopicArn"]
 
     # Write trigger file (contents don't matter; we just need a file to "touch")
     trigger_key = "S30/data/2124237/HLS.S30.T15XWH.2124237T194859.v2.0/HLS.S30.T15XWH.2124237T194859.v2.0.json"
@@ -55,6 +49,6 @@ def test_response_handler(s3: S3Client, sns: SNSClient, ssm: SSMClient) -> None:
     touched = wait_until_modified(s3, since=created, bucket=bucket, key=trigger_key)
 
     # Count trigger files to make sure no additional trigger files were created
-    # key_count = s3.list_objects_v2(Bucket=bucket, Prefix="S30/", MaxKeys=2)["KeyCount"]
+    key_count = s3.list_objects_v2(Bucket=bucket, Prefix="S30/", MaxKeys=2)["KeyCount"]
 
-    assert touched > created  # and key_count == 1
+    assert touched > created and key_count == 1

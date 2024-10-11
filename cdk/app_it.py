@@ -17,9 +17,11 @@ stack_it = HlsLpdaacReconciliationStackIT(
 stack = HlsLpdaacReconciliationStack(
     app,
     f"{stack_name}-lpdaac-reconciliation-it",
+    hls_inventory_reports_bucket=stack_it.hls_inventory_reports_bucket.bucket_name,
     hls_forward_bucket=stack_it.hls_forward_bucket.bucket_name,
     hls_historical_bucket=stack_it.hls_historical_bucket.bucket_name,
-    response_sns_topic_arn=stack_it.response_sns_topic.topic_arn,
+    lpdaac_request_topic_arn=stack_it.lpdaac_request_topic.topic_arn,
+    lpdaac_response_topic_arn=stack_it.lpdaac_response_topic.topic_arn,
     managed_policy_name=managed_policy_name,
 )
 

@@ -74,7 +74,7 @@ diff-it:
 
 ## deploy-it: Run CDK deploy for integration stack
 deploy-it:
-	$(TOX) -e dev -- deploy --app "python cdk/app_it.py" --all --progress events --require-approval never
+	$(TOX) -e dev -- deploy --app "python cdk/app_it.py" --all --progress events --require-approval never --outputs-file cdk.out/outputs.json
 
 ## destroy-it: Run CDK destroy for integration stack
 destroy-it:
