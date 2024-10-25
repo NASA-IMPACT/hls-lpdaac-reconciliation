@@ -1,0 +1,1155 @@
+[
+  {
+    "HLSL30___2.0": {
+      "sent": 10917,
+      "failed": 0,
+      "missing": 0,
+      "other": 0,
+      "report": {}
+    }
+  },
+  {
+    "HLSS30___2.0": {
+      "sent": 153720,
+      "failed": 3,
+      "missing": 0,
+      "other": 0,
+      "report": {
+        "HLS.S30.T15XWH.2124237T194859.v2.0.B01.tif": {
+          "granuleId": "HLS.S30.T15XWH.2124237T194859.v2.0",
+          "ingestTime": "2024-08-26T02:17:15.000Z",
+          "dbIngestEndTime": "2024-08-26 02:24:19.161000+00:00",
+          "cksum": "NA",
+          "status": "failed",
+          "bucket": "lp-prod-internal",
+          "error": {
+            "timestamp": "2024-08-26 02:24:17.638000+00:00",
+            "error": "TypeError",
+            "cause": "{\"errorType\":\"TypeError\",\"errorMessage\":\"Function has non-object prototype 'undefined' in instanceof check\",\"trace\":[\"TypeError: Function has non-object prototype 'undefined' in instanceof check\",\"    at Function.[Symbol.hasInstance] (<anonymous>)\",\"    at Object.waitForObjectToExist (/var/task/webpack:/src/S3.ts:228:14)\",\"    at runNextTicks (node:internal/process/task_queues:61:5)\",\"    at listOnTimeout (node:internal/timers:528:9)\",\"    at processTimers (node:internal/timers:502:7)\",\"    at moveFileRequest (/var/task/webpack:/index.js:163:3)\",\"    at async Promise.all (index 0)\",\"    at /var/task/webpack:/index.js:222:24\",\"    at async Promise.all (index 0)\",\"    at moveFilesForAllGranules (/var/task/webpack:/index.js:234:3)\"]}",
+            "resource": "arn:aws:lambda:us-west-2:643705676985:function:lp-prod-MoveGranules"
+          },
+          "execution": "https://console.aws.amazon.com/states/home?region=us-west-2#/executions/details/arn:aws:states:us-west-2:643705676985:execution:lp-prod-IngestGranuleWorkflow-Throttled-Part2:HLSS30_020_forward_sqs_throttled-3fb0c4ef-719b-43c8-a111-b50fc071ff9c",
+          "published": false,
+          "dbCksum": "f2984e2e717c6e961c4f625894ba868e527645fea8bc9ec2b779365b697a7b9364bdff6855238fb0ce9daa2861946a79cd54459381137c1f82318d02744bb774",
+          "dbCksumType": "SHA512"
+        },
+        "HLS.S30.T15XWH.2124237T194859.v2.0.B02.tif": {
+          "granuleId": "HLS.S30.T15XWH.2124237T194859.v2.0",
+          "ingestTime": "2024-08-26T02:17:15.000Z",
+          "dbIngestEndTime": "2024-08-26 02:24:19.161000+00:00",
+          "cksum": "NA",
+          "status": "failed",
+          "bucket": "lp-prod-internal",
+          "error": {
+            "timestamp": "2024-08-26 02:24:17.638000+00:00",
+            "error": "TypeError",
+            "cause": "{\"errorType\":\"TypeError\",\"errorMessage\":\"Function has non-object prototype 'undefined' in instanceof check\",\"trace\":[\"TypeError: Function has non-object prototype 'undefined' in instanceof check\",\"    at Function.[Symbol.hasInstance] (<anonymous>)\",\"    at Object.waitForObjectToExist (/var/task/webpack:/src/S3.ts:228:14)\",\"    at runNextTicks (node:internal/process/task_queues:61:5)\",\"    at listOnTimeout (node:internal/timers:528:9)\",\"    at processTimers (node:internal/timers:502:7)\",\"    at moveFileRequest (/var/task/webpack:/index.js:163:3)\",\"    at async Promise.all (index 0)\",\"    at /var/task/webpack:/index.js:222:24\",\"    at async Promise.all (index 0)\",\"    at moveFilesForAllGranules (/var/task/webpack:/index.js:234:3)\"]}",
+            "resource": "arn:aws:lambda:us-west-2:643705676985:function:lp-prod-MoveGranules"
+          },
+          "execution": "https://console.aws.amazon.com/states/home?region=us-west-2#/executions/details/arn:aws:states:us-west-2:643705676985:execution:lp-prod-IngestGranuleWorkflow-Throttled-Part2:HLSS30_020_forward_sqs_throttled-3fb0c4ef-719b-43c8-a111-b50fc071ff9c",
+          "published": false,
+          "dbCksum": "f52d878d3154594ea346fdf6c0e55f48350c0980174f4a12de4740f55c474f618522a73ee43f3f644d86c4abe300a0b677b7750555ad347f983b54f4752bf42d",
+          "dbCksumType": "SHA512"
+        },
+        "HLS.S30.T15XWH.2124237T194859.v2.0.B03.tif": {
+          "granuleId": "HLS.S30.T15XWH.2124237T194859.v2.0",
+          "ingestTime": "2024-08-26T02:17:15.000Z",
+          "dbIngestEndTime": "2024-08-26 02:24:19.161000+00:00",
+          "cksum": "NA",
+          "status": "failed",
+          "bucket": "lp-prod-internal",
+          "error": {
+            "timestamp": "2024-08-26 02:24:17.638000+00:00",
+            "error": "TypeError",
+            "cause": "{\"errorType\":\"TypeError\",\"errorMessage\":\"Function has non-object prototype 'undefined' in instanceof check\",\"trace\":[\"TypeError: Function has non-object prototype 'undefined' in instanceof check\",\"    at Function.[Symbol.hasInstance] (<anonymous>)\",\"    at Object.waitForObjectToExist (/var/task/webpack:/src/S3.ts:228:14)\",\"    at runNextTicks (node:internal/process/task_queues:61:5)\",\"    at listOnTimeout (node:internal/timers:528:9)\",\"    at processTimers (node:internal/timers:502:7)\",\"    at moveFileRequest (/var/task/webpack:/index.js:163:3)\",\"    at async Promise.all (index 0)\",\"    at /var/task/webpack:/index.js:222:24\",\"    at async Promise.all (index 0)\",\"    at moveFilesForAllGranules (/var/task/webpack:/index.js:234:3)\"]}",
+            "resource": "arn:aws:lambda:us-west-2:643705676985:function:lp-prod-MoveGranules"
+          },
+          "execution": "https://console.aws.amazon.com/states/home?region=us-west-2#/executions/details/arn:aws:states:us-west-2:643705676985:execution:lp-prod-IngestGranuleWorkflow-Throttled-Part2:HLSS30_020_forward_sqs_throttled-3fb0c4ef-719b-43c8-a111-b50fc071ff9c",
+          "published": false,
+          "dbCksum": "0061e2658865f203e289e858b698e52f26b53a3238ab9e2dea67e1a3e394f370aecf2dcbdd5098760d85f7ed61c615577275770de6d40d0c5ad596f72f26e8ac",
+          "dbCksumType": "SHA512"
+        },
+        "HLS.S30.T15XWH.2124237T194859.v2.0.B04.tif": {
+          "granuleId": "HLS.S30.T15XWH.2124237T194859.v2.0",
+          "ingestTime": "2024-08-26T02:17:15.000Z",
+          "dbIngestEndTime": "2024-08-26 02:24:19.161000+00:00",
+          "cksum": "NA",
+          "status": "failed",
+          "bucket": "lp-prod-internal",
+          "error": {
+            "timestamp": "2024-08-26 02:24:17.638000+00:00",
+            "error": "TypeError",
+            "cause": "{\"errorType\":\"TypeError\",\"errorMessage\":\"Function has non-object prototype 'undefined' in instanceof check\",\"trace\":[\"TypeError: Function has non-object prototype 'undefined' in instanceof check\",\"    at Function.[Symbol.hasInstance] (<anonymous>)\",\"    at Object.waitForObjectToExist (/var/task/webpack:/src/S3.ts:228:14)\",\"    at runNextTicks (node:internal/process/task_queues:61:5)\",\"    at listOnTimeout (node:internal/timers:528:9)\",\"    at processTimers (node:internal/timers:502:7)\",\"    at moveFileRequest (/var/task/webpack:/index.js:163:3)\",\"    at async Promise.all (index 0)\",\"    at /var/task/webpack:/index.js:222:24\",\"    at async Promise.all (index 0)\",\"    at moveFilesForAllGranules (/var/task/webpack:/index.js:234:3)\"]}",
+            "resource": "arn:aws:lambda:us-west-2:643705676985:function:lp-prod-MoveGranules"
+          },
+          "execution": "https://console.aws.amazon.com/states/home?region=us-west-2#/executions/details/arn:aws:states:us-west-2:643705676985:execution:lp-prod-IngestGranuleWorkflow-Throttled-Part2:HLSS30_020_forward_sqs_throttled-3fb0c4ef-719b-43c8-a111-b50fc071ff9c",
+          "published": false,
+          "dbCksum": "e0468fd755323fa5f3b16ed016750d05af33360d24febece010dc4288f10c68c01e813f72e8143499e8057a9a55054e0ea1bb2c4f681f1690cd687bb3124b6c3",
+          "dbCksumType": "SHA512"
+        },
+        "HLS.S30.T15XWH.2124237T194859.v2.0.B05.tif": {
+          "granuleId": "HLS.S30.T15XWH.2124237T194859.v2.0",
+          "ingestTime": "2024-08-26T02:17:15.000Z",
+          "dbIngestEndTime": "2024-08-26 02:24:19.161000+00:00",
+          "cksum": "NA",
+          "status": "failed",
+          "bucket": "lp-prod-internal",
+          "error": {
+            "timestamp": "2024-08-26 02:24:17.638000+00:00",
+            "error": "TypeError",
+            "cause": "{\"errorType\":\"TypeError\",\"errorMessage\":\"Function has non-object prototype 'undefined' in instanceof check\",\"trace\":[\"TypeError: Function has non-object prototype 'undefined' in instanceof check\",\"    at Function.[Symbol.hasInstance] (<anonymous>)\",\"    at Object.waitForObjectToExist (/var/task/webpack:/src/S3.ts:228:14)\",\"    at runNextTicks (node:internal/process/task_queues:61:5)\",\"    at listOnTimeout (node:internal/timers:528:9)\",\"    at processTimers (node:internal/timers:502:7)\",\"    at moveFileRequest (/var/task/webpack:/index.js:163:3)\",\"    at async Promise.all (index 0)\",\"    at /var/task/webpack:/index.js:222:24\",\"    at async Promise.all (index 0)\",\"    at moveFilesForAllGranules (/var/task/webpack:/index.js:234:3)\"]}",
+            "resource": "arn:aws:lambda:us-west-2:643705676985:function:lp-prod-MoveGranules"
+          },
+          "execution": "https://console.aws.amazon.com/states/home?region=us-west-2#/executions/details/arn:aws:states:us-west-2:643705676985:execution:lp-prod-IngestGranuleWorkflow-Throttled-Part2:HLSS30_020_forward_sqs_throttled-3fb0c4ef-719b-43c8-a111-b50fc071ff9c",
+          "published": false,
+          "dbCksum": "0c11b406b84e708032892d551ceafd8765ee861b125d102cfd80ef9f4fd94628126cd0c96321ce245db0060f2daeccbffeeedd1da9e6f453fe4db7aeea4fe8a5",
+          "dbCksumType": "SHA512"
+        },
+        "HLS.S30.T15XWH.2124237T194859.v2.0.B06.tif": {
+          "granuleId": "HLS.S30.T15XWH.2124237T194859.v2.0",
+          "ingestTime": "2024-08-26T02:17:16.000Z",
+          "dbIngestEndTime": "2024-08-26 02:24:19.161000+00:00",
+          "cksum": "NA",
+          "status": "failed",
+          "bucket": "lp-prod-internal",
+          "error": {
+            "timestamp": "2024-08-26 02:24:17.638000+00:00",
+            "error": "TypeError",
+            "cause": "{\"errorType\":\"TypeError\",\"errorMessage\":\"Function has non-object prototype 'undefined' in instanceof check\",\"trace\":[\"TypeError: Function has non-object prototype 'undefined' in instanceof check\",\"    at Function.[Symbol.hasInstance] (<anonymous>)\",\"    at Object.waitForObjectToExist (/var/task/webpack:/src/S3.ts:228:14)\",\"    at runNextTicks (node:internal/process/task_queues:61:5)\",\"    at listOnTimeout (node:internal/timers:528:9)\",\"    at processTimers (node:internal/timers:502:7)\",\"    at moveFileRequest (/var/task/webpack:/index.js:163:3)\",\"    at async Promise.all (index 0)\",\"    at /var/task/webpack:/index.js:222:24\",\"    at async Promise.all (index 0)\",\"    at moveFilesForAllGranules (/var/task/webpack:/index.js:234:3)\"]}",
+            "resource": "arn:aws:lambda:us-west-2:643705676985:function:lp-prod-MoveGranules"
+          },
+          "execution": "https://console.aws.amazon.com/states/home?region=us-west-2#/executions/details/arn:aws:states:us-west-2:643705676985:execution:lp-prod-IngestGranuleWorkflow-Throttled-Part2:HLSS30_020_forward_sqs_throttled-3fb0c4ef-719b-43c8-a111-b50fc071ff9c",
+          "published": false,
+          "dbCksum": "afbe3e50626ad6be9e9d654fa50b8adef64e4b69df747fa22ce7a23070ebeda064d8c53d4c6b340657b4fe76e3564f3696662d649e94e414d75bea4a168ada66",
+          "dbCksumType": "SHA512"
+        },
+        "HLS.S30.T15XWH.2124237T194859.v2.0.B07.tif": {
+          "granuleId": "HLS.S30.T15XWH.2124237T194859.v2.0",
+          "ingestTime": "2024-08-26T02:17:16.000Z",
+          "dbIngestEndTime": "2024-08-26 02:24:19.161000+00:00",
+          "cksum": "NA",
+          "status": "failed",
+          "bucket": "lp-prod-internal",
+          "error": {
+            "timestamp": "2024-08-26 02:24:17.638000+00:00",
+            "error": "TypeError",
+            "cause": "{\"errorType\":\"TypeError\",\"errorMessage\":\"Function has non-object prototype 'undefined' in instanceof check\",\"trace\":[\"TypeError: Function has non-object prototype 'undefined' in instanceof check\",\"    at Function.[Symbol.hasInstance] (<anonymous>)\",\"    at Object.waitForObjectToExist (/var/task/webpack:/src/S3.ts:228:14)\",\"    at runNextTicks (node:internal/process/task_queues:61:5)\",\"    at listOnTimeout (node:internal/timers:528:9)\",\"    at processTimers (node:internal/timers:502:7)\",\"    at moveFileRequest (/var/task/webpack:/index.js:163:3)\",\"    at async Promise.all (index 0)\",\"    at /var/task/webpack:/index.js:222:24\",\"    at async Promise.all (index 0)\",\"    at moveFilesForAllGranules (/var/task/webpack:/index.js:234:3)\"]}",
+            "resource": "arn:aws:lambda:us-west-2:643705676985:function:lp-prod-MoveGranules"
+          },
+          "execution": "https://console.aws.amazon.com/states/home?region=us-west-2#/executions/details/arn:aws:states:us-west-2:643705676985:execution:lp-prod-IngestGranuleWorkflow-Throttled-Part2:HLSS30_020_forward_sqs_throttled-3fb0c4ef-719b-43c8-a111-b50fc071ff9c",
+          "published": false,
+          "dbCksum": "b036674e7075508a749d78406b23bafb582dd1536e0addc7a40292077ed36b3eb1ea15a76e5062cd5fb8dbe3ee6cec5232b39ecdf9f5671e62ae7b8fb0a45029",
+          "dbCksumType": "SHA512"
+        },
+        "HLS.S30.T15XWH.2124237T194859.v2.0.B08.tif": {
+          "granuleId": "HLS.S30.T15XWH.2124237T194859.v2.0",
+          "ingestTime": "2024-08-26T02:17:16.000Z",
+          "dbIngestEndTime": "2024-08-26 02:24:19.161000+00:00",
+          "cksum": "NA",
+          "status": "failed",
+          "bucket": "lp-prod-internal",
+          "error": {
+            "timestamp": "2024-08-26 02:24:17.638000+00:00",
+            "error": "TypeError",
+            "cause": "{\"errorType\":\"TypeError\",\"errorMessage\":\"Function has non-object prototype 'undefined' in instanceof check\",\"trace\":[\"TypeError: Function has non-object prototype 'undefined' in instanceof check\",\"    at Function.[Symbol.hasInstance] (<anonymous>)\",\"    at Object.waitForObjectToExist (/var/task/webpack:/src/S3.ts:228:14)\",\"    at runNextTicks (node:internal/process/task_queues:61:5)\",\"    at listOnTimeout (node:internal/timers:528:9)\",\"    at processTimers (node:internal/timers:502:7)\",\"    at moveFileRequest (/var/task/webpack:/index.js:163:3)\",\"    at async Promise.all (index 0)\",\"    at /var/task/webpack:/index.js:222:24\",\"    at async Promise.all (index 0)\",\"    at moveFilesForAllGranules (/var/task/webpack:/index.js:234:3)\"]}",
+            "resource": "arn:aws:lambda:us-west-2:643705676985:function:lp-prod-MoveGranules"
+          },
+          "execution": "https://console.aws.amazon.com/states/home?region=us-west-2#/executions/details/arn:aws:states:us-west-2:643705676985:execution:lp-prod-IngestGranuleWorkflow-Throttled-Part2:HLSS30_020_forward_sqs_throttled-3fb0c4ef-719b-43c8-a111-b50fc071ff9c",
+          "published": false,
+          "dbCksum": "84ea14e3c1edd9ff1b777b9b6287192ea21ee3fd07723961704ac64582519e9cdb68db1aa82e6673ffe2197056504ec5a4b3a5e8c4cb1ed61d48c1cafb85cb1b",
+          "dbCksumType": "SHA512"
+        },
+        "HLS.S30.T15XWH.2124237T194859.v2.0.B09.tif": {
+          "granuleId": "HLS.S30.T15XWH.2124237T194859.v2.0",
+          "ingestTime": "2024-08-26T02:17:16.000Z",
+          "dbIngestEndTime": "2024-08-26 02:24:19.161000+00:00",
+          "cksum": "NA",
+          "status": "failed",
+          "bucket": "lp-prod-internal",
+          "error": {
+            "timestamp": "2024-08-26 02:24:17.638000+00:00",
+            "error": "TypeError",
+            "cause": "{\"errorType\":\"TypeError\",\"errorMessage\":\"Function has non-object prototype 'undefined' in instanceof check\",\"trace\":[\"TypeError: Function has non-object prototype 'undefined' in instanceof check\",\"    at Function.[Symbol.hasInstance] (<anonymous>)\",\"    at Object.waitForObjectToExist (/var/task/webpack:/src/S3.ts:228:14)\",\"    at runNextTicks (node:internal/process/task_queues:61:5)\",\"    at listOnTimeout (node:internal/timers:528:9)\",\"    at processTimers (node:internal/timers:502:7)\",\"    at moveFileRequest (/var/task/webpack:/index.js:163:3)\",\"    at async Promise.all (index 0)\",\"    at /var/task/webpack:/index.js:222:24\",\"    at async Promise.all (index 0)\",\"    at moveFilesForAllGranules (/var/task/webpack:/index.js:234:3)\"]}",
+            "resource": "arn:aws:lambda:us-west-2:643705676985:function:lp-prod-MoveGranules"
+          },
+          "execution": "https://console.aws.amazon.com/states/home?region=us-west-2#/executions/details/arn:aws:states:us-west-2:643705676985:execution:lp-prod-IngestGranuleWorkflow-Throttled-Part2:HLSS30_020_forward_sqs_throttled-3fb0c4ef-719b-43c8-a111-b50fc071ff9c",
+          "published": false,
+          "dbCksum": "0960405810f266beb2e0f6e8b4457a42f48c1fd9f238bba2619d166fe01b4f42be761c7b7a829295894e3bc834fde54e9d9c2a9f24e375b751df08d0c62e22d3",
+          "dbCksumType": "SHA512"
+        },
+        "HLS.S30.T15XWH.2124237T194859.v2.0.B10.tif": {
+          "granuleId": "HLS.S30.T15XWH.2124237T194859.v2.0",
+          "ingestTime": "2024-08-26T02:17:16.000Z",
+          "dbIngestEndTime": "2024-08-26 02:24:19.161000+00:00",
+          "cksum": "NA",
+          "status": "failed",
+          "bucket": "lp-prod-internal",
+          "error": {
+            "timestamp": "2024-08-26 02:24:17.638000+00:00",
+            "error": "TypeError",
+            "cause": "{\"errorType\":\"TypeError\",\"errorMessage\":\"Function has non-object prototype 'undefined' in instanceof check\",\"trace\":[\"TypeError: Function has non-object prototype 'undefined' in instanceof check\",\"    at Function.[Symbol.hasInstance] (<anonymous>)\",\"    at Object.waitForObjectToExist (/var/task/webpack:/src/S3.ts:228:14)\",\"    at runNextTicks (node:internal/process/task_queues:61:5)\",\"    at listOnTimeout (node:internal/timers:528:9)\",\"    at processTimers (node:internal/timers:502:7)\",\"    at moveFileRequest (/var/task/webpack:/index.js:163:3)\",\"    at async Promise.all (index 0)\",\"    at /var/task/webpack:/index.js:222:24\",\"    at async Promise.all (index 0)\",\"    at moveFilesForAllGranules (/var/task/webpack:/index.js:234:3)\"]}",
+            "resource": "arn:aws:lambda:us-west-2:643705676985:function:lp-prod-MoveGranules"
+          },
+          "execution": "https://console.aws.amazon.com/states/home?region=us-west-2#/executions/details/arn:aws:states:us-west-2:643705676985:execution:lp-prod-IngestGranuleWorkflow-Throttled-Part2:HLSS30_020_forward_sqs_throttled-3fb0c4ef-719b-43c8-a111-b50fc071ff9c",
+          "published": false,
+          "dbCksum": "b19c2f1c48163a4697be21d80539d56bc08665f228b9b793c5ddd9e8aa08fe1dec98fbdb9dad350e8f57a7e7c5efdccb1de0b21cdca22b387c5b243f4574dcf0",
+          "dbCksumType": "SHA512"
+        },
+        "HLS.S30.T15XWH.2124237T194859.v2.0.B11.tif": {
+          "granuleId": "HLS.S30.T15XWH.2124237T194859.v2.0",
+          "ingestTime": "2024-08-26T02:17:16.000Z",
+          "dbIngestEndTime": "2024-08-26 02:24:19.161000+00:00",
+          "cksum": "NA",
+          "status": "failed",
+          "bucket": "lp-prod-internal",
+          "error": {
+            "timestamp": "2024-08-26 02:24:17.638000+00:00",
+            "error": "TypeError",
+            "cause": "{\"errorType\":\"TypeError\",\"errorMessage\":\"Function has non-object prototype 'undefined' in instanceof check\",\"trace\":[\"TypeError: Function has non-object prototype 'undefined' in instanceof check\",\"    at Function.[Symbol.hasInstance] (<anonymous>)\",\"    at Object.waitForObjectToExist (/var/task/webpack:/src/S3.ts:228:14)\",\"    at runNextTicks (node:internal/process/task_queues:61:5)\",\"    at listOnTimeout (node:internal/timers:528:9)\",\"    at processTimers (node:internal/timers:502:7)\",\"    at moveFileRequest (/var/task/webpack:/index.js:163:3)\",\"    at async Promise.all (index 0)\",\"    at /var/task/webpack:/index.js:222:24\",\"    at async Promise.all (index 0)\",\"    at moveFilesForAllGranules (/var/task/webpack:/index.js:234:3)\"]}",
+            "resource": "arn:aws:lambda:us-west-2:643705676985:function:lp-prod-MoveGranules"
+          },
+          "execution": "https://console.aws.amazon.com/states/home?region=us-west-2#/executions/details/arn:aws:states:us-west-2:643705676985:execution:lp-prod-IngestGranuleWorkflow-Throttled-Part2:HLSS30_020_forward_sqs_throttled-3fb0c4ef-719b-43c8-a111-b50fc071ff9c",
+          "published": false,
+          "dbCksum": "0540ad4091b92ee6ddeb22ee8eca1ea8e250c103b7073b63411c3cc35e4abb27ff964b788c8fcd5a1826f8e0d3862a3c6b9d5e7fbc0b0fb92fa94724d7d09372",
+          "dbCksumType": "SHA512"
+        },
+        "HLS.S30.T15XWH.2124237T194859.v2.0.B12.tif": {
+          "granuleId": "HLS.S30.T15XWH.2124237T194859.v2.0",
+          "ingestTime": "2024-08-26T02:17:17.000Z",
+          "dbIngestEndTime": "2024-08-26 02:24:19.161000+00:00",
+          "cksum": "NA",
+          "status": "failed",
+          "bucket": "lp-prod-internal",
+          "error": {
+            "timestamp": "2024-08-26 02:24:17.638000+00:00",
+            "error": "TypeError",
+            "cause": "{\"errorType\":\"TypeError\",\"errorMessage\":\"Function has non-object prototype 'undefined' in instanceof check\",\"trace\":[\"TypeError: Function has non-object prototype 'undefined' in instanceof check\",\"    at Function.[Symbol.hasInstance] (<anonymous>)\",\"    at Object.waitForObjectToExist (/var/task/webpack:/src/S3.ts:228:14)\",\"    at runNextTicks (node:internal/process/task_queues:61:5)\",\"    at listOnTimeout (node:internal/timers:528:9)\",\"    at processTimers (node:internal/timers:502:7)\",\"    at moveFileRequest (/var/task/webpack:/index.js:163:3)\",\"    at async Promise.all (index 0)\",\"    at /var/task/webpack:/index.js:222:24\",\"    at async Promise.all (index 0)\",\"    at moveFilesForAllGranules (/var/task/webpack:/index.js:234:3)\"]}",
+            "resource": "arn:aws:lambda:us-west-2:643705676985:function:lp-prod-MoveGranules"
+          },
+          "execution": "https://console.aws.amazon.com/states/home?region=us-west-2#/executions/details/arn:aws:states:us-west-2:643705676985:execution:lp-prod-IngestGranuleWorkflow-Throttled-Part2:HLSS30_020_forward_sqs_throttled-3fb0c4ef-719b-43c8-a111-b50fc071ff9c",
+          "published": false,
+          "dbCksum": "2d7e305f39d837655572a8c679f088c3df6d51115b12b4b5792bc75630c7e054e7ba5f7f6fd631680e26291b083b29d018c72ad4bd6301f1d1bdd37e904ff24b",
+          "dbCksumType": "SHA512"
+        },
+        "HLS.S30.T15XWH.2124237T194859.v2.0.B8A.tif": {
+          "granuleId": "HLS.S30.T15XWH.2124237T194859.v2.0",
+          "ingestTime": "2024-08-26T02:17:17.000Z",
+          "dbIngestEndTime": "2024-08-26 02:24:19.161000+00:00",
+          "cksum": "NA",
+          "status": "failed",
+          "bucket": "lp-prod-internal",
+          "error": {
+            "timestamp": "2024-08-26 02:24:17.638000+00:00",
+            "error": "TypeError",
+            "cause": "{\"errorType\":\"TypeError\",\"errorMessage\":\"Function has non-object prototype 'undefined' in instanceof check\",\"trace\":[\"TypeError: Function has non-object prototype 'undefined' in instanceof check\",\"    at Function.[Symbol.hasInstance] (<anonymous>)\",\"    at Object.waitForObjectToExist (/var/task/webpack:/src/S3.ts:228:14)\",\"    at runNextTicks (node:internal/process/task_queues:61:5)\",\"    at listOnTimeout (node:internal/timers:528:9)\",\"    at processTimers (node:internal/timers:502:7)\",\"    at moveFileRequest (/var/task/webpack:/index.js:163:3)\",\"    at async Promise.all (index 0)\",\"    at /var/task/webpack:/index.js:222:24\",\"    at async Promise.all (index 0)\",\"    at moveFilesForAllGranules (/var/task/webpack:/index.js:234:3)\"]}",
+            "resource": "arn:aws:lambda:us-west-2:643705676985:function:lp-prod-MoveGranules"
+          },
+          "execution": "https://console.aws.amazon.com/states/home?region=us-west-2#/executions/details/arn:aws:states:us-west-2:643705676985:execution:lp-prod-IngestGranuleWorkflow-Throttled-Part2:HLSS30_020_forward_sqs_throttled-3fb0c4ef-719b-43c8-a111-b50fc071ff9c",
+          "published": false,
+          "dbCksum": "ba4f0e66c297e0d71d148fdf9a7c1540be297c0a1c7b691f2584cb97bb4fba093ba5c42d0104a2f95f529e00a971c74d85738d59f81550e8f718f6e7ada2a2e4",
+          "dbCksumType": "SHA512"
+        },
+        "HLS.S30.T15XWH.2124237T194859.v2.0.Fmask.tif": {
+          "granuleId": "HLS.S30.T15XWH.2124237T194859.v2.0",
+          "ingestTime": "2024-08-26T02:17:17.000Z",
+          "dbIngestEndTime": "2024-08-26 02:24:19.161000+00:00",
+          "cksum": "NA",
+          "status": "failed",
+          "bucket": "lp-prod-internal",
+          "error": {
+            "timestamp": "2024-08-26 02:24:17.638000+00:00",
+            "error": "TypeError",
+            "cause": "{\"errorType\":\"TypeError\",\"errorMessage\":\"Function has non-object prototype 'undefined' in instanceof check\",\"trace\":[\"TypeError: Function has non-object prototype 'undefined' in instanceof check\",\"    at Function.[Symbol.hasInstance] (<anonymous>)\",\"    at Object.waitForObjectToExist (/var/task/webpack:/src/S3.ts:228:14)\",\"    at runNextTicks (node:internal/process/task_queues:61:5)\",\"    at listOnTimeout (node:internal/timers:528:9)\",\"    at processTimers (node:internal/timers:502:7)\",\"    at moveFileRequest (/var/task/webpack:/index.js:163:3)\",\"    at async Promise.all (index 0)\",\"    at /var/task/webpack:/index.js:222:24\",\"    at async Promise.all (index 0)\",\"    at moveFilesForAllGranules (/var/task/webpack:/index.js:234:3)\"]}",
+            "resource": "arn:aws:lambda:us-west-2:643705676985:function:lp-prod-MoveGranules"
+          },
+          "execution": "https://console.aws.amazon.com/states/home?region=us-west-2#/executions/details/arn:aws:states:us-west-2:643705676985:execution:lp-prod-IngestGranuleWorkflow-Throttled-Part2:HLSS30_020_forward_sqs_throttled-3fb0c4ef-719b-43c8-a111-b50fc071ff9c",
+          "published": false,
+          "dbCksum": "44f2bb4069b0c494abc08ed42104f8ad622c8b2e7b9cad0f45d1ce3fdda02930389b20e29d4a15fb69d62119c605be98aeb37bcfd285b8a8b554790822253fae",
+          "dbCksumType": "SHA512"
+        },
+        "HLS.S30.T15XWH.2124237T194859.v2.0.SAA.tif": {
+          "granuleId": "HLS.S30.T15XWH.2124237T194859.v2.0",
+          "ingestTime": "2024-08-26T02:17:17.000Z",
+          "dbIngestEndTime": "2024-08-26 02:24:19.161000+00:00",
+          "cksum": "NA",
+          "status": "failed",
+          "bucket": "lp-prod-internal",
+          "error": {
+            "timestamp": "2024-08-26 02:24:17.638000+00:00",
+            "error": "TypeError",
+            "cause": "{\"errorType\":\"TypeError\",\"errorMessage\":\"Function has non-object prototype 'undefined' in instanceof check\",\"trace\":[\"TypeError: Function has non-object prototype 'undefined' in instanceof check\",\"    at Function.[Symbol.hasInstance] (<anonymous>)\",\"    at Object.waitForObjectToExist (/var/task/webpack:/src/S3.ts:228:14)\",\"    at runNextTicks (node:internal/process/task_queues:61:5)\",\"    at listOnTimeout (node:internal/timers:528:9)\",\"    at processTimers (node:internal/timers:502:7)\",\"    at moveFileRequest (/var/task/webpack:/index.js:163:3)\",\"    at async Promise.all (index 0)\",\"    at /var/task/webpack:/index.js:222:24\",\"    at async Promise.all (index 0)\",\"    at moveFilesForAllGranules (/var/task/webpack:/index.js:234:3)\"]}",
+            "resource": "arn:aws:lambda:us-west-2:643705676985:function:lp-prod-MoveGranules"
+          },
+          "execution": "https://console.aws.amazon.com/states/home?region=us-west-2#/executions/details/arn:aws:states:us-west-2:643705676985:execution:lp-prod-IngestGranuleWorkflow-Throttled-Part2:HLSS30_020_forward_sqs_throttled-3fb0c4ef-719b-43c8-a111-b50fc071ff9c",
+          "published": false,
+          "dbCksum": "1eb18da3bca916f21d968acdf03c672f1a7e6f5ec61c75b717964e4df9590c8fffd7ea7a3cebb7125aebe49662de868190eb2851d2f14e5384c203499262afa9",
+          "dbCksumType": "SHA512"
+        },
+        "HLS.S30.T15XWH.2124237T194859.v2.0.SZA.tif": {
+          "granuleId": "HLS.S30.T15XWH.2124237T194859.v2.0",
+          "ingestTime": "2024-08-26T02:17:17.000Z",
+          "dbIngestEndTime": "2024-08-26 02:24:19.161000+00:00",
+          "cksum": "NA",
+          "status": "failed",
+          "bucket": "lp-prod-internal",
+          "error": {
+            "timestamp": "2024-08-26 02:24:17.638000+00:00",
+            "error": "TypeError",
+            "cause": "{\"errorType\":\"TypeError\",\"errorMessage\":\"Function has non-object prototype 'undefined' in instanceof check\",\"trace\":[\"TypeError: Function has non-object prototype 'undefined' in instanceof check\",\"    at Function.[Symbol.hasInstance] (<anonymous>)\",\"    at Object.waitForObjectToExist (/var/task/webpack:/src/S3.ts:228:14)\",\"    at runNextTicks (node:internal/process/task_queues:61:5)\",\"    at listOnTimeout (node:internal/timers:528:9)\",\"    at processTimers (node:internal/timers:502:7)\",\"    at moveFileRequest (/var/task/webpack:/index.js:163:3)\",\"    at async Promise.all (index 0)\",\"    at /var/task/webpack:/index.js:222:24\",\"    at async Promise.all (index 0)\",\"    at moveFilesForAllGranules (/var/task/webpack:/index.js:234:3)\"]}",
+            "resource": "arn:aws:lambda:us-west-2:643705676985:function:lp-prod-MoveGranules"
+          },
+          "execution": "https://console.aws.amazon.com/states/home?region=us-west-2#/executions/details/arn:aws:states:us-west-2:643705676985:execution:lp-prod-IngestGranuleWorkflow-Throttled-Part2:HLSS30_020_forward_sqs_throttled-3fb0c4ef-719b-43c8-a111-b50fc071ff9c",
+          "published": false,
+          "dbCksum": "90a41bb33203c3cadbe43edc003804deb2cb32b4190b362fc81265d1895e36cd42b0c24f17d96c3e4cb6deda23af25ac44ca53c4bb43bbf2296fecfc4db6e5ca",
+          "dbCksumType": "SHA512"
+        },
+        "HLS.S30.T15XWH.2124237T194859.v2.0.VAA.tif": {
+          "granuleId": "HLS.S30.T15XWH.2124237T194859.v2.0",
+          "ingestTime": "2024-08-26T02:17:17.000Z",
+          "dbIngestEndTime": "2024-08-26 02:24:19.161000+00:00",
+          "cksum": "NA",
+          "status": "failed",
+          "bucket": "lp-prod-internal",
+          "error": {
+            "timestamp": "2024-08-26 02:24:17.638000+00:00",
+            "error": "TypeError",
+            "cause": "{\"errorType\":\"TypeError\",\"errorMessage\":\"Function has non-object prototype 'undefined' in instanceof check\",\"trace\":[\"TypeError: Function has non-object prototype 'undefined' in instanceof check\",\"    at Function.[Symbol.hasInstance] (<anonymous>)\",\"    at Object.waitForObjectToExist (/var/task/webpack:/src/S3.ts:228:14)\",\"    at runNextTicks (node:internal/process/task_queues:61:5)\",\"    at listOnTimeout (node:internal/timers:528:9)\",\"    at processTimers (node:internal/timers:502:7)\",\"    at moveFileRequest (/var/task/webpack:/index.js:163:3)\",\"    at async Promise.all (index 0)\",\"    at /var/task/webpack:/index.js:222:24\",\"    at async Promise.all (index 0)\",\"    at moveFilesForAllGranules (/var/task/webpack:/index.js:234:3)\"]}",
+            "resource": "arn:aws:lambda:us-west-2:643705676985:function:lp-prod-MoveGranules"
+          },
+          "execution": "https://console.aws.amazon.com/states/home?region=us-west-2#/executions/details/arn:aws:states:us-west-2:643705676985:execution:lp-prod-IngestGranuleWorkflow-Throttled-Part2:HLSS30_020_forward_sqs_throttled-3fb0c4ef-719b-43c8-a111-b50fc071ff9c",
+          "published": false,
+          "dbCksum": "5b1f6b8fa014622f354e8eb2f88250f95a8fe828118187af21ab4bd572a5eb286aa6af7e0a563bbad3039d4ed47db5aaa52ea997e7806aae4a2ed2d8345b8682",
+          "dbCksumType": "SHA512"
+        },
+        "HLS.S30.T15XWH.2124237T194859.v2.0.VZA.tif": {
+          "granuleId": "HLS.S30.T15XWH.2124237T194859.v2.0",
+          "ingestTime": "2024-08-26T02:17:17.000Z",
+          "dbIngestEndTime": "2024-08-26 02:24:19.161000+00:00",
+          "cksum": "NA",
+          "status": "failed",
+          "bucket": "lp-prod-internal",
+          "error": {
+            "timestamp": "2024-08-26 02:24:17.638000+00:00",
+            "error": "TypeError",
+            "cause": "{\"errorType\":\"TypeError\",\"errorMessage\":\"Function has non-object prototype 'undefined' in instanceof check\",\"trace\":[\"TypeError: Function has non-object prototype 'undefined' in instanceof check\",\"    at Function.[Symbol.hasInstance] (<anonymous>)\",\"    at Object.waitForObjectToExist (/var/task/webpack:/src/S3.ts:228:14)\",\"    at runNextTicks (node:internal/process/task_queues:61:5)\",\"    at listOnTimeout (node:internal/timers:528:9)\",\"    at processTimers (node:internal/timers:502:7)\",\"    at moveFileRequest (/var/task/webpack:/index.js:163:3)\",\"    at async Promise.all (index 0)\",\"    at /var/task/webpack:/index.js:222:24\",\"    at async Promise.all (index 0)\",\"    at moveFilesForAllGranules (/var/task/webpack:/index.js:234:3)\"]}",
+            "resource": "arn:aws:lambda:us-west-2:643705676985:function:lp-prod-MoveGranules"
+          },
+          "execution": "https://console.aws.amazon.com/states/home?region=us-west-2#/executions/details/arn:aws:states:us-west-2:643705676985:execution:lp-prod-IngestGranuleWorkflow-Throttled-Part2:HLSS30_020_forward_sqs_throttled-3fb0c4ef-719b-43c8-a111-b50fc071ff9c",
+          "published": false,
+          "dbCksum": "411567be6cce8c672c9b6329cb351d0be4bc00ec8aa3f3dfbeb1f1e08cc761d3a78490387d02259ba75fd1fa01cdcb7e5371a475faa9e3b5edc52336c2a61d5f",
+          "dbCksumType": "SHA512"
+        },
+        "HLS.S30.T15XWH.2124237T194859.v2.0.cmr.xml": {
+          "granuleId": "HLS.S30.T15XWH.2124237T194859.v2.0",
+          "ingestTime": "2024-08-26T02:17:17.000Z",
+          "dbIngestEndTime": "2024-08-26 02:24:19.161000+00:00",
+          "cksum": "NA",
+          "status": "failed",
+          "bucket": "lp-prod-internal",
+          "error": {
+            "timestamp": "2024-08-26 02:24:17.638000+00:00",
+            "error": "TypeError",
+            "cause": "{\"errorType\":\"TypeError\",\"errorMessage\":\"Function has non-object prototype 'undefined' in instanceof check\",\"trace\":[\"TypeError: Function has non-object prototype 'undefined' in instanceof check\",\"    at Function.[Symbol.hasInstance] (<anonymous>)\",\"    at Object.waitForObjectToExist (/var/task/webpack:/src/S3.ts:228:14)\",\"    at runNextTicks (node:internal/process/task_queues:61:5)\",\"    at listOnTimeout (node:internal/timers:528:9)\",\"    at processTimers (node:internal/timers:502:7)\",\"    at moveFileRequest (/var/task/webpack:/index.js:163:3)\",\"    at async Promise.all (index 0)\",\"    at /var/task/webpack:/index.js:222:24\",\"    at async Promise.all (index 0)\",\"    at moveFilesForAllGranules (/var/task/webpack:/index.js:234:3)\"]}",
+            "resource": "arn:aws:lambda:us-west-2:643705676985:function:lp-prod-MoveGranules"
+          },
+          "execution": "https://console.aws.amazon.com/states/home?region=us-west-2#/executions/details/arn:aws:states:us-west-2:643705676985:execution:lp-prod-IngestGranuleWorkflow-Throttled-Part2:HLSS30_020_forward_sqs_throttled-3fb0c4ef-719b-43c8-a111-b50fc071ff9c",
+          "published": false,
+          "dbCksum": "c66d8a6df2efd63e2cb25c4e1c2a9651012958fd34dc6285b8c95ee695a4dfcbfd3f74be39028a13bfaf3930419fc876058801326efdf4bb55c588d8a2ddeb5c",
+          "dbCksumType": "SHA512"
+        },
+        "HLS.S30.T15XWH.2124237T194859.v2.0.jpg": {
+          "granuleId": "HLS.S30.T15XWH.2124237T194859.v2.0",
+          "ingestTime": "2024-08-26T02:17:17.000Z",
+          "dbIngestEndTime": "2024-08-26 02:24:19.161000+00:00",
+          "cksum": "NA",
+          "status": "failed",
+          "bucket": "lp-prod-internal",
+          "error": {
+            "timestamp": "2024-08-26 02:24:17.638000+00:00",
+            "error": "TypeError",
+            "cause": "{\"errorType\":\"TypeError\",\"errorMessage\":\"Function has non-object prototype 'undefined' in instanceof check\",\"trace\":[\"TypeError: Function has non-object prototype 'undefined' in instanceof check\",\"    at Function.[Symbol.hasInstance] (<anonymous>)\",\"    at Object.waitForObjectToExist (/var/task/webpack:/src/S3.ts:228:14)\",\"    at runNextTicks (node:internal/process/task_queues:61:5)\",\"    at listOnTimeout (node:internal/timers:528:9)\",\"    at processTimers (node:internal/timers:502:7)\",\"    at moveFileRequest (/var/task/webpack:/index.js:163:3)\",\"    at async Promise.all (index 0)\",\"    at /var/task/webpack:/index.js:222:24\",\"    at async Promise.all (index 0)\",\"    at moveFilesForAllGranules (/var/task/webpack:/index.js:234:3)\"]}",
+            "resource": "arn:aws:lambda:us-west-2:643705676985:function:lp-prod-MoveGranules"
+          },
+          "execution": "https://console.aws.amazon.com/states/home?region=us-west-2#/executions/details/arn:aws:states:us-west-2:643705676985:execution:lp-prod-IngestGranuleWorkflow-Throttled-Part2:HLSS30_020_forward_sqs_throttled-3fb0c4ef-719b-43c8-a111-b50fc071ff9c",
+          "published": false,
+          "dbCksum": "5f66f79e086b0ff0f325a2b7634c75bcd243dba06c829830701cb38cf03ce8c4700778cc848c5e96908b004b333a37f0f415ccfd1d260e2f48846a0be162d3f4",
+          "dbCksumType": "SHA512"
+        },
+        "HLS.S30.T15XWH.2124237T194859.v2.0_stac.json": {
+          "granuleId": "HLS.S30.T15XWH.2124237T194859.v2.0",
+          "ingestTime": "2024-08-26T02:17:17.000Z",
+          "dbIngestEndTime": "2024-08-26 02:24:19.161000+00:00",
+          "cksum": "NA",
+          "status": "failed",
+          "bucket": "lp-prod-internal",
+          "error": {
+            "timestamp": "2024-08-26 02:24:17.638000+00:00",
+            "error": "TypeError",
+            "cause": "{\"errorType\":\"TypeError\",\"errorMessage\":\"Function has non-object prototype 'undefined' in instanceof check\",\"trace\":[\"TypeError: Function has non-object prototype 'undefined' in instanceof check\",\"    at Function.[Symbol.hasInstance] (<anonymous>)\",\"    at Object.waitForObjectToExist (/var/task/webpack:/src/S3.ts:228:14)\",\"    at runNextTicks (node:internal/process/task_queues:61:5)\",\"    at listOnTimeout (node:internal/timers:528:9)\",\"    at processTimers (node:internal/timers:502:7)\",\"    at moveFileRequest (/var/task/webpack:/index.js:163:3)\",\"    at async Promise.all (index 0)\",\"    at /var/task/webpack:/index.js:222:24\",\"    at async Promise.all (index 0)\",\"    at moveFilesForAllGranules (/var/task/webpack:/index.js:234:3)\"]}",
+            "resource": "arn:aws:lambda:us-west-2:643705676985:function:lp-prod-MoveGranules"
+          },
+          "execution": "https://console.aws.amazon.com/states/home?region=us-west-2#/executions/details/arn:aws:states:us-west-2:643705676985:execution:lp-prod-IngestGranuleWorkflow-Throttled-Part2:HLSS30_020_forward_sqs_throttled-3fb0c4ef-719b-43c8-a111-b50fc071ff9c",
+          "published": false,
+          "dbCksum": "1f35420fa132b6bf660f56c26ecd063bd619ab15a1b35bf82e746ba8ef64e140e4b338d5e43b96bada51cd9b414f4fb56f1f64ad4e6976b958ae98ddf3d7fd05",
+          "dbCksumType": "SHA512"
+        },
+        "HLS.S30.T36PWU.2124237T080609.v2.0.B01.tif": {
+          "granuleId": "HLS.S30.T36PWU.2124237T080609.v2.0",
+          "ingestTime": "2024-08-26T02:47:19.000Z",
+          "dbIngestEndTime": "2024-08-26 02:50:25.423000+00:00",
+          "cksum": "NA",
+          "status": "failed",
+          "bucket": "lp-prod-protected",
+          "error": {
+            "timestamp": "2024-08-26 02:50:23.938000+00:00",
+            "error": "Error",
+            "cause": "{\"errorType\":\"Error\",\"errorMessage\":\"Failed to ingest, statusCode: 401, statusMessage: Unauthorized, CMR error message: \\\"You do not have permission to perform that action.\\\"\",\"trace\":[\"Error: Failed to ingest, statusCode: 401, statusMessage: Unauthorized, CMR error message: \\\"You do not have permission to perform that action.\\\"\",\"    at ingestConcept (/var/task/webpack:/src/ingestConcept.ts:70:11)\",\"    at processTicksAndRejections (node:internal/process/task_queues:96:5)\",\"    at CMR.ingestGranule (/var/task/webpack:/src/CMR.ts:211:12)\",\"    at publishECHO10XML2CMR (/var/task/webpack:/src/cmr-utils.js:155:15)\",\"    at publish2CMR (/var/task/webpack:/src/cmr-utils.js:227:12)\",\"    at async Promise.all (index 0)\",\"    at postToCMR (/var/task/webpack:/index.js:131:19)\",\"    at Object.runCumulusTask (/var/task/webpack:/node_modules/@cumulus/cumulus-message-adapter-js/dist/cma.js:221:1)\",\"    at Runtime.handler (/var/task/webpack:/index.js:159:10)\"]}",
+            "resource": "arn:aws:lambda:us-west-2:643705676985:function:lp-prod-PostToCmr"
+          },
+          "execution": "https://console.aws.amazon.com/states/home?region=us-west-2#/executions/details/arn:aws:states:us-west-2:643705676985:execution:lp-prod-IngestGranuleWorkflow-Throttled-Part2:HLSS30_020_forward_sqs_throttled-f7fc9831-e0be-4568-b8d9-936a2bcf3ba4",
+          "published": false,
+          "dbCksum": "db48c50b064ae1489b828da7ffd84faf278746b8f14210461b625b1ea070b422da5e754838fdb4bbd5668b1e1a34c7d2319a928efb5251f1dc45cd73cd2a14aa",
+          "dbCksumType": "SHA512"
+        },
+        "HLS.S30.T36PWU.2124237T080609.v2.0.B02.tif": {
+          "granuleId": "HLS.S30.T36PWU.2124237T080609.v2.0",
+          "ingestTime": "2024-08-26T02:47:19.000Z",
+          "dbIngestEndTime": "2024-08-26 02:50:25.423000+00:00",
+          "cksum": "NA",
+          "status": "failed",
+          "bucket": "lp-prod-protected",
+          "error": {
+            "timestamp": "2024-08-26 02:50:23.938000+00:00",
+            "error": "Error",
+            "cause": "{\"errorType\":\"Error\",\"errorMessage\":\"Failed to ingest, statusCode: 401, statusMessage: Unauthorized, CMR error message: \\\"You do not have permission to perform that action.\\\"\",\"trace\":[\"Error: Failed to ingest, statusCode: 401, statusMessage: Unauthorized, CMR error message: \\\"You do not have permission to perform that action.\\\"\",\"    at ingestConcept (/var/task/webpack:/src/ingestConcept.ts:70:11)\",\"    at processTicksAndRejections (node:internal/process/task_queues:96:5)\",\"    at CMR.ingestGranule (/var/task/webpack:/src/CMR.ts:211:12)\",\"    at publishECHO10XML2CMR (/var/task/webpack:/src/cmr-utils.js:155:15)\",\"    at publish2CMR (/var/task/webpack:/src/cmr-utils.js:227:12)\",\"    at async Promise.all (index 0)\",\"    at postToCMR (/var/task/webpack:/index.js:131:19)\",\"    at Object.runCumulusTask (/var/task/webpack:/node_modules/@cumulus/cumulus-message-adapter-js/dist/cma.js:221:1)\",\"    at Runtime.handler (/var/task/webpack:/index.js:159:10)\"]}",
+            "resource": "arn:aws:lambda:us-west-2:643705676985:function:lp-prod-PostToCmr"
+          },
+          "execution": "https://console.aws.amazon.com/states/home?region=us-west-2#/executions/details/arn:aws:states:us-west-2:643705676985:execution:lp-prod-IngestGranuleWorkflow-Throttled-Part2:HLSS30_020_forward_sqs_throttled-f7fc9831-e0be-4568-b8d9-936a2bcf3ba4",
+          "published": false,
+          "dbCksum": "e4710c3fd13e42b84ac04c81ae10c811e72fd18f994c44ee4b8a9760fc8adb9d05a0926f4fa1a4d6b6864fc20199cfe4369b3f4fd9c99f4fa8b29b7562563035",
+          "dbCksumType": "SHA512"
+        },
+        "HLS.S30.T36PWU.2124237T080609.v2.0.B03.tif": {
+          "granuleId": "HLS.S30.T36PWU.2124237T080609.v2.0",
+          "ingestTime": "2024-08-26T02:47:19.000Z",
+          "dbIngestEndTime": "2024-08-26 02:50:25.423000+00:00",
+          "cksum": "NA",
+          "status": "failed",
+          "bucket": "lp-prod-protected",
+          "error": {
+            "timestamp": "2024-08-26 02:50:23.938000+00:00",
+            "error": "Error",
+            "cause": "{\"errorType\":\"Error\",\"errorMessage\":\"Failed to ingest, statusCode: 401, statusMessage: Unauthorized, CMR error message: \\\"You do not have permission to perform that action.\\\"\",\"trace\":[\"Error: Failed to ingest, statusCode: 401, statusMessage: Unauthorized, CMR error message: \\\"You do not have permission to perform that action.\\\"\",\"    at ingestConcept (/var/task/webpack:/src/ingestConcept.ts:70:11)\",\"    at processTicksAndRejections (node:internal/process/task_queues:96:5)\",\"    at CMR.ingestGranule (/var/task/webpack:/src/CMR.ts:211:12)\",\"    at publishECHO10XML2CMR (/var/task/webpack:/src/cmr-utils.js:155:15)\",\"    at publish2CMR (/var/task/webpack:/src/cmr-utils.js:227:12)\",\"    at async Promise.all (index 0)\",\"    at postToCMR (/var/task/webpack:/index.js:131:19)\",\"    at Object.runCumulusTask (/var/task/webpack:/node_modules/@cumulus/cumulus-message-adapter-js/dist/cma.js:221:1)\",\"    at Runtime.handler (/var/task/webpack:/index.js:159:10)\"]}",
+            "resource": "arn:aws:lambda:us-west-2:643705676985:function:lp-prod-PostToCmr"
+          },
+          "execution": "https://console.aws.amazon.com/states/home?region=us-west-2#/executions/details/arn:aws:states:us-west-2:643705676985:execution:lp-prod-IngestGranuleWorkflow-Throttled-Part2:HLSS30_020_forward_sqs_throttled-f7fc9831-e0be-4568-b8d9-936a2bcf3ba4",
+          "published": false,
+          "dbCksum": "01a01bdadb968564b133a0131a8c31369f88f691479dbe732432ed965155f8ca8667086f6181d4d11e21a27a0adf6e1c09ebc43fe8ebcbcd18ad1371d520eebb",
+          "dbCksumType": "SHA512"
+        },
+        "HLS.S30.T36PWU.2124237T080609.v2.0.B04.tif": {
+          "granuleId": "HLS.S30.T36PWU.2124237T080609.v2.0",
+          "ingestTime": "2024-08-26T02:47:19.000Z",
+          "dbIngestEndTime": "2024-08-26 02:50:25.423000+00:00",
+          "cksum": "NA",
+          "status": "failed",
+          "bucket": "lp-prod-protected",
+          "error": {
+            "timestamp": "2024-08-26 02:50:23.938000+00:00",
+            "error": "Error",
+            "cause": "{\"errorType\":\"Error\",\"errorMessage\":\"Failed to ingest, statusCode: 401, statusMessage: Unauthorized, CMR error message: \\\"You do not have permission to perform that action.\\\"\",\"trace\":[\"Error: Failed to ingest, statusCode: 401, statusMessage: Unauthorized, CMR error message: \\\"You do not have permission to perform that action.\\\"\",\"    at ingestConcept (/var/task/webpack:/src/ingestConcept.ts:70:11)\",\"    at processTicksAndRejections (node:internal/process/task_queues:96:5)\",\"    at CMR.ingestGranule (/var/task/webpack:/src/CMR.ts:211:12)\",\"    at publishECHO10XML2CMR (/var/task/webpack:/src/cmr-utils.js:155:15)\",\"    at publish2CMR (/var/task/webpack:/src/cmr-utils.js:227:12)\",\"    at async Promise.all (index 0)\",\"    at postToCMR (/var/task/webpack:/index.js:131:19)\",\"    at Object.runCumulusTask (/var/task/webpack:/node_modules/@cumulus/cumulus-message-adapter-js/dist/cma.js:221:1)\",\"    at Runtime.handler (/var/task/webpack:/index.js:159:10)\"]}",
+            "resource": "arn:aws:lambda:us-west-2:643705676985:function:lp-prod-PostToCmr"
+          },
+          "execution": "https://console.aws.amazon.com/states/home?region=us-west-2#/executions/details/arn:aws:states:us-west-2:643705676985:execution:lp-prod-IngestGranuleWorkflow-Throttled-Part2:HLSS30_020_forward_sqs_throttled-f7fc9831-e0be-4568-b8d9-936a2bcf3ba4",
+          "published": false,
+          "dbCksum": "92ecb019412192e323e17caab06f0b1f8685dd8846d3aa4171556c9ae5b13c79350a68c9b1103b88f353da0b3f55d50af9a0a355f8d157fe3b579f5bbf21cb18",
+          "dbCksumType": "SHA512"
+        },
+        "HLS.S30.T36PWU.2124237T080609.v2.0.B05.tif": {
+          "granuleId": "HLS.S30.T36PWU.2124237T080609.v2.0",
+          "ingestTime": "2024-08-26T02:47:19.000Z",
+          "dbIngestEndTime": "2024-08-26 02:50:25.423000+00:00",
+          "cksum": "NA",
+          "status": "failed",
+          "bucket": "lp-prod-protected",
+          "error": {
+            "timestamp": "2024-08-26 02:50:23.938000+00:00",
+            "error": "Error",
+            "cause": "{\"errorType\":\"Error\",\"errorMessage\":\"Failed to ingest, statusCode: 401, statusMessage: Unauthorized, CMR error message: \\\"You do not have permission to perform that action.\\\"\",\"trace\":[\"Error: Failed to ingest, statusCode: 401, statusMessage: Unauthorized, CMR error message: \\\"You do not have permission to perform that action.\\\"\",\"    at ingestConcept (/var/task/webpack:/src/ingestConcept.ts:70:11)\",\"    at processTicksAndRejections (node:internal/process/task_queues:96:5)\",\"    at CMR.ingestGranule (/var/task/webpack:/src/CMR.ts:211:12)\",\"    at publishECHO10XML2CMR (/var/task/webpack:/src/cmr-utils.js:155:15)\",\"    at publish2CMR (/var/task/webpack:/src/cmr-utils.js:227:12)\",\"    at async Promise.all (index 0)\",\"    at postToCMR (/var/task/webpack:/index.js:131:19)\",\"    at Object.runCumulusTask (/var/task/webpack:/node_modules/@cumulus/cumulus-message-adapter-js/dist/cma.js:221:1)\",\"    at Runtime.handler (/var/task/webpack:/index.js:159:10)\"]}",
+            "resource": "arn:aws:lambda:us-west-2:643705676985:function:lp-prod-PostToCmr"
+          },
+          "execution": "https://console.aws.amazon.com/states/home?region=us-west-2#/executions/details/arn:aws:states:us-west-2:643705676985:execution:lp-prod-IngestGranuleWorkflow-Throttled-Part2:HLSS30_020_forward_sqs_throttled-f7fc9831-e0be-4568-b8d9-936a2bcf3ba4",
+          "published": false,
+          "dbCksum": "6636dc36bf0de453f6fac46325bc108ffe29ba824dd2be19ade708168a570c5890667190cc6237b759df1d004855ee15b80e516e530d80d6e6d7e20ae366576f",
+          "dbCksumType": "SHA512"
+        },
+        "HLS.S30.T36PWU.2124237T080609.v2.0.B06.tif": {
+          "granuleId": "HLS.S30.T36PWU.2124237T080609.v2.0",
+          "ingestTime": "2024-08-26T02:47:20.000Z",
+          "dbIngestEndTime": "2024-08-26 02:50:25.423000+00:00",
+          "cksum": "NA",
+          "status": "failed",
+          "bucket": "lp-prod-protected",
+          "error": {
+            "timestamp": "2024-08-26 02:50:23.938000+00:00",
+            "error": "Error",
+            "cause": "{\"errorType\":\"Error\",\"errorMessage\":\"Failed to ingest, statusCode: 401, statusMessage: Unauthorized, CMR error message: \\\"You do not have permission to perform that action.\\\"\",\"trace\":[\"Error: Failed to ingest, statusCode: 401, statusMessage: Unauthorized, CMR error message: \\\"You do not have permission to perform that action.\\\"\",\"    at ingestConcept (/var/task/webpack:/src/ingestConcept.ts:70:11)\",\"    at processTicksAndRejections (node:internal/process/task_queues:96:5)\",\"    at CMR.ingestGranule (/var/task/webpack:/src/CMR.ts:211:12)\",\"    at publishECHO10XML2CMR (/var/task/webpack:/src/cmr-utils.js:155:15)\",\"    at publish2CMR (/var/task/webpack:/src/cmr-utils.js:227:12)\",\"    at async Promise.all (index 0)\",\"    at postToCMR (/var/task/webpack:/index.js:131:19)\",\"    at Object.runCumulusTask (/var/task/webpack:/node_modules/@cumulus/cumulus-message-adapter-js/dist/cma.js:221:1)\",\"    at Runtime.handler (/var/task/webpack:/index.js:159:10)\"]}",
+            "resource": "arn:aws:lambda:us-west-2:643705676985:function:lp-prod-PostToCmr"
+          },
+          "execution": "https://console.aws.amazon.com/states/home?region=us-west-2#/executions/details/arn:aws:states:us-west-2:643705676985:execution:lp-prod-IngestGranuleWorkflow-Throttled-Part2:HLSS30_020_forward_sqs_throttled-f7fc9831-e0be-4568-b8d9-936a2bcf3ba4",
+          "published": false,
+          "dbCksum": "914fa917e7627588de40fde62b7b6a5da767054f1f371c9d78de6b2fbb6322ca2f42e440de740424f7dd52a7dbc5cd4735f661eaa9b24cdb9c799543cb547503",
+          "dbCksumType": "SHA512"
+        },
+        "HLS.S30.T36PWU.2124237T080609.v2.0.B07.tif": {
+          "granuleId": "HLS.S30.T36PWU.2124237T080609.v2.0",
+          "ingestTime": "2024-08-26T02:47:20.000Z",
+          "dbIngestEndTime": "2024-08-26 02:50:25.423000+00:00",
+          "cksum": "NA",
+          "status": "failed",
+          "bucket": "lp-prod-protected",
+          "error": {
+            "timestamp": "2024-08-26 02:50:23.938000+00:00",
+            "error": "Error",
+            "cause": "{\"errorType\":\"Error\",\"errorMessage\":\"Failed to ingest, statusCode: 401, statusMessage: Unauthorized, CMR error message: \\\"You do not have permission to perform that action.\\\"\",\"trace\":[\"Error: Failed to ingest, statusCode: 401, statusMessage: Unauthorized, CMR error message: \\\"You do not have permission to perform that action.\\\"\",\"    at ingestConcept (/var/task/webpack:/src/ingestConcept.ts:70:11)\",\"    at processTicksAndRejections (node:internal/process/task_queues:96:5)\",\"    at CMR.ingestGranule (/var/task/webpack:/src/CMR.ts:211:12)\",\"    at publishECHO10XML2CMR (/var/task/webpack:/src/cmr-utils.js:155:15)\",\"    at publish2CMR (/var/task/webpack:/src/cmr-utils.js:227:12)\",\"    at async Promise.all (index 0)\",\"    at postToCMR (/var/task/webpack:/index.js:131:19)\",\"    at Object.runCumulusTask (/var/task/webpack:/node_modules/@cumulus/cumulus-message-adapter-js/dist/cma.js:221:1)\",\"    at Runtime.handler (/var/task/webpack:/index.js:159:10)\"]}",
+            "resource": "arn:aws:lambda:us-west-2:643705676985:function:lp-prod-PostToCmr"
+          },
+          "execution": "https://console.aws.amazon.com/states/home?region=us-west-2#/executions/details/arn:aws:states:us-west-2:643705676985:execution:lp-prod-IngestGranuleWorkflow-Throttled-Part2:HLSS30_020_forward_sqs_throttled-f7fc9831-e0be-4568-b8d9-936a2bcf3ba4",
+          "published": false,
+          "dbCksum": "7b41fe2eea8304a22c05ad46da6cd860c2870eb65b124f09de4313e8e0a7144bac74a743f02a47acba3dc066ab8dfa1d0ffa89a2faa4307d35de51c897325936",
+          "dbCksumType": "SHA512"
+        },
+        "HLS.S30.T36PWU.2124237T080609.v2.0.B08.tif": {
+          "granuleId": "HLS.S30.T36PWU.2124237T080609.v2.0",
+          "ingestTime": "2024-08-26T02:47:20.000Z",
+          "dbIngestEndTime": "2024-08-26 02:50:25.423000+00:00",
+          "cksum": "NA",
+          "status": "failed",
+          "bucket": "lp-prod-protected",
+          "error": {
+            "timestamp": "2024-08-26 02:50:23.938000+00:00",
+            "error": "Error",
+            "cause": "{\"errorType\":\"Error\",\"errorMessage\":\"Failed to ingest, statusCode: 401, statusMessage: Unauthorized, CMR error message: \\\"You do not have permission to perform that action.\\\"\",\"trace\":[\"Error: Failed to ingest, statusCode: 401, statusMessage: Unauthorized, CMR error message: \\\"You do not have permission to perform that action.\\\"\",\"    at ingestConcept (/var/task/webpack:/src/ingestConcept.ts:70:11)\",\"    at processTicksAndRejections (node:internal/process/task_queues:96:5)\",\"    at CMR.ingestGranule (/var/task/webpack:/src/CMR.ts:211:12)\",\"    at publishECHO10XML2CMR (/var/task/webpack:/src/cmr-utils.js:155:15)\",\"    at publish2CMR (/var/task/webpack:/src/cmr-utils.js:227:12)\",\"    at async Promise.all (index 0)\",\"    at postToCMR (/var/task/webpack:/index.js:131:19)\",\"    at Object.runCumulusTask (/var/task/webpack:/node_modules/@cumulus/cumulus-message-adapter-js/dist/cma.js:221:1)\",\"    at Runtime.handler (/var/task/webpack:/index.js:159:10)\"]}",
+            "resource": "arn:aws:lambda:us-west-2:643705676985:function:lp-prod-PostToCmr"
+          },
+          "execution": "https://console.aws.amazon.com/states/home?region=us-west-2#/executions/details/arn:aws:states:us-west-2:643705676985:execution:lp-prod-IngestGranuleWorkflow-Throttled-Part2:HLSS30_020_forward_sqs_throttled-f7fc9831-e0be-4568-b8d9-936a2bcf3ba4",
+          "published": false,
+          "dbCksum": "62e672105613be586c48f67a72dff488df2cedbe719eba4edbc920a78909c08a31e8c99aff7d20abdc168c33f5d4d49e9a905a8ff8d7ec399d1f88a002d3c02c",
+          "dbCksumType": "SHA512"
+        },
+        "HLS.S30.T36PWU.2124237T080609.v2.0.B09.tif": {
+          "granuleId": "HLS.S30.T36PWU.2124237T080609.v2.0",
+          "ingestTime": "2024-08-26T02:47:20.000Z",
+          "dbIngestEndTime": "2024-08-26 02:50:25.423000+00:00",
+          "cksum": "NA",
+          "status": "failed",
+          "bucket": "lp-prod-protected",
+          "error": {
+            "timestamp": "2024-08-26 02:50:23.938000+00:00",
+            "error": "Error",
+            "cause": "{\"errorType\":\"Error\",\"errorMessage\":\"Failed to ingest, statusCode: 401, statusMessage: Unauthorized, CMR error message: \\\"You do not have permission to perform that action.\\\"\",\"trace\":[\"Error: Failed to ingest, statusCode: 401, statusMessage: Unauthorized, CMR error message: \\\"You do not have permission to perform that action.\\\"\",\"    at ingestConcept (/var/task/webpack:/src/ingestConcept.ts:70:11)\",\"    at processTicksAndRejections (node:internal/process/task_queues:96:5)\",\"    at CMR.ingestGranule (/var/task/webpack:/src/CMR.ts:211:12)\",\"    at publishECHO10XML2CMR (/var/task/webpack:/src/cmr-utils.js:155:15)\",\"    at publish2CMR (/var/task/webpack:/src/cmr-utils.js:227:12)\",\"    at async Promise.all (index 0)\",\"    at postToCMR (/var/task/webpack:/index.js:131:19)\",\"    at Object.runCumulusTask (/var/task/webpack:/node_modules/@cumulus/cumulus-message-adapter-js/dist/cma.js:221:1)\",\"    at Runtime.handler (/var/task/webpack:/index.js:159:10)\"]}",
+            "resource": "arn:aws:lambda:us-west-2:643705676985:function:lp-prod-PostToCmr"
+          },
+          "execution": "https://console.aws.amazon.com/states/home?region=us-west-2#/executions/details/arn:aws:states:us-west-2:643705676985:execution:lp-prod-IngestGranuleWorkflow-Throttled-Part2:HLSS30_020_forward_sqs_throttled-f7fc9831-e0be-4568-b8d9-936a2bcf3ba4",
+          "published": false,
+          "dbCksum": "3fba58b8bec95f003d754f906d09a15789ec034be7b635ef3df152ca6fa85a08519ca7ee25996226382448604e2d6884dfddf3ffad3697534aea1b6ec49d9b9e",
+          "dbCksumType": "SHA512"
+        },
+        "HLS.S30.T36PWU.2124237T080609.v2.0.B10.tif": {
+          "granuleId": "HLS.S30.T36PWU.2124237T080609.v2.0",
+          "ingestTime": "2024-08-26T02:47:20.000Z",
+          "dbIngestEndTime": "2024-08-26 02:50:25.423000+00:00",
+          "cksum": "NA",
+          "status": "failed",
+          "bucket": "lp-prod-protected",
+          "error": {
+            "timestamp": "2024-08-26 02:50:23.938000+00:00",
+            "error": "Error",
+            "cause": "{\"errorType\":\"Error\",\"errorMessage\":\"Failed to ingest, statusCode: 401, statusMessage: Unauthorized, CMR error message: \\\"You do not have permission to perform that action.\\\"\",\"trace\":[\"Error: Failed to ingest, statusCode: 401, statusMessage: Unauthorized, CMR error message: \\\"You do not have permission to perform that action.\\\"\",\"    at ingestConcept (/var/task/webpack:/src/ingestConcept.ts:70:11)\",\"    at processTicksAndRejections (node:internal/process/task_queues:96:5)\",\"    at CMR.ingestGranule (/var/task/webpack:/src/CMR.ts:211:12)\",\"    at publishECHO10XML2CMR (/var/task/webpack:/src/cmr-utils.js:155:15)\",\"    at publish2CMR (/var/task/webpack:/src/cmr-utils.js:227:12)\",\"    at async Promise.all (index 0)\",\"    at postToCMR (/var/task/webpack:/index.js:131:19)\",\"    at Object.runCumulusTask (/var/task/webpack:/node_modules/@cumulus/cumulus-message-adapter-js/dist/cma.js:221:1)\",\"    at Runtime.handler (/var/task/webpack:/index.js:159:10)\"]}",
+            "resource": "arn:aws:lambda:us-west-2:643705676985:function:lp-prod-PostToCmr"
+          },
+          "execution": "https://console.aws.amazon.com/states/home?region=us-west-2#/executions/details/arn:aws:states:us-west-2:643705676985:execution:lp-prod-IngestGranuleWorkflow-Throttled-Part2:HLSS30_020_forward_sqs_throttled-f7fc9831-e0be-4568-b8d9-936a2bcf3ba4",
+          "published": false,
+          "dbCksum": "bb6b8cec1e8b0e87b90dc2f50a4b517902ef45d013a163c4aa682f17173be30f40e2c66abdab77d37b5d440295fa02c1638bc609eace535cec8408432f20beb5",
+          "dbCksumType": "SHA512"
+        },
+        "HLS.S30.T36PWU.2124237T080609.v2.0.B11.tif": {
+          "granuleId": "HLS.S30.T36PWU.2124237T080609.v2.0",
+          "ingestTime": "2024-08-26T02:47:20.000Z",
+          "dbIngestEndTime": "2024-08-26 02:50:25.423000+00:00",
+          "cksum": "NA",
+          "status": "failed",
+          "bucket": "lp-prod-protected",
+          "error": {
+            "timestamp": "2024-08-26 02:50:23.938000+00:00",
+            "error": "Error",
+            "cause": "{\"errorType\":\"Error\",\"errorMessage\":\"Failed to ingest, statusCode: 401, statusMessage: Unauthorized, CMR error message: \\\"You do not have permission to perform that action.\\\"\",\"trace\":[\"Error: Failed to ingest, statusCode: 401, statusMessage: Unauthorized, CMR error message: \\\"You do not have permission to perform that action.\\\"\",\"    at ingestConcept (/var/task/webpack:/src/ingestConcept.ts:70:11)\",\"    at processTicksAndRejections (node:internal/process/task_queues:96:5)\",\"    at CMR.ingestGranule (/var/task/webpack:/src/CMR.ts:211:12)\",\"    at publishECHO10XML2CMR (/var/task/webpack:/src/cmr-utils.js:155:15)\",\"    at publish2CMR (/var/task/webpack:/src/cmr-utils.js:227:12)\",\"    at async Promise.all (index 0)\",\"    at postToCMR (/var/task/webpack:/index.js:131:19)\",\"    at Object.runCumulusTask (/var/task/webpack:/node_modules/@cumulus/cumulus-message-adapter-js/dist/cma.js:221:1)\",\"    at Runtime.handler (/var/task/webpack:/index.js:159:10)\"]}",
+            "resource": "arn:aws:lambda:us-west-2:643705676985:function:lp-prod-PostToCmr"
+          },
+          "execution": "https://console.aws.amazon.com/states/home?region=us-west-2#/executions/details/arn:aws:states:us-west-2:643705676985:execution:lp-prod-IngestGranuleWorkflow-Throttled-Part2:HLSS30_020_forward_sqs_throttled-f7fc9831-e0be-4568-b8d9-936a2bcf3ba4",
+          "published": false,
+          "dbCksum": "15174792431ebc5bdc8f48529547949d9bbb749b3165c6bfac7b24eec4b9f2d801e657a3098c9a989d126a7523774a0c7f2e1c0d13d1d73b3f1af045d47a71dc",
+          "dbCksumType": "SHA512"
+        },
+        "HLS.S30.T36PWU.2124237T080609.v2.0.B12.tif": {
+          "granuleId": "HLS.S30.T36PWU.2124237T080609.v2.0",
+          "ingestTime": "2024-08-26T02:47:21.000Z",
+          "dbIngestEndTime": "2024-08-26 02:50:25.423000+00:00",
+          "cksum": "NA",
+          "status": "failed",
+          "bucket": "lp-prod-protected",
+          "error": {
+            "timestamp": "2024-08-26 02:50:23.938000+00:00",
+            "error": "Error",
+            "cause": "{\"errorType\":\"Error\",\"errorMessage\":\"Failed to ingest, statusCode: 401, statusMessage: Unauthorized, CMR error message: \\\"You do not have permission to perform that action.\\\"\",\"trace\":[\"Error: Failed to ingest, statusCode: 401, statusMessage: Unauthorized, CMR error message: \\\"You do not have permission to perform that action.\\\"\",\"    at ingestConcept (/var/task/webpack:/src/ingestConcept.ts:70:11)\",\"    at processTicksAndRejections (node:internal/process/task_queues:96:5)\",\"    at CMR.ingestGranule (/var/task/webpack:/src/CMR.ts:211:12)\",\"    at publishECHO10XML2CMR (/var/task/webpack:/src/cmr-utils.js:155:15)\",\"    at publish2CMR (/var/task/webpack:/src/cmr-utils.js:227:12)\",\"    at async Promise.all (index 0)\",\"    at postToCMR (/var/task/webpack:/index.js:131:19)\",\"    at Object.runCumulusTask (/var/task/webpack:/node_modules/@cumulus/cumulus-message-adapter-js/dist/cma.js:221:1)\",\"    at Runtime.handler (/var/task/webpack:/index.js:159:10)\"]}",
+            "resource": "arn:aws:lambda:us-west-2:643705676985:function:lp-prod-PostToCmr"
+          },
+          "execution": "https://console.aws.amazon.com/states/home?region=us-west-2#/executions/details/arn:aws:states:us-west-2:643705676985:execution:lp-prod-IngestGranuleWorkflow-Throttled-Part2:HLSS30_020_forward_sqs_throttled-f7fc9831-e0be-4568-b8d9-936a2bcf3ba4",
+          "published": false,
+          "dbCksum": "47def8ee99de34bfe04a6a022d1470ee7ec0a2b0fa0e8b5f3a069e8f601ad84a373babb6fea21aa8edcd9ef815e789695373830d9232a04cf1442154c0b91876",
+          "dbCksumType": "SHA512"
+        },
+        "HLS.S30.T36PWU.2124237T080609.v2.0.B8A.tif": {
+          "granuleId": "HLS.S30.T36PWU.2124237T080609.v2.0",
+          "ingestTime": "2024-08-26T02:47:21.000Z",
+          "dbIngestEndTime": "2024-08-26 02:50:25.423000+00:00",
+          "cksum": "NA",
+          "status": "failed",
+          "bucket": "lp-prod-protected",
+          "error": {
+            "timestamp": "2024-08-26 02:50:23.938000+00:00",
+            "error": "Error",
+            "cause": "{\"errorType\":\"Error\",\"errorMessage\":\"Failed to ingest, statusCode: 401, statusMessage: Unauthorized, CMR error message: \\\"You do not have permission to perform that action.\\\"\",\"trace\":[\"Error: Failed to ingest, statusCode: 401, statusMessage: Unauthorized, CMR error message: \\\"You do not have permission to perform that action.\\\"\",\"    at ingestConcept (/var/task/webpack:/src/ingestConcept.ts:70:11)\",\"    at processTicksAndRejections (node:internal/process/task_queues:96:5)\",\"    at CMR.ingestGranule (/var/task/webpack:/src/CMR.ts:211:12)\",\"    at publishECHO10XML2CMR (/var/task/webpack:/src/cmr-utils.js:155:15)\",\"    at publish2CMR (/var/task/webpack:/src/cmr-utils.js:227:12)\",\"    at async Promise.all (index 0)\",\"    at postToCMR (/var/task/webpack:/index.js:131:19)\",\"    at Object.runCumulusTask (/var/task/webpack:/node_modules/@cumulus/cumulus-message-adapter-js/dist/cma.js:221:1)\",\"    at Runtime.handler (/var/task/webpack:/index.js:159:10)\"]}",
+            "resource": "arn:aws:lambda:us-west-2:643705676985:function:lp-prod-PostToCmr"
+          },
+          "execution": "https://console.aws.amazon.com/states/home?region=us-west-2#/executions/details/arn:aws:states:us-west-2:643705676985:execution:lp-prod-IngestGranuleWorkflow-Throttled-Part2:HLSS30_020_forward_sqs_throttled-f7fc9831-e0be-4568-b8d9-936a2bcf3ba4",
+          "published": false,
+          "dbCksum": "01a01c63d97fed7c7c9c9a4611ebc2dd54b1a09ed8c7fc91b19d06e2e312004d44d9c876370ddecf1e0417c661f2783b6944710d850b697e13604a388feffe40",
+          "dbCksumType": "SHA512"
+        },
+        "HLS.S30.T36PWU.2124237T080609.v2.0.Fmask.tif": {
+          "granuleId": "HLS.S30.T36PWU.2124237T080609.v2.0",
+          "ingestTime": "2024-08-26T02:47:21.000Z",
+          "dbIngestEndTime": "2024-08-26 02:50:25.423000+00:00",
+          "cksum": "NA",
+          "status": "failed",
+          "bucket": "lp-prod-protected",
+          "error": {
+            "timestamp": "2024-08-26 02:50:23.938000+00:00",
+            "error": "Error",
+            "cause": "{\"errorType\":\"Error\",\"errorMessage\":\"Failed to ingest, statusCode: 401, statusMessage: Unauthorized, CMR error message: \\\"You do not have permission to perform that action.\\\"\",\"trace\":[\"Error: Failed to ingest, statusCode: 401, statusMessage: Unauthorized, CMR error message: \\\"You do not have permission to perform that action.\\\"\",\"    at ingestConcept (/var/task/webpack:/src/ingestConcept.ts:70:11)\",\"    at processTicksAndRejections (node:internal/process/task_queues:96:5)\",\"    at CMR.ingestGranule (/var/task/webpack:/src/CMR.ts:211:12)\",\"    at publishECHO10XML2CMR (/var/task/webpack:/src/cmr-utils.js:155:15)\",\"    at publish2CMR (/var/task/webpack:/src/cmr-utils.js:227:12)\",\"    at async Promise.all (index 0)\",\"    at postToCMR (/var/task/webpack:/index.js:131:19)\",\"    at Object.runCumulusTask (/var/task/webpack:/node_modules/@cumulus/cumulus-message-adapter-js/dist/cma.js:221:1)\",\"    at Runtime.handler (/var/task/webpack:/index.js:159:10)\"]}",
+            "resource": "arn:aws:lambda:us-west-2:643705676985:function:lp-prod-PostToCmr"
+          },
+          "execution": "https://console.aws.amazon.com/states/home?region=us-west-2#/executions/details/arn:aws:states:us-west-2:643705676985:execution:lp-prod-IngestGranuleWorkflow-Throttled-Part2:HLSS30_020_forward_sqs_throttled-f7fc9831-e0be-4568-b8d9-936a2bcf3ba4",
+          "published": false,
+          "dbCksum": "712226c4996994da3a5636811752633f2b854c146d3dd688a1e040305fe5cc4f1d1e1c311fb9f2fb8864ede45f34578ef0333f40da576848747ad50f7611a5c6",
+          "dbCksumType": "SHA512"
+        },
+        "HLS.S30.T36PWU.2124237T080609.v2.0.SAA.tif": {
+          "granuleId": "HLS.S30.T36PWU.2124237T080609.v2.0",
+          "ingestTime": "2024-08-26T02:47:21.000Z",
+          "dbIngestEndTime": "2024-08-26 02:50:25.423000+00:00",
+          "cksum": "NA",
+          "status": "failed",
+          "bucket": "lp-prod-protected",
+          "error": {
+            "timestamp": "2024-08-26 02:50:23.938000+00:00",
+            "error": "Error",
+            "cause": "{\"errorType\":\"Error\",\"errorMessage\":\"Failed to ingest, statusCode: 401, statusMessage: Unauthorized, CMR error message: \\\"You do not have permission to perform that action.\\\"\",\"trace\":[\"Error: Failed to ingest, statusCode: 401, statusMessage: Unauthorized, CMR error message: \\\"You do not have permission to perform that action.\\\"\",\"    at ingestConcept (/var/task/webpack:/src/ingestConcept.ts:70:11)\",\"    at processTicksAndRejections (node:internal/process/task_queues:96:5)\",\"    at CMR.ingestGranule (/var/task/webpack:/src/CMR.ts:211:12)\",\"    at publishECHO10XML2CMR (/var/task/webpack:/src/cmr-utils.js:155:15)\",\"    at publish2CMR (/var/task/webpack:/src/cmr-utils.js:227:12)\",\"    at async Promise.all (index 0)\",\"    at postToCMR (/var/task/webpack:/index.js:131:19)\",\"    at Object.runCumulusTask (/var/task/webpack:/node_modules/@cumulus/cumulus-message-adapter-js/dist/cma.js:221:1)\",\"    at Runtime.handler (/var/task/webpack:/index.js:159:10)\"]}",
+            "resource": "arn:aws:lambda:us-west-2:643705676985:function:lp-prod-PostToCmr"
+          },
+          "execution": "https://console.aws.amazon.com/states/home?region=us-west-2#/executions/details/arn:aws:states:us-west-2:643705676985:execution:lp-prod-IngestGranuleWorkflow-Throttled-Part2:HLSS30_020_forward_sqs_throttled-f7fc9831-e0be-4568-b8d9-936a2bcf3ba4",
+          "published": false,
+          "dbCksum": "670e3e1932848cf23632cb6e8055013346907c9e252b6526015a29e238ede4690c4da42f8ea2de4f1708bf779912237aae36ef501864b5e63274f754e6aaae2f",
+          "dbCksumType": "SHA512"
+        },
+        "HLS.S30.T36PWU.2124237T080609.v2.0.SZA.tif": {
+          "granuleId": "HLS.S30.T36PWU.2124237T080609.v2.0",
+          "ingestTime": "2024-08-26T02:47:21.000Z",
+          "dbIngestEndTime": "2024-08-26 02:50:25.423000+00:00",
+          "cksum": "NA",
+          "status": "failed",
+          "bucket": "lp-prod-protected",
+          "error": {
+            "timestamp": "2024-08-26 02:50:23.938000+00:00",
+            "error": "Error",
+            "cause": "{\"errorType\":\"Error\",\"errorMessage\":\"Failed to ingest, statusCode: 401, statusMessage: Unauthorized, CMR error message: \\\"You do not have permission to perform that action.\\\"\",\"trace\":[\"Error: Failed to ingest, statusCode: 401, statusMessage: Unauthorized, CMR error message: \\\"You do not have permission to perform that action.\\\"\",\"    at ingestConcept (/var/task/webpack:/src/ingestConcept.ts:70:11)\",\"    at processTicksAndRejections (node:internal/process/task_queues:96:5)\",\"    at CMR.ingestGranule (/var/task/webpack:/src/CMR.ts:211:12)\",\"    at publishECHO10XML2CMR (/var/task/webpack:/src/cmr-utils.js:155:15)\",\"    at publish2CMR (/var/task/webpack:/src/cmr-utils.js:227:12)\",\"    at async Promise.all (index 0)\",\"    at postToCMR (/var/task/webpack:/index.js:131:19)\",\"    at Object.runCumulusTask (/var/task/webpack:/node_modules/@cumulus/cumulus-message-adapter-js/dist/cma.js:221:1)\",\"    at Runtime.handler (/var/task/webpack:/index.js:159:10)\"]}",
+            "resource": "arn:aws:lambda:us-west-2:643705676985:function:lp-prod-PostToCmr"
+          },
+          "execution": "https://console.aws.amazon.com/states/home?region=us-west-2#/executions/details/arn:aws:states:us-west-2:643705676985:execution:lp-prod-IngestGranuleWorkflow-Throttled-Part2:HLSS30_020_forward_sqs_throttled-f7fc9831-e0be-4568-b8d9-936a2bcf3ba4",
+          "published": false,
+          "dbCksum": "4d579d58e561744236ffcf8f95981525b06bae27211a087dfbb8e0d273a79b03a76bd4794d4c9ef9aaf755203b831d30449a41e82c181857cb234dfdb4d39261",
+          "dbCksumType": "SHA512"
+        },
+        "HLS.S30.T36PWU.2124237T080609.v2.0.VAA.tif": {
+          "granuleId": "HLS.S30.T36PWU.2124237T080609.v2.0",
+          "ingestTime": "2024-08-26T02:47:21.000Z",
+          "dbIngestEndTime": "2024-08-26 02:50:25.423000+00:00",
+          "cksum": "NA",
+          "status": "failed",
+          "bucket": "lp-prod-protected",
+          "error": {
+            "timestamp": "2024-08-26 02:50:23.938000+00:00",
+            "error": "Error",
+            "cause": "{\"errorType\":\"Error\",\"errorMessage\":\"Failed to ingest, statusCode: 401, statusMessage: Unauthorized, CMR error message: \\\"You do not have permission to perform that action.\\\"\",\"trace\":[\"Error: Failed to ingest, statusCode: 401, statusMessage: Unauthorized, CMR error message: \\\"You do not have permission to perform that action.\\\"\",\"    at ingestConcept (/var/task/webpack:/src/ingestConcept.ts:70:11)\",\"    at processTicksAndRejections (node:internal/process/task_queues:96:5)\",\"    at CMR.ingestGranule (/var/task/webpack:/src/CMR.ts:211:12)\",\"    at publishECHO10XML2CMR (/var/task/webpack:/src/cmr-utils.js:155:15)\",\"    at publish2CMR (/var/task/webpack:/src/cmr-utils.js:227:12)\",\"    at async Promise.all (index 0)\",\"    at postToCMR (/var/task/webpack:/index.js:131:19)\",\"    at Object.runCumulusTask (/var/task/webpack:/node_modules/@cumulus/cumulus-message-adapter-js/dist/cma.js:221:1)\",\"    at Runtime.handler (/var/task/webpack:/index.js:159:10)\"]}",
+            "resource": "arn:aws:lambda:us-west-2:643705676985:function:lp-prod-PostToCmr"
+          },
+          "execution": "https://console.aws.amazon.com/states/home?region=us-west-2#/executions/details/arn:aws:states:us-west-2:643705676985:execution:lp-prod-IngestGranuleWorkflow-Throttled-Part2:HLSS30_020_forward_sqs_throttled-f7fc9831-e0be-4568-b8d9-936a2bcf3ba4",
+          "published": false,
+          "dbCksum": "2de3835f3373fab4392bf146a2f929eeb048476e229d2bb2d469b6360a934f045748c9f8893b428d6ac304d1302ba7c1cf1b28ea6fb8ce990c4f89664f556973",
+          "dbCksumType": "SHA512"
+        },
+        "HLS.S30.T36PWU.2124237T080609.v2.0.VZA.tif": {
+          "granuleId": "HLS.S30.T36PWU.2124237T080609.v2.0",
+          "ingestTime": "2024-08-26T02:47:21.000Z",
+          "dbIngestEndTime": "2024-08-26 02:50:25.423000+00:00",
+          "cksum": "NA",
+          "status": "failed",
+          "bucket": "lp-prod-protected",
+          "error": {
+            "timestamp": "2024-08-26 02:50:23.938000+00:00",
+            "error": "Error",
+            "cause": "{\"errorType\":\"Error\",\"errorMessage\":\"Failed to ingest, statusCode: 401, statusMessage: Unauthorized, CMR error message: \\\"You do not have permission to perform that action.\\\"\",\"trace\":[\"Error: Failed to ingest, statusCode: 401, statusMessage: Unauthorized, CMR error message: \\\"You do not have permission to perform that action.\\\"\",\"    at ingestConcept (/var/task/webpack:/src/ingestConcept.ts:70:11)\",\"    at processTicksAndRejections (node:internal/process/task_queues:96:5)\",\"    at CMR.ingestGranule (/var/task/webpack:/src/CMR.ts:211:12)\",\"    at publishECHO10XML2CMR (/var/task/webpack:/src/cmr-utils.js:155:15)\",\"    at publish2CMR (/var/task/webpack:/src/cmr-utils.js:227:12)\",\"    at async Promise.all (index 0)\",\"    at postToCMR (/var/task/webpack:/index.js:131:19)\",\"    at Object.runCumulusTask (/var/task/webpack:/node_modules/@cumulus/cumulus-message-adapter-js/dist/cma.js:221:1)\",\"    at Runtime.handler (/var/task/webpack:/index.js:159:10)\"]}",
+            "resource": "arn:aws:lambda:us-west-2:643705676985:function:lp-prod-PostToCmr"
+          },
+          "execution": "https://console.aws.amazon.com/states/home?region=us-west-2#/executions/details/arn:aws:states:us-west-2:643705676985:execution:lp-prod-IngestGranuleWorkflow-Throttled-Part2:HLSS30_020_forward_sqs_throttled-f7fc9831-e0be-4568-b8d9-936a2bcf3ba4",
+          "published": false,
+          "dbCksum": "2fdec8411673bc03252a97ca97fedc6811c7efab9a10384759735831d7ddf91b0dfa967ebbcd67903b6eaea62e0613c4fd9e755be3c81023062cc0a503b07c5d",
+          "dbCksumType": "SHA512"
+        },
+        "HLS.S30.T36PWU.2124237T080609.v2.0.cmr.xml": {
+          "granuleId": "HLS.S30.T36PWU.2124237T080609.v2.0",
+          "ingestTime": "2024-08-26T02:47:21.000Z",
+          "dbIngestEndTime": "2024-08-26 02:50:25.423000+00:00",
+          "cksum": "NA",
+          "status": "failed",
+          "bucket": "lp-prod-protected",
+          "error": {
+            "timestamp": "2024-08-26 02:50:23.938000+00:00",
+            "error": "Error",
+            "cause": "{\"errorType\":\"Error\",\"errorMessage\":\"Failed to ingest, statusCode: 401, statusMessage: Unauthorized, CMR error message: \\\"You do not have permission to perform that action.\\\"\",\"trace\":[\"Error: Failed to ingest, statusCode: 401, statusMessage: Unauthorized, CMR error message: \\\"You do not have permission to perform that action.\\\"\",\"    at ingestConcept (/var/task/webpack:/src/ingestConcept.ts:70:11)\",\"    at processTicksAndRejections (node:internal/process/task_queues:96:5)\",\"    at CMR.ingestGranule (/var/task/webpack:/src/CMR.ts:211:12)\",\"    at publishECHO10XML2CMR (/var/task/webpack:/src/cmr-utils.js:155:15)\",\"    at publish2CMR (/var/task/webpack:/src/cmr-utils.js:227:12)\",\"    at async Promise.all (index 0)\",\"    at postToCMR (/var/task/webpack:/index.js:131:19)\",\"    at Object.runCumulusTask (/var/task/webpack:/node_modules/@cumulus/cumulus-message-adapter-js/dist/cma.js:221:1)\",\"    at Runtime.handler (/var/task/webpack:/index.js:159:10)\"]}",
+            "resource": "arn:aws:lambda:us-west-2:643705676985:function:lp-prod-PostToCmr"
+          },
+          "execution": "https://console.aws.amazon.com/states/home?region=us-west-2#/executions/details/arn:aws:states:us-west-2:643705676985:execution:lp-prod-IngestGranuleWorkflow-Throttled-Part2:HLSS30_020_forward_sqs_throttled-f7fc9831-e0be-4568-b8d9-936a2bcf3ba4",
+          "published": false,
+          "dbCksum": "879b90c1e4df473215286d4a0dcdd2e1fa491f4d07710b499f6298ae9b6a20a8772df8c434c74db35d62cb31ac430bb2f41fcfc030d1f96f39fe2292ca95be49",
+          "dbCksumType": "SHA512"
+        },
+        "HLS.S30.T36PWU.2124237T080609.v2.0.jpg": {
+          "granuleId": "HLS.S30.T36PWU.2124237T080609.v2.0",
+          "ingestTime": "2024-08-26T02:47:21.000Z",
+          "dbIngestEndTime": "2024-08-26 02:50:25.423000+00:00",
+          "cksum": "NA",
+          "status": "failed",
+          "bucket": "lp-prod-public",
+          "error": {
+            "timestamp": "2024-08-26 02:50:23.938000+00:00",
+            "error": "Error",
+            "cause": "{\"errorType\":\"Error\",\"errorMessage\":\"Failed to ingest, statusCode: 401, statusMessage: Unauthorized, CMR error message: \\\"You do not have permission to perform that action.\\\"\",\"trace\":[\"Error: Failed to ingest, statusCode: 401, statusMessage: Unauthorized, CMR error message: \\\"You do not have permission to perform that action.\\\"\",\"    at ingestConcept (/var/task/webpack:/src/ingestConcept.ts:70:11)\",\"    at processTicksAndRejections (node:internal/process/task_queues:96:5)\",\"    at CMR.ingestGranule (/var/task/webpack:/src/CMR.ts:211:12)\",\"    at publishECHO10XML2CMR (/var/task/webpack:/src/cmr-utils.js:155:15)\",\"    at publish2CMR (/var/task/webpack:/src/cmr-utils.js:227:12)\",\"    at async Promise.all (index 0)\",\"    at postToCMR (/var/task/webpack:/index.js:131:19)\",\"    at Object.runCumulusTask (/var/task/webpack:/node_modules/@cumulus/cumulus-message-adapter-js/dist/cma.js:221:1)\",\"    at Runtime.handler (/var/task/webpack:/index.js:159:10)\"]}",
+            "resource": "arn:aws:lambda:us-west-2:643705676985:function:lp-prod-PostToCmr"
+          },
+          "execution": "https://console.aws.amazon.com/states/home?region=us-west-2#/executions/details/arn:aws:states:us-west-2:643705676985:execution:lp-prod-IngestGranuleWorkflow-Throttled-Part2:HLSS30_020_forward_sqs_throttled-f7fc9831-e0be-4568-b8d9-936a2bcf3ba4",
+          "published": false,
+          "dbCksum": "391f2353e7ecef9bf33a9d465df39db5b72cd46be95864bdfce67cf4ed41a03180d815330dd7bd0bcb814f39184d3d02528ced89b565fa07ab6ce46109e80335",
+          "dbCksumType": "SHA512"
+        },
+        "HLS.S30.T36PWU.2124237T080609.v2.0_stac.json": {
+          "granuleId": "HLS.S30.T36PWU.2124237T080609.v2.0",
+          "ingestTime": "2024-08-26T02:47:21.000Z",
+          "dbIngestEndTime": "2024-08-26 02:50:25.423000+00:00",
+          "cksum": "NA",
+          "status": "failed",
+          "bucket": "lp-prod-public",
+          "error": {
+            "timestamp": "2024-08-26 02:50:23.938000+00:00",
+            "error": "Error",
+            "cause": "{\"errorType\":\"Error\",\"errorMessage\":\"Failed to ingest, statusCode: 401, statusMessage: Unauthorized, CMR error message: \\\"You do not have permission to perform that action.\\\"\",\"trace\":[\"Error: Failed to ingest, statusCode: 401, statusMessage: Unauthorized, CMR error message: \\\"You do not have permission to perform that action.\\\"\",\"    at ingestConcept (/var/task/webpack:/src/ingestConcept.ts:70:11)\",\"    at processTicksAndRejections (node:internal/process/task_queues:96:5)\",\"    at CMR.ingestGranule (/var/task/webpack:/src/CMR.ts:211:12)\",\"    at publishECHO10XML2CMR (/var/task/webpack:/src/cmr-utils.js:155:15)\",\"    at publish2CMR (/var/task/webpack:/src/cmr-utils.js:227:12)\",\"    at async Promise.all (index 0)\",\"    at postToCMR (/var/task/webpack:/index.js:131:19)\",\"    at Object.runCumulusTask (/var/task/webpack:/node_modules/@cumulus/cumulus-message-adapter-js/dist/cma.js:221:1)\",\"    at Runtime.handler (/var/task/webpack:/index.js:159:10)\"]}",
+            "resource": "arn:aws:lambda:us-west-2:643705676985:function:lp-prod-PostToCmr"
+          },
+          "execution": "https://console.aws.amazon.com/states/home?region=us-west-2#/executions/details/arn:aws:states:us-west-2:643705676985:execution:lp-prod-IngestGranuleWorkflow-Throttled-Part2:HLSS30_020_forward_sqs_throttled-f7fc9831-e0be-4568-b8d9-936a2bcf3ba4",
+          "published": false,
+          "dbCksum": "3abf85e0eceaa68f0bd500d5e2848027dc3afba48e7d624ffeeae74ef6e4f8e98a09f7d4ae4e2d89f91ec6e6437be861663eeb27d9e9bfb9a59ca065161c83f1",
+          "dbCksumType": "SHA512"
+        },
+        "HLS.S30.T46TDQ.2024237T044659.v2.0.B01.tif": {
+          "granuleId": "HLS.S30.T46TDQ.2024237T044659.v2.0",
+          "ingestTime": "2024-08-26T02:49:19.000Z",
+          "dbIngestEndTime": "2024-08-26 02:52:26.334000+00:00",
+          "cksum": "NA",
+          "status": "failed",
+          "bucket": "lp-prod-protected",
+          "error": {
+            "timestamp": "2024-08-26 02:52:24.584000+00:00",
+            "error": "Error",
+            "cause": "{\"errorType\":\"Error\",\"errorMessage\":\"Failed to ingest, statusCode: 401, statusMessage: Unauthorized, CMR error message: \\\"You do not have permission to perform that action.\\\"\",\"trace\":[\"Error: Failed to ingest, statusCode: 401, statusMessage: Unauthorized, CMR error message: \\\"You do not have permission to perform that action.\\\"\",\"    at ingestConcept (/var/task/webpack:/src/ingestConcept.ts:70:11)\",\"    at runMicrotasks (<anonymous>)\",\"    at processTicksAndRejections (node:internal/process/task_queues:96:5)\",\"    at CMR.ingestGranule (/var/task/webpack:/src/CMR.ts:211:12)\",\"    at publishECHO10XML2CMR (/var/task/webpack:/src/cmr-utils.js:155:15)\",\"    at publish2CMR (/var/task/webpack:/src/cmr-utils.js:227:12)\",\"    at async Promise.all (index 0)\",\"    at postToCMR (/var/task/webpack:/index.js:131:19)\",\"    at Object.runCumulusTask (/var/task/webpack:/node_modules/@cumulus/cumulus-message-adapter-js/dist/cma.js:221:1)\",\"    at Runtime.handler (/var/task/webpack:/index.js:159:10)\"]}",
+            "resource": "arn:aws:lambda:us-west-2:643705676985:function:lp-prod-PostToCmr"
+          },
+          "execution": "https://console.aws.amazon.com/states/home?region=us-west-2#/executions/details/arn:aws:states:us-west-2:643705676985:execution:lp-prod-IngestGranuleWorkflow-Throttled-Part2:HLSS30_020_forward_sqs_throttled-b6930d6c-08e0-44a1-9959-9a3151e4b335",
+          "published": false,
+          "dbCksum": "2c13554671f03719e43c8592258e91d5654132e16185cfd2a181139d793cf1f63e3672133725d0063b96f410ee5f53e040202c4dce71166dbb080d6b5751cfda",
+          "dbCksumType": "SHA512"
+        },
+        "HLS.S30.T46TDQ.2024237T044659.v2.0.B02.tif": {
+          "granuleId": "HLS.S30.T46TDQ.2024237T044659.v2.0",
+          "ingestTime": "2024-08-26T02:49:19.000Z",
+          "dbIngestEndTime": "2024-08-26 02:52:26.334000+00:00",
+          "cksum": "NA",
+          "status": "failed",
+          "bucket": "lp-prod-protected",
+          "error": {
+            "timestamp": "2024-08-26 02:52:24.584000+00:00",
+            "error": "Error",
+            "cause": "{\"errorType\":\"Error\",\"errorMessage\":\"Failed to ingest, statusCode: 401, statusMessage: Unauthorized, CMR error message: \\\"You do not have permission to perform that action.\\\"\",\"trace\":[\"Error: Failed to ingest, statusCode: 401, statusMessage: Unauthorized, CMR error message: \\\"You do not have permission to perform that action.\\\"\",\"    at ingestConcept (/var/task/webpack:/src/ingestConcept.ts:70:11)\",\"    at runMicrotasks (<anonymous>)\",\"    at processTicksAndRejections (node:internal/process/task_queues:96:5)\",\"    at CMR.ingestGranule (/var/task/webpack:/src/CMR.ts:211:12)\",\"    at publishECHO10XML2CMR (/var/task/webpack:/src/cmr-utils.js:155:15)\",\"    at publish2CMR (/var/task/webpack:/src/cmr-utils.js:227:12)\",\"    at async Promise.all (index 0)\",\"    at postToCMR (/var/task/webpack:/index.js:131:19)\",\"    at Object.runCumulusTask (/var/task/webpack:/node_modules/@cumulus/cumulus-message-adapter-js/dist/cma.js:221:1)\",\"    at Runtime.handler (/var/task/webpack:/index.js:159:10)\"]}",
+            "resource": "arn:aws:lambda:us-west-2:643705676985:function:lp-prod-PostToCmr"
+          },
+          "execution": "https://console.aws.amazon.com/states/home?region=us-west-2#/executions/details/arn:aws:states:us-west-2:643705676985:execution:lp-prod-IngestGranuleWorkflow-Throttled-Part2:HLSS30_020_forward_sqs_throttled-b6930d6c-08e0-44a1-9959-9a3151e4b335",
+          "published": false,
+          "dbCksum": "e6423841986354d5170954779646bc7e943a8f0e7c263e89c8529c2e7e5c6f297839adf30da625343b667362797d736243672ff48235d0d5dfce04d4c74c2752",
+          "dbCksumType": "SHA512"
+        },
+        "HLS.S30.T46TDQ.2024237T044659.v2.0.B03.tif": {
+          "granuleId": "HLS.S30.T46TDQ.2024237T044659.v2.0",
+          "ingestTime": "2024-08-26T02:49:19.000Z",
+          "dbIngestEndTime": "2024-08-26 02:52:26.334000+00:00",
+          "cksum": "NA",
+          "status": "failed",
+          "bucket": "lp-prod-protected",
+          "error": {
+            "timestamp": "2024-08-26 02:52:24.584000+00:00",
+            "error": "Error",
+            "cause": "{\"errorType\":\"Error\",\"errorMessage\":\"Failed to ingest, statusCode: 401, statusMessage: Unauthorized, CMR error message: \\\"You do not have permission to perform that action.\\\"\",\"trace\":[\"Error: Failed to ingest, statusCode: 401, statusMessage: Unauthorized, CMR error message: \\\"You do not have permission to perform that action.\\\"\",\"    at ingestConcept (/var/task/webpack:/src/ingestConcept.ts:70:11)\",\"    at runMicrotasks (<anonymous>)\",\"    at processTicksAndRejections (node:internal/process/task_queues:96:5)\",\"    at CMR.ingestGranule (/var/task/webpack:/src/CMR.ts:211:12)\",\"    at publishECHO10XML2CMR (/var/task/webpack:/src/cmr-utils.js:155:15)\",\"    at publish2CMR (/var/task/webpack:/src/cmr-utils.js:227:12)\",\"    at async Promise.all (index 0)\",\"    at postToCMR (/var/task/webpack:/index.js:131:19)\",\"    at Object.runCumulusTask (/var/task/webpack:/node_modules/@cumulus/cumulus-message-adapter-js/dist/cma.js:221:1)\",\"    at Runtime.handler (/var/task/webpack:/index.js:159:10)\"]}",
+            "resource": "arn:aws:lambda:us-west-2:643705676985:function:lp-prod-PostToCmr"
+          },
+          "execution": "https://console.aws.amazon.com/states/home?region=us-west-2#/executions/details/arn:aws:states:us-west-2:643705676985:execution:lp-prod-IngestGranuleWorkflow-Throttled-Part2:HLSS30_020_forward_sqs_throttled-b6930d6c-08e0-44a1-9959-9a3151e4b335",
+          "published": false,
+          "dbCksum": "ca33349da3ae8596d5bfe2b61a6c9846503e2203099c15d2e8ea07f59a5ef0cfded53f7bd1a0471a74fc647e92367d5fec327cd4de2eae2b67c9d173daa427e4",
+          "dbCksumType": "SHA512"
+        },
+        "HLS.S30.T46TDQ.2024237T044659.v2.0.B04.tif": {
+          "granuleId": "HLS.S30.T46TDQ.2024237T044659.v2.0",
+          "ingestTime": "2024-08-26T02:49:19.000Z",
+          "dbIngestEndTime": "2024-08-26 02:52:26.334000+00:00",
+          "cksum": "NA",
+          "status": "failed",
+          "bucket": "lp-prod-protected",
+          "error": {
+            "timestamp": "2024-08-26 02:52:24.584000+00:00",
+            "error": "Error",
+            "cause": "{\"errorType\":\"Error\",\"errorMessage\":\"Failed to ingest, statusCode: 401, statusMessage: Unauthorized, CMR error message: \\\"You do not have permission to perform that action.\\\"\",\"trace\":[\"Error: Failed to ingest, statusCode: 401, statusMessage: Unauthorized, CMR error message: \\\"You do not have permission to perform that action.\\\"\",\"    at ingestConcept (/var/task/webpack:/src/ingestConcept.ts:70:11)\",\"    at runMicrotasks (<anonymous>)\",\"    at processTicksAndRejections (node:internal/process/task_queues:96:5)\",\"    at CMR.ingestGranule (/var/task/webpack:/src/CMR.ts:211:12)\",\"    at publishECHO10XML2CMR (/var/task/webpack:/src/cmr-utils.js:155:15)\",\"    at publish2CMR (/var/task/webpack:/src/cmr-utils.js:227:12)\",\"    at async Promise.all (index 0)\",\"    at postToCMR (/var/task/webpack:/index.js:131:19)\",\"    at Object.runCumulusTask (/var/task/webpack:/node_modules/@cumulus/cumulus-message-adapter-js/dist/cma.js:221:1)\",\"    at Runtime.handler (/var/task/webpack:/index.js:159:10)\"]}",
+            "resource": "arn:aws:lambda:us-west-2:643705676985:function:lp-prod-PostToCmr"
+          },
+          "execution": "https://console.aws.amazon.com/states/home?region=us-west-2#/executions/details/arn:aws:states:us-west-2:643705676985:execution:lp-prod-IngestGranuleWorkflow-Throttled-Part2:HLSS30_020_forward_sqs_throttled-b6930d6c-08e0-44a1-9959-9a3151e4b335",
+          "published": false,
+          "dbCksum": "ff4f1b4c9f9d86751a36f2303c8967b8839a1745f3f44dfbd62a65187a947b4b759b6ff19227d49e3bbe8b8f295c24eaab7d3ab854a15ecbe6e4650e8b3dcc0a",
+          "dbCksumType": "SHA512"
+        },
+        "HLS.S30.T46TDQ.2024237T044659.v2.0.B05.tif": {
+          "granuleId": "HLS.S30.T46TDQ.2024237T044659.v2.0",
+          "ingestTime": "2024-08-26T02:49:19.000Z",
+          "dbIngestEndTime": "2024-08-26 02:52:26.334000+00:00",
+          "cksum": "NA",
+          "status": "failed",
+          "bucket": "lp-prod-protected",
+          "error": {
+            "timestamp": "2024-08-26 02:52:24.584000+00:00",
+            "error": "Error",
+            "cause": "{\"errorType\":\"Error\",\"errorMessage\":\"Failed to ingest, statusCode: 401, statusMessage: Unauthorized, CMR error message: \\\"You do not have permission to perform that action.\\\"\",\"trace\":[\"Error: Failed to ingest, statusCode: 401, statusMessage: Unauthorized, CMR error message: \\\"You do not have permission to perform that action.\\\"\",\"    at ingestConcept (/var/task/webpack:/src/ingestConcept.ts:70:11)\",\"    at runMicrotasks (<anonymous>)\",\"    at processTicksAndRejections (node:internal/process/task_queues:96:5)\",\"    at CMR.ingestGranule (/var/task/webpack:/src/CMR.ts:211:12)\",\"    at publishECHO10XML2CMR (/var/task/webpack:/src/cmr-utils.js:155:15)\",\"    at publish2CMR (/var/task/webpack:/src/cmr-utils.js:227:12)\",\"    at async Promise.all (index 0)\",\"    at postToCMR (/var/task/webpack:/index.js:131:19)\",\"    at Object.runCumulusTask (/var/task/webpack:/node_modules/@cumulus/cumulus-message-adapter-js/dist/cma.js:221:1)\",\"    at Runtime.handler (/var/task/webpack:/index.js:159:10)\"]}",
+            "resource": "arn:aws:lambda:us-west-2:643705676985:function:lp-prod-PostToCmr"
+          },
+          "execution": "https://console.aws.amazon.com/states/home?region=us-west-2#/executions/details/arn:aws:states:us-west-2:643705676985:execution:lp-prod-IngestGranuleWorkflow-Throttled-Part2:HLSS30_020_forward_sqs_throttled-b6930d6c-08e0-44a1-9959-9a3151e4b335",
+          "published": false,
+          "dbCksum": "191641d987887b649b8254c34b9754dac36f0cc6cc067ccf0952e586eee3bf509a63c09842b6399a6a1cb1e1ee249add32a850646647daaf9d26aae940065245",
+          "dbCksumType": "SHA512"
+        },
+        "HLS.S30.T46TDQ.2024237T044659.v2.0.B06.tif": {
+          "granuleId": "HLS.S30.T46TDQ.2024237T044659.v2.0",
+          "ingestTime": "2024-08-26T02:49:20.000Z",
+          "dbIngestEndTime": "2024-08-26 02:52:26.334000+00:00",
+          "cksum": "NA",
+          "status": "failed",
+          "bucket": "lp-prod-protected",
+          "error": {
+            "timestamp": "2024-08-26 02:52:24.584000+00:00",
+            "error": "Error",
+            "cause": "{\"errorType\":\"Error\",\"errorMessage\":\"Failed to ingest, statusCode: 401, statusMessage: Unauthorized, CMR error message: \\\"You do not have permission to perform that action.\\\"\",\"trace\":[\"Error: Failed to ingest, statusCode: 401, statusMessage: Unauthorized, CMR error message: \\\"You do not have permission to perform that action.\\\"\",\"    at ingestConcept (/var/task/webpack:/src/ingestConcept.ts:70:11)\",\"    at runMicrotasks (<anonymous>)\",\"    at processTicksAndRejections (node:internal/process/task_queues:96:5)\",\"    at CMR.ingestGranule (/var/task/webpack:/src/CMR.ts:211:12)\",\"    at publishECHO10XML2CMR (/var/task/webpack:/src/cmr-utils.js:155:15)\",\"    at publish2CMR (/var/task/webpack:/src/cmr-utils.js:227:12)\",\"    at async Promise.all (index 0)\",\"    at postToCMR (/var/task/webpack:/index.js:131:19)\",\"    at Object.runCumulusTask (/var/task/webpack:/node_modules/@cumulus/cumulus-message-adapter-js/dist/cma.js:221:1)\",\"    at Runtime.handler (/var/task/webpack:/index.js:159:10)\"]}",
+            "resource": "arn:aws:lambda:us-west-2:643705676985:function:lp-prod-PostToCmr"
+          },
+          "execution": "https://console.aws.amazon.com/states/home?region=us-west-2#/executions/details/arn:aws:states:us-west-2:643705676985:execution:lp-prod-IngestGranuleWorkflow-Throttled-Part2:HLSS30_020_forward_sqs_throttled-b6930d6c-08e0-44a1-9959-9a3151e4b335",
+          "published": false,
+          "dbCksum": "288e2723e4b5602fd53d5ea15f65c579ec208742d0cbe053bd5bd9dc2bd495c4a68c5802d5c960ce6109fde128b5b5e16e1d6d0106a7a1ba337c3124faf007a4",
+          "dbCksumType": "SHA512"
+        },
+        "HLS.S30.T46TDQ.2024237T044659.v2.0.B07.tif": {
+          "granuleId": "HLS.S30.T46TDQ.2024237T044659.v2.0",
+          "ingestTime": "2024-08-26T02:49:20.000Z",
+          "dbIngestEndTime": "2024-08-26 02:52:26.334000+00:00",
+          "cksum": "NA",
+          "status": "failed",
+          "bucket": "lp-prod-protected",
+          "error": {
+            "timestamp": "2024-08-26 02:52:24.584000+00:00",
+            "error": "Error",
+            "cause": "{\"errorType\":\"Error\",\"errorMessage\":\"Failed to ingest, statusCode: 401, statusMessage: Unauthorized, CMR error message: \\\"You do not have permission to perform that action.\\\"\",\"trace\":[\"Error: Failed to ingest, statusCode: 401, statusMessage: Unauthorized, CMR error message: \\\"You do not have permission to perform that action.\\\"\",\"    at ingestConcept (/var/task/webpack:/src/ingestConcept.ts:70:11)\",\"    at runMicrotasks (<anonymous>)\",\"    at processTicksAndRejections (node:internal/process/task_queues:96:5)\",\"    at CMR.ingestGranule (/var/task/webpack:/src/CMR.ts:211:12)\",\"    at publishECHO10XML2CMR (/var/task/webpack:/src/cmr-utils.js:155:15)\",\"    at publish2CMR (/var/task/webpack:/src/cmr-utils.js:227:12)\",\"    at async Promise.all (index 0)\",\"    at postToCMR (/var/task/webpack:/index.js:131:19)\",\"    at Object.runCumulusTask (/var/task/webpack:/node_modules/@cumulus/cumulus-message-adapter-js/dist/cma.js:221:1)\",\"    at Runtime.handler (/var/task/webpack:/index.js:159:10)\"]}",
+            "resource": "arn:aws:lambda:us-west-2:643705676985:function:lp-prod-PostToCmr"
+          },
+          "execution": "https://console.aws.amazon.com/states/home?region=us-west-2#/executions/details/arn:aws:states:us-west-2:643705676985:execution:lp-prod-IngestGranuleWorkflow-Throttled-Part2:HLSS30_020_forward_sqs_throttled-b6930d6c-08e0-44a1-9959-9a3151e4b335",
+          "published": false,
+          "dbCksum": "5967da44c7e66c87f1d07fe1d6d257a50e4b07afc59af0377abf1d4545d89cbf2cc9efaf4059c580ab5cb2d6a5f8daa1a89cd3ba982a1f5c1185ed9d0998a6b1",
+          "dbCksumType": "SHA512"
+        },
+        "HLS.S30.T46TDQ.2024237T044659.v2.0.B08.tif": {
+          "granuleId": "HLS.S30.T46TDQ.2024237T044659.v2.0",
+          "ingestTime": "2024-08-26T02:49:20.000Z",
+          "dbIngestEndTime": "2024-08-26 02:52:26.334000+00:00",
+          "cksum": "NA",
+          "status": "failed",
+          "bucket": "lp-prod-protected",
+          "error": {
+            "timestamp": "2024-08-26 02:52:24.584000+00:00",
+            "error": "Error",
+            "cause": "{\"errorType\":\"Error\",\"errorMessage\":\"Failed to ingest, statusCode: 401, statusMessage: Unauthorized, CMR error message: \\\"You do not have permission to perform that action.\\\"\",\"trace\":[\"Error: Failed to ingest, statusCode: 401, statusMessage: Unauthorized, CMR error message: \\\"You do not have permission to perform that action.\\\"\",\"    at ingestConcept (/var/task/webpack:/src/ingestConcept.ts:70:11)\",\"    at runMicrotasks (<anonymous>)\",\"    at processTicksAndRejections (node:internal/process/task_queues:96:5)\",\"    at CMR.ingestGranule (/var/task/webpack:/src/CMR.ts:211:12)\",\"    at publishECHO10XML2CMR (/var/task/webpack:/src/cmr-utils.js:155:15)\",\"    at publish2CMR (/var/task/webpack:/src/cmr-utils.js:227:12)\",\"    at async Promise.all (index 0)\",\"    at postToCMR (/var/task/webpack:/index.js:131:19)\",\"    at Object.runCumulusTask (/var/task/webpack:/node_modules/@cumulus/cumulus-message-adapter-js/dist/cma.js:221:1)\",\"    at Runtime.handler (/var/task/webpack:/index.js:159:10)\"]}",
+            "resource": "arn:aws:lambda:us-west-2:643705676985:function:lp-prod-PostToCmr"
+          },
+          "execution": "https://console.aws.amazon.com/states/home?region=us-west-2#/executions/details/arn:aws:states:us-west-2:643705676985:execution:lp-prod-IngestGranuleWorkflow-Throttled-Part2:HLSS30_020_forward_sqs_throttled-b6930d6c-08e0-44a1-9959-9a3151e4b335",
+          "published": false,
+          "dbCksum": "85286cca86f32a7fb795607cfcc94711e62731def3201036c766a18ac63edc2ce0c046a276f812ffa1e9f14bea6db33286fbcfa1e88a76b4a8829cd5afb5ca7b",
+          "dbCksumType": "SHA512"
+        },
+        "HLS.S30.T46TDQ.2024237T044659.v2.0.B09.tif": {
+          "granuleId": "HLS.S30.T46TDQ.2024237T044659.v2.0",
+          "ingestTime": "2024-08-26T02:49:20.000Z",
+          "dbIngestEndTime": "2024-08-26 02:52:26.334000+00:00",
+          "cksum": "NA",
+          "status": "failed",
+          "bucket": "lp-prod-protected",
+          "error": {
+            "timestamp": "2024-08-26 02:52:24.584000+00:00",
+            "error": "Error",
+            "cause": "{\"errorType\":\"Error\",\"errorMessage\":\"Failed to ingest, statusCode: 401, statusMessage: Unauthorized, CMR error message: \\\"You do not have permission to perform that action.\\\"\",\"trace\":[\"Error: Failed to ingest, statusCode: 401, statusMessage: Unauthorized, CMR error message: \\\"You do not have permission to perform that action.\\\"\",\"    at ingestConcept (/var/task/webpack:/src/ingestConcept.ts:70:11)\",\"    at runMicrotasks (<anonymous>)\",\"    at processTicksAndRejections (node:internal/process/task_queues:96:5)\",\"    at CMR.ingestGranule (/var/task/webpack:/src/CMR.ts:211:12)\",\"    at publishECHO10XML2CMR (/var/task/webpack:/src/cmr-utils.js:155:15)\",\"    at publish2CMR (/var/task/webpack:/src/cmr-utils.js:227:12)\",\"    at async Promise.all (index 0)\",\"    at postToCMR (/var/task/webpack:/index.js:131:19)\",\"    at Object.runCumulusTask (/var/task/webpack:/node_modules/@cumulus/cumulus-message-adapter-js/dist/cma.js:221:1)\",\"    at Runtime.handler (/var/task/webpack:/index.js:159:10)\"]}",
+            "resource": "arn:aws:lambda:us-west-2:643705676985:function:lp-prod-PostToCmr"
+          },
+          "execution": "https://console.aws.amazon.com/states/home?region=us-west-2#/executions/details/arn:aws:states:us-west-2:643705676985:execution:lp-prod-IngestGranuleWorkflow-Throttled-Part2:HLSS30_020_forward_sqs_throttled-b6930d6c-08e0-44a1-9959-9a3151e4b335",
+          "published": false,
+          "dbCksum": "3b70932125237af796ca34b2d9cfff1d26bc356ef822b8a345fae5490c03cd7933f9ecfcb4fc9799bf6b2271752b92839a7773f2677332d0e2fa3bb9302daba9",
+          "dbCksumType": "SHA512"
+        },
+        "HLS.S30.T46TDQ.2024237T044659.v2.0.B10.tif": {
+          "granuleId": "HLS.S30.T46TDQ.2024237T044659.v2.0",
+          "ingestTime": "2024-08-26T02:49:20.000Z",
+          "dbIngestEndTime": "2024-08-26 02:52:26.334000+00:00",
+          "cksum": "NA",
+          "status": "failed",
+          "bucket": "lp-prod-protected",
+          "error": {
+            "timestamp": "2024-08-26 02:52:24.584000+00:00",
+            "error": "Error",
+            "cause": "{\"errorType\":\"Error\",\"errorMessage\":\"Failed to ingest, statusCode: 401, statusMessage: Unauthorized, CMR error message: \\\"You do not have permission to perform that action.\\\"\",\"trace\":[\"Error: Failed to ingest, statusCode: 401, statusMessage: Unauthorized, CMR error message: \\\"You do not have permission to perform that action.\\\"\",\"    at ingestConcept (/var/task/webpack:/src/ingestConcept.ts:70:11)\",\"    at runMicrotasks (<anonymous>)\",\"    at processTicksAndRejections (node:internal/process/task_queues:96:5)\",\"    at CMR.ingestGranule (/var/task/webpack:/src/CMR.ts:211:12)\",\"    at publishECHO10XML2CMR (/var/task/webpack:/src/cmr-utils.js:155:15)\",\"    at publish2CMR (/var/task/webpack:/src/cmr-utils.js:227:12)\",\"    at async Promise.all (index 0)\",\"    at postToCMR (/var/task/webpack:/index.js:131:19)\",\"    at Object.runCumulusTask (/var/task/webpack:/node_modules/@cumulus/cumulus-message-adapter-js/dist/cma.js:221:1)\",\"    at Runtime.handler (/var/task/webpack:/index.js:159:10)\"]}",
+            "resource": "arn:aws:lambda:us-west-2:643705676985:function:lp-prod-PostToCmr"
+          },
+          "execution": "https://console.aws.amazon.com/states/home?region=us-west-2#/executions/details/arn:aws:states:us-west-2:643705676985:execution:lp-prod-IngestGranuleWorkflow-Throttled-Part2:HLSS30_020_forward_sqs_throttled-b6930d6c-08e0-44a1-9959-9a3151e4b335",
+          "published": false,
+          "dbCksum": "de8b35595380dd60c543db03e8864337299c53b409de86f6f6a7cc9fffe8bcc9ff533e2da6a9f98a6ece5c08fca4f5b8cc038cc0f72c538c5ae7ea712ae55565",
+          "dbCksumType": "SHA512"
+        },
+        "HLS.S30.T46TDQ.2024237T044659.v2.0.B11.tif": {
+          "granuleId": "HLS.S30.T46TDQ.2024237T044659.v2.0",
+          "ingestTime": "2024-08-26T02:49:21.000Z",
+          "dbIngestEndTime": "2024-08-26 02:52:26.334000+00:00",
+          "cksum": "NA",
+          "status": "failed",
+          "bucket": "lp-prod-protected",
+          "error": {
+            "timestamp": "2024-08-26 02:52:24.584000+00:00",
+            "error": "Error",
+            "cause": "{\"errorType\":\"Error\",\"errorMessage\":\"Failed to ingest, statusCode: 401, statusMessage: Unauthorized, CMR error message: \\\"You do not have permission to perform that action.\\\"\",\"trace\":[\"Error: Failed to ingest, statusCode: 401, statusMessage: Unauthorized, CMR error message: \\\"You do not have permission to perform that action.\\\"\",\"    at ingestConcept (/var/task/webpack:/src/ingestConcept.ts:70:11)\",\"    at runMicrotasks (<anonymous>)\",\"    at processTicksAndRejections (node:internal/process/task_queues:96:5)\",\"    at CMR.ingestGranule (/var/task/webpack:/src/CMR.ts:211:12)\",\"    at publishECHO10XML2CMR (/var/task/webpack:/src/cmr-utils.js:155:15)\",\"    at publish2CMR (/var/task/webpack:/src/cmr-utils.js:227:12)\",\"    at async Promise.all (index 0)\",\"    at postToCMR (/var/task/webpack:/index.js:131:19)\",\"    at Object.runCumulusTask (/var/task/webpack:/node_modules/@cumulus/cumulus-message-adapter-js/dist/cma.js:221:1)\",\"    at Runtime.handler (/var/task/webpack:/index.js:159:10)\"]}",
+            "resource": "arn:aws:lambda:us-west-2:643705676985:function:lp-prod-PostToCmr"
+          },
+          "execution": "https://console.aws.amazon.com/states/home?region=us-west-2#/executions/details/arn:aws:states:us-west-2:643705676985:execution:lp-prod-IngestGranuleWorkflow-Throttled-Part2:HLSS30_020_forward_sqs_throttled-b6930d6c-08e0-44a1-9959-9a3151e4b335",
+          "published": false,
+          "dbCksum": "df72d57df16087810b81c84767541047d66fee8ea2b6df6bce26067499d603a2dd21fa66dc56e5d6e80117f7883704f8ab5201dcef4b5039e40057c1977108bc",
+          "dbCksumType": "SHA512"
+        },
+        "HLS.S30.T46TDQ.2024237T044659.v2.0.B12.tif": {
+          "granuleId": "HLS.S30.T46TDQ.2024237T044659.v2.0",
+          "ingestTime": "2024-08-26T02:49:21.000Z",
+          "dbIngestEndTime": "2024-08-26 02:52:26.334000+00:00",
+          "cksum": "NA",
+          "status": "failed",
+          "bucket": "lp-prod-protected",
+          "error": {
+            "timestamp": "2024-08-26 02:52:24.584000+00:00",
+            "error": "Error",
+            "cause": "{\"errorType\":\"Error\",\"errorMessage\":\"Failed to ingest, statusCode: 401, statusMessage: Unauthorized, CMR error message: \\\"You do not have permission to perform that action.\\\"\",\"trace\":[\"Error: Failed to ingest, statusCode: 401, statusMessage: Unauthorized, CMR error message: \\\"You do not have permission to perform that action.\\\"\",\"    at ingestConcept (/var/task/webpack:/src/ingestConcept.ts:70:11)\",\"    at runMicrotasks (<anonymous>)\",\"    at processTicksAndRejections (node:internal/process/task_queues:96:5)\",\"    at CMR.ingestGranule (/var/task/webpack:/src/CMR.ts:211:12)\",\"    at publishECHO10XML2CMR (/var/task/webpack:/src/cmr-utils.js:155:15)\",\"    at publish2CMR (/var/task/webpack:/src/cmr-utils.js:227:12)\",\"    at async Promise.all (index 0)\",\"    at postToCMR (/var/task/webpack:/index.js:131:19)\",\"    at Object.runCumulusTask (/var/task/webpack:/node_modules/@cumulus/cumulus-message-adapter-js/dist/cma.js:221:1)\",\"    at Runtime.handler (/var/task/webpack:/index.js:159:10)\"]}",
+            "resource": "arn:aws:lambda:us-west-2:643705676985:function:lp-prod-PostToCmr"
+          },
+          "execution": "https://console.aws.amazon.com/states/home?region=us-west-2#/executions/details/arn:aws:states:us-west-2:643705676985:execution:lp-prod-IngestGranuleWorkflow-Throttled-Part2:HLSS30_020_forward_sqs_throttled-b6930d6c-08e0-44a1-9959-9a3151e4b335",
+          "published": false,
+          "dbCksum": "fcc2cf2fb735afbbf00400b9bc25bf82f01311dea2f546d69893d8ca7c4f24c68485ebb399b712e95f8dd0b96ccdeb21b9e32e6c40e5dae5290d48470e40ed8d",
+          "dbCksumType": "SHA512"
+        },
+        "HLS.S30.T46TDQ.2024237T044659.v2.0.B8A.tif": {
+          "granuleId": "HLS.S30.T46TDQ.2024237T044659.v2.0",
+          "ingestTime": "2024-08-26T02:49:21.000Z",
+          "dbIngestEndTime": "2024-08-26 02:52:26.334000+00:00",
+          "cksum": "NA",
+          "status": "failed",
+          "bucket": "lp-prod-protected",
+          "error": {
+            "timestamp": "2024-08-26 02:52:24.584000+00:00",
+            "error": "Error",
+            "cause": "{\"errorType\":\"Error\",\"errorMessage\":\"Failed to ingest, statusCode: 401, statusMessage: Unauthorized, CMR error message: \\\"You do not have permission to perform that action.\\\"\",\"trace\":[\"Error: Failed to ingest, statusCode: 401, statusMessage: Unauthorized, CMR error message: \\\"You do not have permission to perform that action.\\\"\",\"    at ingestConcept (/var/task/webpack:/src/ingestConcept.ts:70:11)\",\"    at runMicrotasks (<anonymous>)\",\"    at processTicksAndRejections (node:internal/process/task_queues:96:5)\",\"    at CMR.ingestGranule (/var/task/webpack:/src/CMR.ts:211:12)\",\"    at publishECHO10XML2CMR (/var/task/webpack:/src/cmr-utils.js:155:15)\",\"    at publish2CMR (/var/task/webpack:/src/cmr-utils.js:227:12)\",\"    at async Promise.all (index 0)\",\"    at postToCMR (/var/task/webpack:/index.js:131:19)\",\"    at Object.runCumulusTask (/var/task/webpack:/node_modules/@cumulus/cumulus-message-adapter-js/dist/cma.js:221:1)\",\"    at Runtime.handler (/var/task/webpack:/index.js:159:10)\"]}",
+            "resource": "arn:aws:lambda:us-west-2:643705676985:function:lp-prod-PostToCmr"
+          },
+          "execution": "https://console.aws.amazon.com/states/home?region=us-west-2#/executions/details/arn:aws:states:us-west-2:643705676985:execution:lp-prod-IngestGranuleWorkflow-Throttled-Part2:HLSS30_020_forward_sqs_throttled-b6930d6c-08e0-44a1-9959-9a3151e4b335",
+          "published": false,
+          "dbCksum": "b47f9afdfcbd4fda2450f1c87cdce1a17581963775691acf8a754e86b822bd595b20bdb5c9322e58e5a17c088403b92dec6377c770661716c707eb1b00e83314",
+          "dbCksumType": "SHA512"
+        },
+        "HLS.S30.T46TDQ.2024237T044659.v2.0.Fmask.tif": {
+          "granuleId": "HLS.S30.T46TDQ.2024237T044659.v2.0",
+          "ingestTime": "2024-08-26T02:49:21.000Z",
+          "dbIngestEndTime": "2024-08-26 02:52:26.334000+00:00",
+          "cksum": "NA",
+          "status": "failed",
+          "bucket": "lp-prod-protected",
+          "error": {
+            "timestamp": "2024-08-26 02:52:24.584000+00:00",
+            "error": "Error",
+            "cause": "{\"errorType\":\"Error\",\"errorMessage\":\"Failed to ingest, statusCode: 401, statusMessage: Unauthorized, CMR error message: \\\"You do not have permission to perform that action.\\\"\",\"trace\":[\"Error: Failed to ingest, statusCode: 401, statusMessage: Unauthorized, CMR error message: \\\"You do not have permission to perform that action.\\\"\",\"    at ingestConcept (/var/task/webpack:/src/ingestConcept.ts:70:11)\",\"    at runMicrotasks (<anonymous>)\",\"    at processTicksAndRejections (node:internal/process/task_queues:96:5)\",\"    at CMR.ingestGranule (/var/task/webpack:/src/CMR.ts:211:12)\",\"    at publishECHO10XML2CMR (/var/task/webpack:/src/cmr-utils.js:155:15)\",\"    at publish2CMR (/var/task/webpack:/src/cmr-utils.js:227:12)\",\"    at async Promise.all (index 0)\",\"    at postToCMR (/var/task/webpack:/index.js:131:19)\",\"    at Object.runCumulusTask (/var/task/webpack:/node_modules/@cumulus/cumulus-message-adapter-js/dist/cma.js:221:1)\",\"    at Runtime.handler (/var/task/webpack:/index.js:159:10)\"]}",
+            "resource": "arn:aws:lambda:us-west-2:643705676985:function:lp-prod-PostToCmr"
+          },
+          "execution": "https://console.aws.amazon.com/states/home?region=us-west-2#/executions/details/arn:aws:states:us-west-2:643705676985:execution:lp-prod-IngestGranuleWorkflow-Throttled-Part2:HLSS30_020_forward_sqs_throttled-b6930d6c-08e0-44a1-9959-9a3151e4b335",
+          "published": false,
+          "dbCksum": "4890ef99b7716ec25c8ebe596cc7d3a75459a8e09c6d5640a5fbddfc815abf7ed87c27dac33b0d4b36fc6d0e26641efb1b035c8939dcd6bd91ebf71b9ccb97ab",
+          "dbCksumType": "SHA512"
+        },
+        "HLS.S30.T46TDQ.2024237T044659.v2.0.SAA.tif": {
+          "granuleId": "HLS.S30.T46TDQ.2024237T044659.v2.0",
+          "ingestTime": "2024-08-26T02:49:21.000Z",
+          "dbIngestEndTime": "2024-08-26 02:52:26.334000+00:00",
+          "cksum": "NA",
+          "status": "failed",
+          "bucket": "lp-prod-protected",
+          "error": {
+            "timestamp": "2024-08-26 02:52:24.584000+00:00",
+            "error": "Error",
+            "cause": "{\"errorType\":\"Error\",\"errorMessage\":\"Failed to ingest, statusCode: 401, statusMessage: Unauthorized, CMR error message: \\\"You do not have permission to perform that action.\\\"\",\"trace\":[\"Error: Failed to ingest, statusCode: 401, statusMessage: Unauthorized, CMR error message: \\\"You do not have permission to perform that action.\\\"\",\"    at ingestConcept (/var/task/webpack:/src/ingestConcept.ts:70:11)\",\"    at runMicrotasks (<anonymous>)\",\"    at processTicksAndRejections (node:internal/process/task_queues:96:5)\",\"    at CMR.ingestGranule (/var/task/webpack:/src/CMR.ts:211:12)\",\"    at publishECHO10XML2CMR (/var/task/webpack:/src/cmr-utils.js:155:15)\",\"    at publish2CMR (/var/task/webpack:/src/cmr-utils.js:227:12)\",\"    at async Promise.all (index 0)\",\"    at postToCMR (/var/task/webpack:/index.js:131:19)\",\"    at Object.runCumulusTask (/var/task/webpack:/node_modules/@cumulus/cumulus-message-adapter-js/dist/cma.js:221:1)\",\"    at Runtime.handler (/var/task/webpack:/index.js:159:10)\"]}",
+            "resource": "arn:aws:lambda:us-west-2:643705676985:function:lp-prod-PostToCmr"
+          },
+          "execution": "https://console.aws.amazon.com/states/home?region=us-west-2#/executions/details/arn:aws:states:us-west-2:643705676985:execution:lp-prod-IngestGranuleWorkflow-Throttled-Part2:HLSS30_020_forward_sqs_throttled-b6930d6c-08e0-44a1-9959-9a3151e4b335",
+          "published": false,
+          "dbCksum": "c2134a91908cfa67a46fdfe5b5292a08b8b7f48a7d4df78d3ca4e1831368e3faf606f119a515294f0a3ef6fa4648bcdabbde3b08197eb6f6ce72f8d4bcc3e866",
+          "dbCksumType": "SHA512"
+        },
+        "HLS.S30.T46TDQ.2024237T044659.v2.0.SZA.tif": {
+          "granuleId": "HLS.S30.T46TDQ.2024237T044659.v2.0",
+          "ingestTime": "2024-08-26T02:49:21.000Z",
+          "dbIngestEndTime": "2024-08-26 02:52:26.334000+00:00",
+          "cksum": "NA",
+          "status": "failed",
+          "bucket": "lp-prod-protected",
+          "error": {
+            "timestamp": "2024-08-26 02:52:24.584000+00:00",
+            "error": "Error",
+            "cause": "{\"errorType\":\"Error\",\"errorMessage\":\"Failed to ingest, statusCode: 401, statusMessage: Unauthorized, CMR error message: \\\"You do not have permission to perform that action.\\\"\",\"trace\":[\"Error: Failed to ingest, statusCode: 401, statusMessage: Unauthorized, CMR error message: \\\"You do not have permission to perform that action.\\\"\",\"    at ingestConcept (/var/task/webpack:/src/ingestConcept.ts:70:11)\",\"    at runMicrotasks (<anonymous>)\",\"    at processTicksAndRejections (node:internal/process/task_queues:96:5)\",\"    at CMR.ingestGranule (/var/task/webpack:/src/CMR.ts:211:12)\",\"    at publishECHO10XML2CMR (/var/task/webpack:/src/cmr-utils.js:155:15)\",\"    at publish2CMR (/var/task/webpack:/src/cmr-utils.js:227:12)\",\"    at async Promise.all (index 0)\",\"    at postToCMR (/var/task/webpack:/index.js:131:19)\",\"    at Object.runCumulusTask (/var/task/webpack:/node_modules/@cumulus/cumulus-message-adapter-js/dist/cma.js:221:1)\",\"    at Runtime.handler (/var/task/webpack:/index.js:159:10)\"]}",
+            "resource": "arn:aws:lambda:us-west-2:643705676985:function:lp-prod-PostToCmr"
+          },
+          "execution": "https://console.aws.amazon.com/states/home?region=us-west-2#/executions/details/arn:aws:states:us-west-2:643705676985:execution:lp-prod-IngestGranuleWorkflow-Throttled-Part2:HLSS30_020_forward_sqs_throttled-b6930d6c-08e0-44a1-9959-9a3151e4b335",
+          "published": false,
+          "dbCksum": "5d2d476e22c92608799de219636dd6c1397c2004e0bd3ac5c7387b8ab77be524fe1e03392ab248157a2207c986fc3f1c40b448822692cc68d402eea296b6ea36",
+          "dbCksumType": "SHA512"
+        },
+        "HLS.S30.T46TDQ.2024237T044659.v2.0.VAA.tif": {
+          "granuleId": "HLS.S30.T46TDQ.2024237T044659.v2.0",
+          "ingestTime": "2024-08-26T02:49:21.000Z",
+          "dbIngestEndTime": "2024-08-26 02:52:26.334000+00:00",
+          "cksum": "NA",
+          "status": "failed",
+          "bucket": "lp-prod-protected",
+          "error": {
+            "timestamp": "2024-08-26 02:52:24.584000+00:00",
+            "error": "Error",
+            "cause": "{\"errorType\":\"Error\",\"errorMessage\":\"Failed to ingest, statusCode: 401, statusMessage: Unauthorized, CMR error message: \\\"You do not have permission to perform that action.\\\"\",\"trace\":[\"Error: Failed to ingest, statusCode: 401, statusMessage: Unauthorized, CMR error message: \\\"You do not have permission to perform that action.\\\"\",\"    at ingestConcept (/var/task/webpack:/src/ingestConcept.ts:70:11)\",\"    at runMicrotasks (<anonymous>)\",\"    at processTicksAndRejections (node:internal/process/task_queues:96:5)\",\"    at CMR.ingestGranule (/var/task/webpack:/src/CMR.ts:211:12)\",\"    at publishECHO10XML2CMR (/var/task/webpack:/src/cmr-utils.js:155:15)\",\"    at publish2CMR (/var/task/webpack:/src/cmr-utils.js:227:12)\",\"    at async Promise.all (index 0)\",\"    at postToCMR (/var/task/webpack:/index.js:131:19)\",\"    at Object.runCumulusTask (/var/task/webpack:/node_modules/@cumulus/cumulus-message-adapter-js/dist/cma.js:221:1)\",\"    at Runtime.handler (/var/task/webpack:/index.js:159:10)\"]}",
+            "resource": "arn:aws:lambda:us-west-2:643705676985:function:lp-prod-PostToCmr"
+          },
+          "execution": "https://console.aws.amazon.com/states/home?region=us-west-2#/executions/details/arn:aws:states:us-west-2:643705676985:execution:lp-prod-IngestGranuleWorkflow-Throttled-Part2:HLSS30_020_forward_sqs_throttled-b6930d6c-08e0-44a1-9959-9a3151e4b335",
+          "published": false,
+          "dbCksum": "744511321b8e0983295b6de22080d35ec3c4ae401d8b7972fc5452492649a207f2014c6d55025afbf5ceeef885db3792d0402786002c7986d549110791cffbb4",
+          "dbCksumType": "SHA512"
+        },
+        "HLS.S30.T46TDQ.2024237T044659.v2.0.VZA.tif": {
+          "granuleId": "HLS.S30.T46TDQ.2024237T044659.v2.0",
+          "ingestTime": "2024-08-26T02:49:21.000Z",
+          "dbIngestEndTime": "2024-08-26 02:52:26.334000+00:00",
+          "cksum": "NA",
+          "status": "failed",
+          "bucket": "lp-prod-protected",
+          "error": {
+            "timestamp": "2024-08-26 02:52:24.584000+00:00",
+            "error": "Error",
+            "cause": "{\"errorType\":\"Error\",\"errorMessage\":\"Failed to ingest, statusCode: 401, statusMessage: Unauthorized, CMR error message: \\\"You do not have permission to perform that action.\\\"\",\"trace\":[\"Error: Failed to ingest, statusCode: 401, statusMessage: Unauthorized, CMR error message: \\\"You do not have permission to perform that action.\\\"\",\"    at ingestConcept (/var/task/webpack:/src/ingestConcept.ts:70:11)\",\"    at runMicrotasks (<anonymous>)\",\"    at processTicksAndRejections (node:internal/process/task_queues:96:5)\",\"    at CMR.ingestGranule (/var/task/webpack:/src/CMR.ts:211:12)\",\"    at publishECHO10XML2CMR (/var/task/webpack:/src/cmr-utils.js:155:15)\",\"    at publish2CMR (/var/task/webpack:/src/cmr-utils.js:227:12)\",\"    at async Promise.all (index 0)\",\"    at postToCMR (/var/task/webpack:/index.js:131:19)\",\"    at Object.runCumulusTask (/var/task/webpack:/node_modules/@cumulus/cumulus-message-adapter-js/dist/cma.js:221:1)\",\"    at Runtime.handler (/var/task/webpack:/index.js:159:10)\"]}",
+            "resource": "arn:aws:lambda:us-west-2:643705676985:function:lp-prod-PostToCmr"
+          },
+          "execution": "https://console.aws.amazon.com/states/home?region=us-west-2#/executions/details/arn:aws:states:us-west-2:643705676985:execution:lp-prod-IngestGranuleWorkflow-Throttled-Part2:HLSS30_020_forward_sqs_throttled-b6930d6c-08e0-44a1-9959-9a3151e4b335",
+          "published": false,
+          "dbCksum": "45dde0caedd4f7c156519a158301ef393e6424cfd67069b1db4a88293d275546ad34697fd11330c7522cbe7931bc686e78434c7fe68cc3fb4640a90ded95033c",
+          "dbCksumType": "SHA512"
+        },
+        "HLS.S30.T46TDQ.2024237T044659.v2.0.cmr.xml": {
+          "granuleId": "HLS.S30.T46TDQ.2024237T044659.v2.0",
+          "ingestTime": "2024-08-26T02:49:21.000Z",
+          "dbIngestEndTime": "2024-08-26 02:52:26.334000+00:00",
+          "cksum": "NA",
+          "status": "failed",
+          "bucket": "lp-prod-protected",
+          "error": {
+            "timestamp": "2024-08-26 02:52:24.584000+00:00",
+            "error": "Error",
+            "cause": "{\"errorType\":\"Error\",\"errorMessage\":\"Failed to ingest, statusCode: 401, statusMessage: Unauthorized, CMR error message: \\\"You do not have permission to perform that action.\\\"\",\"trace\":[\"Error: Failed to ingest, statusCode: 401, statusMessage: Unauthorized, CMR error message: \\\"You do not have permission to perform that action.\\\"\",\"    at ingestConcept (/var/task/webpack:/src/ingestConcept.ts:70:11)\",\"    at runMicrotasks (<anonymous>)\",\"    at processTicksAndRejections (node:internal/process/task_queues:96:5)\",\"    at CMR.ingestGranule (/var/task/webpack:/src/CMR.ts:211:12)\",\"    at publishECHO10XML2CMR (/var/task/webpack:/src/cmr-utils.js:155:15)\",\"    at publish2CMR (/var/task/webpack:/src/cmr-utils.js:227:12)\",\"    at async Promise.all (index 0)\",\"    at postToCMR (/var/task/webpack:/index.js:131:19)\",\"    at Object.runCumulusTask (/var/task/webpack:/node_modules/@cumulus/cumulus-message-adapter-js/dist/cma.js:221:1)\",\"    at Runtime.handler (/var/task/webpack:/index.js:159:10)\"]}",
+            "resource": "arn:aws:lambda:us-west-2:643705676985:function:lp-prod-PostToCmr"
+          },
+          "execution": "https://console.aws.amazon.com/states/home?region=us-west-2#/executions/details/arn:aws:states:us-west-2:643705676985:execution:lp-prod-IngestGranuleWorkflow-Throttled-Part2:HLSS30_020_forward_sqs_throttled-b6930d6c-08e0-44a1-9959-9a3151e4b335",
+          "published": false,
+          "dbCksum": "83a3da32517eb578059a692dfefa90f162e05923f4c3daeccc3df0cc1c3e0e63949520b9611ce78bfaf73fc20b12f66eebfad0dddd50b2defbfdcde4d4c2b9e2",
+          "dbCksumType": "SHA512"
+        },
+        "HLS.S30.T46TDQ.2024237T044659.v2.0.jpg": {
+          "granuleId": "HLS.S30.T46TDQ.2024237T044659.v2.0",
+          "ingestTime": "2024-08-26T02:49:21.000Z",
+          "dbIngestEndTime": "2024-08-26 02:52:26.334000+00:00",
+          "cksum": "NA",
+          "status": "failed",
+          "bucket": "lp-prod-public",
+          "error": {
+            "timestamp": "2024-08-26 02:52:24.584000+00:00",
+            "error": "Error",
+            "cause": "{\"errorType\":\"Error\",\"errorMessage\":\"Failed to ingest, statusCode: 401, statusMessage: Unauthorized, CMR error message: \\\"You do not have permission to perform that action.\\\"\",\"trace\":[\"Error: Failed to ingest, statusCode: 401, statusMessage: Unauthorized, CMR error message: \\\"You do not have permission to perform that action.\\\"\",\"    at ingestConcept (/var/task/webpack:/src/ingestConcept.ts:70:11)\",\"    at runMicrotasks (<anonymous>)\",\"    at processTicksAndRejections (node:internal/process/task_queues:96:5)\",\"    at CMR.ingestGranule (/var/task/webpack:/src/CMR.ts:211:12)\",\"    at publishECHO10XML2CMR (/var/task/webpack:/src/cmr-utils.js:155:15)\",\"    at publish2CMR (/var/task/webpack:/src/cmr-utils.js:227:12)\",\"    at async Promise.all (index 0)\",\"    at postToCMR (/var/task/webpack:/index.js:131:19)\",\"    at Object.runCumulusTask (/var/task/webpack:/node_modules/@cumulus/cumulus-message-adapter-js/dist/cma.js:221:1)\",\"    at Runtime.handler (/var/task/webpack:/index.js:159:10)\"]}",
+            "resource": "arn:aws:lambda:us-west-2:643705676985:function:lp-prod-PostToCmr"
+          },
+          "execution": "https://console.aws.amazon.com/states/home?region=us-west-2#/executions/details/arn:aws:states:us-west-2:643705676985:execution:lp-prod-IngestGranuleWorkflow-Throttled-Part2:HLSS30_020_forward_sqs_throttled-b6930d6c-08e0-44a1-9959-9a3151e4b335",
+          "published": false,
+          "dbCksum": "b121f6680d9c74b5e8d5f375d3c18081731a76e3aad2b52d18e2dc464c3f74d08da9ba064f7b86747a135cc404bb6b8deeeb131d6fa11fea687d292e20191148",
+          "dbCksumType": "SHA512"
+        },
+        "HLS.S30.T46TDQ.2024237T044659.v2.0_stac.json": {
+          "granuleId": "HLS.S30.T46TDQ.2024237T044659.v2.0",
+          "ingestTime": "2024-08-26T02:49:21.000Z",
+          "dbIngestEndTime": "2024-08-26 02:52:26.334000+00:00",
+          "cksum": "NA",
+          "status": "failed",
+          "bucket": "lp-prod-public",
+          "error": {
+            "timestamp": "2024-08-26 02:52:24.584000+00:00",
+            "error": "Error",
+            "cause": "{\"errorType\":\"Error\",\"errorMessage\":\"Failed to ingest, statusCode: 401, statusMessage: Unauthorized, CMR error message: \\\"You do not have permission to perform that action.\\\"\",\"trace\":[\"Error: Failed to ingest, statusCode: 401, statusMessage: Unauthorized, CMR error message: \\\"You do not have permission to perform that action.\\\"\",\"    at ingestConcept (/var/task/webpack:/src/ingestConcept.ts:70:11)\",\"    at runMicrotasks (<anonymous>)\",\"    at processTicksAndRejections (node:internal/process/task_queues:96:5)\",\"    at CMR.ingestGranule (/var/task/webpack:/src/CMR.ts:211:12)\",\"    at publishECHO10XML2CMR (/var/task/webpack:/src/cmr-utils.js:155:15)\",\"    at publish2CMR (/var/task/webpack:/src/cmr-utils.js:227:12)\",\"    at async Promise.all (index 0)\",\"    at postToCMR (/var/task/webpack:/index.js:131:19)\",\"    at Object.runCumulusTask (/var/task/webpack:/node_modules/@cumulus/cumulus-message-adapter-js/dist/cma.js:221:1)\",\"    at Runtime.handler (/var/task/webpack:/index.js:159:10)\"]}",
+            "resource": "arn:aws:lambda:us-west-2:643705676985:function:lp-prod-PostToCmr"
+          },
+          "execution": "https://console.aws.amazon.com/states/home?region=us-west-2#/executions/details/arn:aws:states:us-west-2:643705676985:execution:lp-prod-IngestGranuleWorkflow-Throttled-Part2:HLSS30_020_forward_sqs_throttled-b6930d6c-08e0-44a1-9959-9a3151e4b335",
+          "published": false,
+          "dbCksum": "8b3f5af43e9cfd7f1058b10599d070a83a85f8f67687d1f789528a0380e5f2a49100d8a287d9d529eb5dcb7d186685dbf89ec76b2b288651fa7b4776548d389a",
+          "dbCksumType": "SHA512"
+        }
+      }
+    }
+  }
+]

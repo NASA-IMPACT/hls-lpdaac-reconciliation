@@ -1,0 +1,193 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Connection:
+      - close
+      Host:
+      - cmr.earthdata.nasa.gov
+      User-Agent:
+      - Python-urllib/3.12
+    method: GET
+    uri: https://cmr.earthdata.nasa.gov/search/granules?short_name=HLSS30&version=2.0&readable_granule_name=HLS.S30.T15XWH.2124237T194859.v2.0
+  response:
+    body:
+      string: <?xml version="1.0" encoding="UTF-8"?><results><hits>0</hits><took>16</took><references></references></results>
+    headers:
+      Access-Control-Allow-Origin:
+      - '*'
+      Access-Control-Expose-Headers:
+      - CMR-Hits, CMR-Request-Id, X-Request-Id, CMR-Scroll-Id, CMR-Search-After, CMR-Timed-Out,
+        CMR-Shapefile-Original-Point-Count, CMR-Shapefile-Simplified-Point-Count
+      CMR-Hits:
+      - '0'
+      CMR-Request-Id:
+      - 36139e2c-8601-4dfc-ba29-97e291b7820d
+      CMR-Took:
+      - '17'
+      Connection:
+      - close
+      Content-MD5:
+      - 44c38b3b7bcc9187e7bf6e3f3d1614a7
+      Content-SHA1:
+      - 719e68d46baaea1266dd5453d17db87dc3fd17ff
+      Content-Type:
+      - application/xml; charset=utf-8
+      Date:
+      - Mon, 07 Oct 2024 20:55:40 GMT
+      Server:
+      - ServerTokens ProductOnly
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      Transfer-Encoding:
+      - chunked
+      Vary:
+      - Accept-Encoding, User-Agent
+      Via:
+      - 1.1 75b993b111cd9fbf19d5284ea3de78ec.cloudfront.net (CloudFront)
+      X-Amz-Cf-Id:
+      - Q1wIAuJsytk3SGVdbEQFWyrOLQRda0K4vSEDSRcgar6Lmc0P-HVS5w==
+      X-Amz-Cf-Pop:
+      - JFK50-P7
+      X-Cache:
+      - Miss from cloudfront
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Request-Id:
+      - Q1wIAuJsytk3SGVdbEQFWyrOLQRda0K4vSEDSRcgar6Lmc0P-HVS5w==
+      X-XSS-Protection:
+      - 1; mode=block
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Connection:
+      - close
+      Host:
+      - cmr.earthdata.nasa.gov
+      User-Agent:
+      - Python-urllib/3.12
+    method: GET
+    uri: https://cmr.earthdata.nasa.gov/search/granules?short_name=HLSS30&version=2.0&readable_granule_name=HLS.S30.T36PWU.2124237T080609.v2.0
+  response:
+    body:
+      string: <?xml version="1.0" encoding="UTF-8"?><results><hits>0</hits><took>20</took><references></references></results>
+    headers:
+      Access-Control-Allow-Origin:
+      - '*'
+      Access-Control-Expose-Headers:
+      - CMR-Hits, CMR-Request-Id, X-Request-Id, CMR-Scroll-Id, CMR-Search-After, CMR-Timed-Out,
+        CMR-Shapefile-Original-Point-Count, CMR-Shapefile-Simplified-Point-Count
+      CMR-Hits:
+      - '0'
+      CMR-Request-Id:
+      - 5e9221f4-5ca6-4d4e-9a9b-6c88317cc250
+      CMR-Took:
+      - '21'
+      Connection:
+      - close
+      Content-MD5:
+      - f039a1ca7f96c3ee12cc897299d51ed7
+      Content-SHA1:
+      - b62437027daf7b353674ea0133a140ea3329d384
+      Content-Type:
+      - application/xml; charset=utf-8
+      Date:
+      - Mon, 07 Oct 2024 20:55:40 GMT
+      Server:
+      - ServerTokens ProductOnly
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      Transfer-Encoding:
+      - chunked
+      Vary:
+      - Accept-Encoding, User-Agent
+      Via:
+      - 1.1 80f517c5ec4d986c177bb1a50f8c9156.cloudfront.net (CloudFront)
+      X-Amz-Cf-Id:
+      - 03d3JRBvRzfDhYGSvX55nlDZxXV0jk62Pg2RytSX8Tn5vB-K8Z54DQ==
+      X-Amz-Cf-Pop:
+      - JFK50-P7
+      X-Cache:
+      - Miss from cloudfront
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Request-Id:
+      - 03d3JRBvRzfDhYGSvX55nlDZxXV0jk62Pg2RytSX8Tn5vB-K8Z54DQ==
+      X-XSS-Protection:
+      - 1; mode=block
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Connection:
+      - close
+      Host:
+      - cmr.earthdata.nasa.gov
+      User-Agent:
+      - Python-urllib/3.12
+    method: GET
+    uri: https://cmr.earthdata.nasa.gov/search/granules?short_name=HLSS30&version=2.0&readable_granule_name=HLS.S30.T46TDQ.2024237T044659.v2.0
+  response:
+    body:
+      string: <?xml version="1.0" encoding="UTF-8"?><results><hits>1</hits><took>18</took><references><reference><name>HLS.S30.T46TDQ.2024237T044659.v2.0</name><id>G3217258775-LPCLOUD</id><location>https://cmr.earthdata.nasa.gov:443/search/concepts/G3217258775-LPCLOUD/1</location><revision-id>1</revision-id></reference></references></results>
+    headers:
+      Access-Control-Allow-Origin:
+      - '*'
+      Access-Control-Expose-Headers:
+      - CMR-Hits, CMR-Request-Id, X-Request-Id, CMR-Scroll-Id, CMR-Search-After, CMR-Timed-Out,
+        CMR-Shapefile-Original-Point-Count, CMR-Shapefile-Simplified-Point-Count
+      CMR-Hits:
+      - '1'
+      CMR-Request-Id:
+      - 863fc4bd-ae62-43f9-990e-56c631634202
+      CMR-Search-After:
+      - '["lpcloud",1724475371010,3217258775]'
+      CMR-Took:
+      - '19'
+      Connection:
+      - close
+      Content-MD5:
+      - 3a66052d0d1fbe665ab5b8e132fec51d
+      Content-SHA1:
+      - 762da79059d5a73f0db59ffcaedb9b62be7da716
+      Content-Type:
+      - application/xml; charset=utf-8
+      Date:
+      - Mon, 07 Oct 2024 20:55:40 GMT
+      Server:
+      - ServerTokens ProductOnly
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      Transfer-Encoding:
+      - chunked
+      Vary:
+      - Accept-Encoding, User-Agent
+      Via:
+      - 1.1 024ebcc63921610877d4ba277290628c.cloudfront.net (CloudFront)
+      X-Amz-Cf-Id:
+      - KGkfpmXK8X4KOrc9XHSXDSNRhwN4FgBqU0bmpJjiN7h-yveBpFlprw==
+      X-Amz-Cf-Pop:
+      - JFK50-P7
+      X-Cache:
+      - Miss from cloudfront
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Request-Id:
+      - KGkfpmXK8X4KOrc9XHSXDSNRhwN4FgBqU0bmpJjiN7h-yveBpFlprw==
+      X-XSS-Protection:
+      - 1; mode=block
+    status:
+      code: 200
+      message: OK
+version: 1
