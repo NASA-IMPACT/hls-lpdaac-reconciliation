@@ -142,20 +142,6 @@ jobs:
         run: |
           make destroy-it
 
-  deploy-dev:
-    # Deploy to Dev only on push (including merged PR) to `develop` branch
-    if: github.event_name == 'push' && github.event.ref == 'refs/heads/develop'
-    needs:
-      - config
-      - unit-tests
-      - integration-tests
-    uses: ./.github/workflows/deploy.yml
-    with:
-      environment: dev
-      PYTHON_VERSION: "${{ needs.config.outputs.PYTHON_VERSION }}"
-      TOX_MIN_VERSION: "${{ needs.config.outputs.TOX_MIN_VERSION }}"
-    secrets: inherit
-
   deploy-prod:
     # Deploy to Prod only on publishing a release (tag) on `main` branch
     if: github.event_name == 'release' && github.event.action == 'published'
