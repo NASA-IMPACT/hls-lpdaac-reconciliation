@@ -7,6 +7,7 @@ from stack import HlsLpdaacReconciliationStack
 
 stack_name = os.environ["HLS_LPDAAC_STACK"]
 inventory_reports_bucket = os.environ["HLS_LPDAAC_INVENTORY_REPORTS_BUCKET"]
+reconciliation_reports_bucket = os.environ["HLS_LPDAAC_RECONCILIATION_REPORTS_BUCKET"]
 forward_bucket = os.environ["HLS_LPDAAC_FORWARD_BUCKET"]
 historical_bucket = os.environ["HLS_LPDAAC_HISTORICAL_BUCKET"]
 request_topic_arn = os.environ["HLS_LPDAAC_REQUEST_TOPIC_ARN"]
@@ -21,6 +22,7 @@ HlsLpdaacReconciliationStack(
     hls_historical_bucket=historical_bucket,
     lpdaac_request_topic_arn=request_topic_arn,
     lpdaac_response_topic_arn=response_topic_arn,
+    lpdaac_reconciliation_reports_bucket=reconciliation_reports_bucket,
     managed_policy_name=managed_policy_name,
 )
 
