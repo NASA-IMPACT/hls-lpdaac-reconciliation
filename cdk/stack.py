@@ -21,6 +21,7 @@ class HlsLpdaacReconciliationStack(Stack):
         hls_historical_bucket: str,
         lpdaac_request_topic_arn: str,
         lpdaac_response_topic_arn: str,
+        lpdaac_reconciliation_reports_bucket: str,
         managed_policy_name: Optional[str] = None,
         **kwargs,
     ) -> None:
@@ -42,7 +43,6 @@ class HlsLpdaacReconciliationStack(Stack):
         # ----------------------------------------------------------------------
 
         # Bucket where HLS inventory reports are written.
-        s3.Bucket.from_bucket_attributes
         inventory_reports_bucket = s3.Bucket.from_bucket_name(
             self, "HlsInventoryReportsBucket", hls_inventory_reports_bucket
         )
@@ -101,10 +101,13 @@ class HlsLpdaacReconciliationStack(Stack):
             sources.SnsEventSource(lpdaac_response_topic)
         )
 
-        # Allow lambda function to read/write forward and historical buckets
+        # Allow lambda function to access buckets
         s3.Bucket.from_bucket_name(
             self, "HlsForwardBucket", hls_forward_bucket
         ).grant_read_write(lpdaac_response_lambda)
         s3.Bucket.from_bucket_name(
             self, "HlsHistoricalBucket", hls_historical_bucket
         ).grant_read_write(lpdaac_response_lambda)
+        s3.Bucket.from_bucket_name(
+            self, "LpdaacReconciliationReports", lpdaac_reconciliation_reports_bucket
+        ).grant_read(lpdaac_response_lambda)

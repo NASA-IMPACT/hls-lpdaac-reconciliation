@@ -33,7 +33,7 @@ install-node: tox
 # Install the CDK CLI within the tox virtualenv, if it's not installed or it's the wrong version.
 install-cdk: tox install-node
 	@if [[ ! $$(type cdk 2>/dev/null) =~ $${VIRTUAL_ENV} ]]; then \
-	    set -x; npm install --location global "aws-cdk@v2.*"; \
+	    set -x; npm install --location global "aws-cdk@latest"; \
 	fi
 
 ## venv: Create Python virtual environment in directory `venv`

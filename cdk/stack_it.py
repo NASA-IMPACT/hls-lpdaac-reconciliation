@@ -31,33 +31,19 @@ class HlsLpdaacReconciliationStackIT(Stack):
                 )
             )
 
-        self.hls_inventory_reports_bucket = s3.Bucket(
-            self,
-            "HlsInventoryReports",
-            auto_delete_objects=True,
-            removal_policy=RemovalPolicy.DESTROY,
-        )
-        self.hls_forward_bucket = s3.Bucket(
-            self,
-            "HlsForward",
-            auto_delete_objects=True,
-            removal_policy=RemovalPolicy.DESTROY,
-        )
-        self.hls_historical_bucket = s3.Bucket(
-            self,
-            "HlsHistorical",
-            auto_delete_objects=True,
-            removal_policy=RemovalPolicy.DESTROY,
-        )
+        self.hls_inventory_reports_bucket = self.make_bucket("HlsInventoryReports")
+        self.hls_forward_bucket = self.make_bucket("HlsForward")
+        self.hls_historical_bucket = self.make_bucket("HlsHistorical")
+        self.lpdaac_reports_bucket = self.make_bucket("LpdaacReconciliationReports")
 
         self.lpdaac_request_topic = sns.Topic(self, "LpdaacRequestTopic")
-        self.lpdaac_request_queue = sqs.Queue(self, "LpdaacRequestQueue")
         self.lpdaac_response_topic = sns.Topic(self, "LpdaacResponseTopic")
 
         # Subscribe a queue to the topic so we can receive messages from the queue
         # to confirm that an message was sent to the topic via the lambda handler.
+        lpdaac_request_queue = sqs.Queue(self, "LpdaacRequestQueue")
         self.lpdaac_request_topic.add_subscription(
-            subs.SqsSubscription(self.lpdaac_request_queue)
+            subs.SqsSubscription(lpdaac_request_queue)
         )
 
         # Set outputs for use within integration tests
@@ -69,11 +55,6 @@ class HlsLpdaacReconciliationStackIT(Stack):
         )
         CfnOutput(
             self,
-            "LpdaacRequestQueueUrl",
-            value=self.lpdaac_request_queue.queue_url,
-        )
-        CfnOutput(
-            self,
             "HlsForwardBucketName",
             value=self.hls_forward_bucket.bucket_name,
         )
@@ -82,8 +63,27 @@ class HlsLpdaacReconciliationStackIT(Stack):
             "HlsHistoricalBucketName",
             value=self.hls_historical_bucket.bucket_name,
         )
+
+        CfnOutput(
+            self,
+            "LpdaacReconciliationReportsBucketName",
+            value=self.lpdaac_reports_bucket.bucket_name,
+        )
+        CfnOutput(
+            self,
+            "LpdaacRequestQueueUrl",
+            value=lpdaac_request_queue.queue_url,
+        )
         CfnOutput(
             self,
             "LpdaacResponseTopicArn",
             value=self.lpdaac_response_topic.topic_arn,
+        )
+
+    def make_bucket(self, construct_id: str) -> s3.Bucket:
+        return s3.Bucket(
+            self,
+            construct_id,
+            auto_delete_objects=True,
+            removal_policy=RemovalPolicy.DESTROY,
         )
