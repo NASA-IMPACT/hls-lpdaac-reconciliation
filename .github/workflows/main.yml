@@ -142,7 +142,10 @@ jobs:
       - name: Deploy integration tests CDK app
         env:
           HLS_LPDAAC_NOTIFICATION_EMAIL_ADDRESS: ${{ github.event.sender.email }}
-        run: make deploy-it
+        run: |
+          echo 'PULL_REQUEST: ${{ toJson(github.event.pull_request) }}'
+          echo 'SENDER: ${{ toJson(github.event.sender) }}'
+          make deploy-it
       - name: Run integration tests
         run: make integration-tests
       - name: Destroy integration tests CDK app
