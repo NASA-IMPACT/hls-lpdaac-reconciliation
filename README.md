@@ -83,3 +83,10 @@ command:
 ```plain
 make destroy-it
 ```
+
+Finally, when opening or updating (synchronizing) a Pull Request, GitHub will
+trigger the same deploy/run/destroy cycle for integration tests, and will
+automatically use your public GitHub email address as the value of the
+`HLS_LPDAAC_NOTIFICATION_EMAIL_ADDRESS` environment variable, so there is no
+need to set this variable in the GitHub repository's `dev` environment.  It is
+set only in the `prod` environment.
