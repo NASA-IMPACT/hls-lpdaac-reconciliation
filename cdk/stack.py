@@ -7,6 +7,7 @@ from aws_cdk import aws_lambda_event_sources as sources
 from aws_cdk import aws_s3 as s3
 from aws_cdk import aws_s3_notifications as s3n
 from aws_cdk import aws_sns as sns
+from aws_cdk import aws_sns_subscriptions as subs
 from constructs import Construct
 
 
@@ -22,6 +23,7 @@ class HlsLpdaacReconciliationStack(Stack):
         lpdaac_request_topic_arn: str,
         lpdaac_response_topic_arn: str,
         lpdaac_reconciliation_reports_bucket: str,
+        notification_email_address: str,
         managed_policy_name: Optional[str] = None,
         **kwargs,
     ) -> None:
@@ -99,6 +101,11 @@ class HlsLpdaacReconciliationStack(Stack):
         # Subscribe response lambda function to response topic
         lpdaac_response_lambda.add_event_source(
             sources.SnsEventSource(lpdaac_response_topic)
+        )
+        lpdaac_response_topic.add_subscription(
+            subs.EmailSubscription(
+                notification_email_address  # pyright: ignore[reportArgumentType]
+            )
         )
 
         # Allow lambda function to access buckets

@@ -48,13 +48,19 @@ defaults:
 
 jobs:
   config:
-    # This is a hack to work around the lack of support for two other possiblities for
+    # This is a hack to work around the lack of support for other possiblities for
     # avoiding duplication of configuration values:
     #
     # (1) YAML anchors (https://yaml.org/spec/1.1/current.html#id899912) and aliases
     #     (https://yaml.org/spec/1.1/current.html#id902561)
     # (2) Availability of `env` context within `jobs.<job-id>.with.<with-id>` (see
     #     https://docs.github.com/en/actions/learn-github-actions/contexts#context-availability)
+    # (3) Custom actions within the same repository.  While this can be used, the issue
+    #     is that Dependabot will ignore actions or reusable workflows referenced
+    #     locally (for example, ./.github/actions/foo.yml), meaning that it won't
+    #     automatically detect when new action versions are available, and thus won't
+    #     automatically create PRs to bump action versions (see
+    #     https://docs.github.com/en/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file#github-actions)
     #
     # Alternative hack: https://github.com/actions/runner/issues/1182#issuecomment-1262870831
     runs-on: ubuntu-22.04
@@ -71,6 +77,7 @@ jobs:
         run: echo "TOX_MIN_VERSION=3.18.0" >> "$GITHUB_OUTPUT"
 
   unit-tests:
+    if: github.event_name != 'release'
     runs-on: ubuntu-22.04
     needs: config
     steps:
@@ -84,13 +91,14 @@ jobs:
           cache-dependency-path: setup.py
       - name: Install dependencies
         run: |
-          python -m pip install --upgrade pip
-          python -m pip install "tox>=${{ needs.config.outputs.TOX_MIN_VERSION }}"
+          python -m pip install --root-user-action ignore --upgrade pip
+          python -m pip install --root-user-action ignore "tox>=${{ needs.config.outputs.TOX_MIN_VERSION }}"
       - name: Run unit tests
         run: |
           make unit-tests
 
   integration-tests:
+    if: github.event_name != 'release'
     runs-on: ubuntu-22.04
     environment: dev
     needs: config
@@ -105,8 +113,8 @@ jobs:
           cache-dependency-path: setup.py
       - name: Install dependencies
         run: |
-          python -m pip install --upgrade pip
-          python -m pip install "tox>=${{ needs.config.outputs.TOX_MIN_VERSION }}"
+          python -m pip install --root-user-action ignore --upgrade pip
+          python -m pip install --root-user-action ignore "tox>=${{ needs.config.outputs.TOX_MIN_VERSION }}"
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
@@ -131,16 +139,29 @@ jobs:
           done < <(
             jq -r <<<"$VARS_JSON" 'to_entries|map("\(.key)=\(.value)\u0000")[]'
           )
-      - name: Deploy integration test stack
-        run: |
-          make deploy-it
+      - name: Get user's email address
+        id: get-email-address
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { id, login } = ${{ toJson(github.event.sender) }};
+            const { email } = (await github.rest.users.getByUsername({
+              username: "${{ github.event.sender.login }}"
+            })).data;
+
+            return email ?? `${id}+${login}@users.noreply.github.com`;
+          result-encoding: string
+      - name: Deploy integration tests CDK app
+        env:
+          HLS_LPDAAC_NOTIFICATION_EMAIL_ADDRESS: ${{ steps.get-email-address.outputs.result }}
+        run: make deploy-it
       - name: Run integration tests
-        run: |
-          make integration-tests
-      - name: Destroy integration test stack
-        if: "${{ !cancelled() }}"
-        run: |
-          make destroy-it
+        run: make integration-tests
+      - name: Destroy integration tests CDK app
+        if: "${{ always() }}"
+        env:
+          HLS_LPDAAC_NOTIFICATION_EMAIL_ADDRESS: ${{ steps.get-email-address.outputs.result }}
+        run: make destroy-it
 
   deploy-prod:
     # Deploy to Prod only on publishing a release (tag) on `main` branch
