@@ -168,8 +168,6 @@ jobs:
     if: github.event_name == 'release' && github.event.action == 'published'
     needs:
       - config
-      - unit-tests
-      - integration-tests
     uses: ./.github/workflows/deploy.yml
     with:
       environment: prod
