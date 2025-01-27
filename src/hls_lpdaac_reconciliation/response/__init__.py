@@ -1,5 +1,4 @@
 import re
-from collections import defaultdict
 from typing import Literal, Mapping, Sequence
 
 
@@ -82,44 +81,27 @@ def group_granule_ids(
     report sequence, and the separator is a sequence of 3 underscores (`_`), as per
     Cumulus convention.
 
-    Returns all of the unique `<GRANULE_ID>` values and file counts (as a sorted tuple),
-    grouped by unique collection ID, which is a tuple of the form
-    `("<SHORT_NAME>", "<VERSION>")`:
+    Returns all of the unique `<GRANULE_ID>` values (as a sorted tuple), grouped by
+    unique collection ID, which is a tuple of the form `("<SHORT_NAME>", "<VERSION>")`:
 
         {
             ("<SHORT_NAME>", "<VERSION>"): ("<GRANULE_ID>", ...),
             ...
         }
     """
-    grouped_granule_ids = {}
-    for collection_report in report:
-        for collection_id, collection_info in collection_report.items():
-            decoded_collection_id = decode_collection_id(collection_id)
 
-            # count files per granule id
-            counts_by_granule_id = defaultdict(lambda: 0)
-            for filename, info in collection_info["report"].items():
-                counts_by_granule_id[info["granuleId"]] += 1
-
-            # sort by granule ID before accumulating for this collection
-            counts_by_granule_id = dict(
-                sorted(
-                    counts_by_granule_id.items(), key=lambda kv: kv[0]
-                )
+    return {
+        decode_collection_id(collection_id): tuple(
+            sorted(
+                {
+                    file_info["granuleId"]
+                    for file_info in collection_info["report"].values()
+                }
             )
-
-            # log file count by granule ID
-            for granule_id, count in counts_by_granule_id.items():
-                print(
-                    f"{granule_id} granule ({count} files) differences "
-                    f"in {decoded_collection_id}"
-                )
-
-            grouped_granule_ids[decoded_collection_id] = tuple(
-                sorted(counts_by_granule_id)
-            )
-
-    return grouped_granule_ids
+        )
+        for collection_report in report
+        for collection_id, collection_info in collection_report.items()
+    }
 
 
 def notification_trigger_key(granule_id: str) -> str:

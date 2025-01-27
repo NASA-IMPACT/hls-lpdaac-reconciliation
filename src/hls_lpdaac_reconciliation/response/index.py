@@ -80,7 +80,7 @@ def handler(
 
     if subject and "Ok" in subject:
         # When the subject contains (ends with) "Ok", the message itself
-        # indicates that there are no discrepancies, so there's nothing to do.
+        # indicates that there are no discrepencies, so there's nothing to do.
         # Example: "[External] Rec-Report HLS lp-prod HLS_reconcile_2024240_2.0.rpt Ok"
         return {}
 

@@ -75,9 +75,6 @@ Test group_granule_ids:
     ...     }
     ... ]
     >>> group_granule_ids(report)
-    HLS.L30.ABC.v2.0 granule (1 files) differences in ('HLSL30', '2.0')
-    HLS.L30.XYZ.v2.0 granule (1 files) differences in ('HLSL30', '2.0')
-    HLS.S30.ABC.v2.0 granule (2 files) differences in ('HLSS30', '2.0')
     {('HLSL30', '2.0'): ('HLS.L30.ABC.v2.0', 'HLS.L30.XYZ.v2.0'),
      ('HLSS30', '2.0'): ('HLS.S30.ABC.v2.0',),
      ('HLSS30_VI', '2.0'): ()}
