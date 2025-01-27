@@ -43,15 +43,15 @@ Test group_granule_ids:
     ...             "sent": 12345,
     ...             "failed": 123,
     ...             "report": {
-    ...                 "B01.tif": {
+    ...                 "HLS.L30.ABC.v2.0.B01.tif": {
     ...                     "granuleId": "HLS.L30.ABC.v2.0",
     ...                     "status": "failed"
     ...                 },
-    ...                 "B02.tif": {
+    ...                 "HLS.L30.ABC.v2.0.B02.tif": {
     ...                     "granuleId": "HLS.L30.ABC.v2.0",
     ...                     "status": "failed"
     ...                 },
-    ...                 "B01.tif": {
+    ...                 "HLS.L30.XYZ.v2.0.B01.tif": {
     ...                     "granuleId": "HLS.L30.XYZ.v2.0",
     ...                     "status": "failed"
     ...                 },
@@ -61,11 +61,11 @@ Test group_granule_ids:
     ...             "sent": 12345,
     ...             "failed": 123,
     ...             "report": {
-    ...                 "B01.tif": {
+    ...                 "HLS.S30.ABC.v2.0.B01.tif": {
     ...                     "granuleId": "HLS.S30.ABC.v2.0",
     ...                     "status": "failed"
     ...                 },
-    ...                 "B02.tif": {
+    ...                 "HLS.S30.ABC.v2.0.B02.tif": {
     ...                     "granuleId": "HLS.S30.ABC.v2.0",
     ...                     "status": "failed"
     ...                 }
@@ -75,6 +75,6 @@ Test group_granule_ids:
     ...     }
     ... ]
     >>> group_granule_ids(report)
-    {('HLSL30', '2.0'): ('HLS.L30.ABC.v2.0', 'HLS.L30.XYZ.v2.0'),
-     ('HLSS30', '2.0'): ('HLS.S30.ABC.v2.0',),
-     ('HLSS30_VI', '2.0'): ()}
+    {'HLSL30___2.0': (3, ('HLS.L30.ABC.v2.0', 'HLS.L30.XYZ.v2.0')),
+     'HLSS30___2.0': (2, ('HLS.S30.ABC.v2.0',)),
+     'HLSS30_VI___2.0': (0, ())}
