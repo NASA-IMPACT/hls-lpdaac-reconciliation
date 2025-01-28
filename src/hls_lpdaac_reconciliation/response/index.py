@@ -14,6 +14,7 @@ if TYPE_CHECKING:  # pragma: no cover
     from aws_lambda_typing.events import SNSEvent
 
 from hls_lpdaac_reconciliation.response import (
+    decode_collection_id,
     extract_report_location,
     group_granule_ids,
     notification_trigger_key,
@@ -161,15 +162,21 @@ def process_report(
         }
     """
 
-    return {
-        f"{short_name}___{version}": process_collection(
+    granule_ids_per_status_per_collection = {}
+    for collection_id, (n_files, granule_ids) in group_granule_ids(report).items():
+        print(
+            f"{len(granule_ids)} granule ({n_files} file) missing from {collection_id}"
+        )
+
+        short_name, version = decode_collection_id(collection_id)
+        granule_ids_per_status_per_collection[collection_id] = process_collection(
             short_name=short_name,
             version=version,
             granule_ids=granule_ids,
             data_bucket_name=data_bucket_name,
         )
-        for (short_name, version), granule_ids in group_granule_ids(report).items()
-    }
+
+    return granule_ids_per_status_per_collection
 
 
 def process_collection(
@@ -202,7 +209,6 @@ def process_collection(
             ...
         }
     """
-    print(f"{len(granule_ids)} missing from {short_name}___{version}")
 
     def group_by_status(
         acc: Mapping[Status, Sequence[str]], granule_id: str

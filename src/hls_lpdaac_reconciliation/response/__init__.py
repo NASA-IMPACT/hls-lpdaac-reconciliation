@@ -50,7 +50,7 @@ def group_granule_ids(
             ],
         ]
     ]
-) -> Mapping[tuple[str, str], Sequence[str]]:
+) -> Mapping[str, tuple[int, Sequence[str]]]:
     """Group unique granule IDs by collection from a report.
 
     A report must be structured like so (keys within the structure other than those
@@ -81,23 +81,25 @@ def group_granule_ids(
     report sequence, and the separator is a sequence of 3 underscores (`_`), as per
     Cumulus convention.
 
-    Returns all of the unique `<GRANULE_ID>` values (as a sorted tuple), grouped by
-    unique collection ID, which is a tuple of the form `("<SHORT_NAME>", "<VERSION>")`:
+    Returns the total count of files and all of the unique `<GRANULE_ID>` values
+    (as a sorted tuple), grouped by unique collection ID:
 
         {
-            ("<SHORT_NAME>", "<VERSION>"): ("<GRANULE_ID>", ...),
+            "<SHORT_NAME>___<VERSION>": (<FILE COUNT>, ("<GRANULE_ID>", ...)),
             ...
         }
     """
-
     return {
-        decode_collection_id(collection_id): tuple(
-            sorted(
-                {
-                    file_info["granuleId"]
-                    for file_info in collection_info["report"].values()
-                }
-            )
+        collection_id: (
+            len(collection_info["report"]),
+            tuple(
+                sorted(
+                    {
+                        file_info["granuleId"]
+                        for file_info in collection_info["report"].values()
+                    }
+                )
+            ),
         )
         for collection_report in report
         for collection_id, collection_info in collection_report.items()
