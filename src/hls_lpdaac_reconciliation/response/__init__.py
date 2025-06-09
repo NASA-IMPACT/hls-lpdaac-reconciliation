@@ -110,7 +110,11 @@ def notification_trigger_key(granule_id: str) -> str:
     """Returns the key for the S3 notification trigger object for a granule."""
     # Example: HLS.S30.T15XWH.2024237T194859.v2.0
     # 'HLS', 'S30', 'T15XWH', '2024237T194859', ['v2', '0']
-    _hls, instrument, _tile_id, datetime, *_version = granule_id.split(".")
+    prefix, instrument, _tile_id, datetime, *_version = granule_id.split(".")
+    # Prefix is either HLS or HLS-VI
+    _hls, *vi = prefix.split("-")
     date, _time = datetime.split("T")
 
-    return f"{instrument}/data/{date}/{granule_id}/{granule_id}.json"
+    return (
+        f"{instrument}{'_VI' if vi else ''}/data/{date}/{granule_id}/{granule_id}.json"
+    )

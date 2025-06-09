@@ -33,6 +33,8 @@ Test notification_trigger_key:
     >>> from hls_lpdaac_reconciliation.response import notification_trigger_key
     >>> notification_trigger_key("HLS.S30.T15XWH.2024237T194859.v2.0")
     'S30/data/2024237/HLS.S30.T15XWH.2024237T194859.v2.0/HLS.S30.T15XWH.2024237T194859.v2.0.json'
+    >>> notification_trigger_key("HLS-VI.L30.T50WPA.2025083T034714.v2.0")
+    'L30_VI/data/2025083/HLS-VI.L30.T50WPA.2025083T034714.v2.0/HLS-VI.L30.T50WPA.2025083T034714.v2.0.json'
 
 Test group_granule_ids:
 
