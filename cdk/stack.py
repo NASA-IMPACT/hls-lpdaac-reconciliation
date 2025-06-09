@@ -86,7 +86,7 @@ class HlsLpdaacReconciliationStack(Stack):
             code=lambda_.Code.from_asset("src", exclude=["**/*.egg-info"]),
             handler="hls_lpdaac_reconciliation/response/index.handler",
             runtime=lambda_.Runtime.PYTHON_3_12,
-            memory_size=128,
+            memory_size=4096,
             timeout=Duration.minutes(15),
             environment={
                 "HLS_FORWARD_BUCKET": hls_forward_bucket,
