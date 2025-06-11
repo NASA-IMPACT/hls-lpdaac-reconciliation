@@ -2,12 +2,6 @@ import re
 from typing import Literal, Mapping, Sequence
 
 
-def decode_collection_id(collection_id: str) -> tuple[str, str]:
-    """Decode a collection ID into a tuple of its name and version."""
-    short_name, version = collection_id.split("___", 1)
-    return short_name, version
-
-
 def extract_report_location(message: str) -> tuple[str, str]:
     """Extract AWS S3 bucket and key of reconciliation report from SNS message.
 

@@ -12,14 +12,12 @@ from mypy_boto3_sns import SNSClient
 def wait_until_modified(
     s3: S3Client, *, since: datetime, bucket: str, key: str
 ) -> datetime:
-    modified = since
-
     for _ in range(10):
         if since < (modified := s3.head_object(Bucket=bucket, Key=key)["LastModified"]):
-            break
+            return modified
         sleep(2)
 
-    return modified
+    return since
 
 
 def test_response_handler(
@@ -58,4 +56,5 @@ def test_response_handler(
         "KeyCount"
     ]
 
-    assert touched > created and key_count == 1
+    assert touched > created, "trigger file was not modified"
+    assert key_count == 1, "expected exactly 1 trigger file"

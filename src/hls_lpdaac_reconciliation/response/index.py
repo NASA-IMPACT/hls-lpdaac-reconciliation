@@ -2,8 +2,6 @@ from __future__ import annotations
 
 import json
 import os
-import urllib.parse
-import urllib.request
 from enum import StrEnum, auto
 from functools import reduce
 from typing import Any, Mapping, Optional, Sequence, TYPE_CHECKING
@@ -14,7 +12,6 @@ if TYPE_CHECKING:  # pragma: no cover
     from aws_lambda_typing.events import SNSEvent
 
 from hls_lpdaac_reconciliation.response import (
-    decode_collection_id,
     extract_report_location,
     group_granule_ids,
     notification_trigger_key,
@@ -48,11 +45,8 @@ def handler(
 
     - Extract S3 location of JSON reconciliation report from message and read report
     - Extract all granule IDs from report, along with associated collection IDs
-    - Check CMR for existence of each granule (search by collection ID and granule ID)
-    - If granule is in CMR, do nothing (not sure why, but perhaps this means that
-      the granule was successfully ingested after the report was generated)
-    - Otherwise, "touch" the granule's notification trigger file (its non-STAC *.json
-      file) to trigger a new notification to LPDAAC to try to ingest the granule again.
+    - "Touch" the granule's notification trigger file (its non-STAC *.json file) to
+      trigger a new notification to LPDAAC to try to ingest the granule again.
 
     Parameters
     ----------
@@ -136,7 +130,7 @@ def read_report(bucket_name: str, key: str) -> Sequence[Mapping[str, Any]]:
 def process_report(
     report: Sequence[Mapping[str, Any]], data_bucket_name: str
 ) -> Mapping[str, Mapping[Status, Sequence[str]]]:
-    """Trigger reingestion for every granule in a report that is not in CMR.
+    """Trigger reingestion for every granule in a report.
 
     Arguments
     ---------
@@ -163,15 +157,14 @@ def process_report(
     """
 
     granule_ids_per_status_per_collection = {}
+
     for collection_id, (n_files, granule_ids) in group_granule_ids(report).items():
         print(
-            f"{len(granule_ids)} granule ({n_files} file) missing from {collection_id}"
+            f"{len(granule_ids)} granule(s) ({n_files} file(s)) "
+            f"missing from {collection_id}"
         )
 
-        short_name, version = decode_collection_id(collection_id)
         granule_ids_per_status_per_collection[collection_id] = process_collection(
-            short_name=short_name,
-            version=version,
             granule_ids=granule_ids,
             data_bucket_name=data_bucket_name,
         )
@@ -181,19 +174,13 @@ def process_report(
 
 def process_collection(
     *,
-    short_name: str,
-    version: str,
     granule_ids: Sequence[str],
     data_bucket_name: str,
 ) -> Mapping[Status, Sequence[str]]:
-    """Trigger reingestion for every granule in a list that is not in CMR.
+    """Trigger reingestion for every granule in a list.
 
     Arguments
     ---------
-    short_name:
-        Short name of the collection containing the granules
-    version:
-        Version of the collection containing the granules
     granule_ids:
         Sequence of IDs of granules to possibly trigger reingestion for
     data_bucket_name:
@@ -205,8 +192,8 @@ def process_collection(
     Mapping from granule `Status` to sequence of granule IDs with the status:
 
         {
+            <Status.TRIGGERED: 'triggered'>: ["<GRANULE_ID_1>", ..., "<GRANULE_ID_N>"],
             <Status.MISSING: 'missing'>: ["<GRANULE_ID_1>", ..., "<GRANULE_ID_N>"],
-            ...
         }
     """
 
@@ -214,8 +201,6 @@ def process_collection(
         acc: Mapping[Status, Sequence[str]], granule_id: str
     ) -> Mapping[Status, Sequence[str]]:
         status = process_granule(
-            short_name=short_name,
-            version=version,
             granule_id=granule_id,
             data_bucket_name=data_bucket_name,
         )
@@ -225,10 +210,8 @@ def process_collection(
     return reduce(group_by_status, granule_ids, {})
 
 
-def process_granule(
-    *, short_name: str, version: str, granule_id: str, data_bucket_name: str
-) -> Status:
-    """Touch S3 notification trigger file for a granule if it is not in CMR.
+def process_granule(*, granule_id: str, data_bucket_name: str) -> Status:
+    """Touch S3 notification trigger file for a granule.
 
     Triggers LPDAAC reingestion of the granule by touching the notification
     "trigger" file, which causes a message to be sent to LPDAAC for ingestion
@@ -236,10 +219,6 @@ def process_granule(
 
     Parameters
     ----------
-    short_name:
-        collection short name as it exists in the CMR
-    version:
-        collection version as it exists in the CMR
     granule_id:
         granule UR or producer granule id of a granule
     data_bucket_name:
@@ -248,15 +227,10 @@ def process_granule(
     Returns
     -------
     status:
-        `Status.SKIPPED` if the granule is in the CMR, `Status.TRIGGERED` if it is not
-        in the CMR and it's associated "trigger" file was found in the specified data
-        bucket (and touched, to trigger re-ingestion), otherwise `Status.MISSING`
-        (indicating HLS reprocessing is required)
+        `Status.TRIGGERED` if the granule's associated "trigger" file was found
+        in the specified data bucket (and touched, to trigger re-ingestion),
+        otherwise `Status.MISSING` (indicating HLS reprocessing is required)
     """
-    if granule_in_cmr(short_name=short_name, version=version, granule_id=granule_id):
-        print(f"{granule_id} is already available in CMR. Skipping.")
-        return Status.SKIPPED
-
     if s3_object_exists(data_bucket_name, key := notification_trigger_key(granule_id)):
         s3_client.copy_object(
             Bucket=data_bucket_name,
@@ -267,41 +241,11 @@ def process_granule(
         return Status.TRIGGERED
 
     print(
-        f"{granule_id} needs to be resubmitted to the step function execution:"
+        f"{granule_id} needs to be resubmitted to the step function execution: "
         f"notification trigger file not found: s3://{data_bucket_name}/{key}"
     )
 
     return Status.MISSING
-
-
-def granule_in_cmr(*, short_name: str, version: str, granule_id: str) -> bool:
-    """Indicate whether or not metadata for a granule in a collection exists in the CMR.
-
-    Parameters
-    ----------
-    short_name:
-        name of collection that should contain the granule metadata
-    version:
-        version of collection that should contain the granule metadata
-    granule_id:
-        granule ur or producer granule id of a granule
-
-    Returns
-    -------
-    `True` if there is metadata in the CMR for the granule; `False` otherwise.
-    """
-
-    params = urllib.parse.urlencode(
-        {
-            "short_name": short_name,
-            "version": version,
-            "readable_granule_name": granule_id,
-        }
-    )
-    url = f"https://cmr.earthdata.nasa.gov/search/granules?{params}"
-
-    with urllib.request.urlopen(url) as response:
-        return response.headers.get("cmr-hits", "0") != "0"
 
 
 def s3_object_exists(bucket: str, key: str) -> bool:
