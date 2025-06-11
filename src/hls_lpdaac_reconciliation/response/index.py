@@ -2,8 +2,6 @@ from __future__ import annotations
 
 import json
 import os
-import urllib.parse
-import urllib.request
 from enum import StrEnum, auto
 from functools import reduce
 from typing import Any, Mapping, Optional, Sequence, TYPE_CHECKING
@@ -14,7 +12,6 @@ if TYPE_CHECKING:  # pragma: no cover
     from aws_lambda_typing.events import SNSEvent
 
 from hls_lpdaac_reconciliation.response import (
-    decode_collection_id,
     extract_report_location,
     group_granule_ids,
     notification_trigger_key,

@@ -1,11 +1,3 @@
-Test decode_collection_id:
-
-    >>> from hls_lpdaac_reconciliation.response import decode_collection_id
-    >>> decode_collection_id("HLSS30___2.0")
-    ('HLSS30', '2.0')
-    >>> decode_collection_id("HLSS30_VI___2.0")
-    ('HLSS30_VI', '2.0')
-
 Test extract_report_location:
 
     >>> from hls_lpdaac_reconciliation.response import extract_report_location
