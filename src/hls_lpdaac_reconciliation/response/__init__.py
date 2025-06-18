@@ -12,6 +12,8 @@ W = TypeVar("W")
 if TYPE_CHECKING:
     from hls_lpdaac_reconciliation.response.index import Status
 
+GRANULE_ID_PATTERN = re.compile(r"^(?P<granule_id>.+\.v\d(?:\.\d)*)")
+
 
 def extract_report_location(message: str) -> tuple[str, str]:
     """Extract AWS S3 bucket and key of reconciliation report from SNS message.
@@ -113,12 +115,10 @@ def group_granule_ids(
 
 def granule_id_for_file(filename: str) -> str:
     """Determine the granule ID for a file."""
-    import re
-
     # Example: HLS.S30.T15XWH.2024237T194859.v2.0_stac.json
     # Match everything through to the version number vX[.Y[...]] (e.g., v2.0),
     # ignoring all characters following the version number.
-    if not (m := re.match(r"^(?P<granule_id>.+\.v\d(?:\.\d)*)", filename)):
+    if not (m := re.match(GRANULE_ID_PATTERN, filename)):
         raise ValueError(f"Unable to determine granule ID for file {filename!r}")
 
     return m["granule_id"]
