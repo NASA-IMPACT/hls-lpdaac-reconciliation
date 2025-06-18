@@ -20,6 +20,22 @@ Test extract_report_location:
       ...
     ValueError: Cannot determine report location from message: ''
 
+Test granule_id_for_file:
+
+    >>> from hls_lpdaac_reconciliation.response import granule_id_for_file
+    >>> granule_id_for_file("HLS.S30.T36PWU.2124237T080609.v2.0.B01.tif")
+    'HLS.S30.T36PWU.2124237T080609.v2.0'
+    >>> granule_id_for_file("HLS.S30.T36PWU.2124237T080609.v2.5.B01.tif")
+    'HLS.S30.T36PWU.2124237T080609.v2.5'
+    >>> granule_id_for_file("HLS.S30.T36PWU.2124237T080609.v3.0.1.B01.tif")
+    'HLS.S30.T36PWU.2124237T080609.v3.0.1'
+    >>> granule_id_for_file("HLS.S30.T15XWH.2124237T194859.v2.0_stac.json")
+    'HLS.S30.T15XWH.2124237T194859.v2.0'
+    >>> granule_id_for_file("HLS.S30.T15XWH.2124237T194859.2.0.B01.tif")
+    Traceback (most recent call last):
+      ...
+    ValueError: Unable to determine granule ID for file 'HLS.S30.T15XWH.2124237T194859.2.0.B01.tif'
+
 Test notification_trigger_key:
 
     >>> from hls_lpdaac_reconciliation.response import notification_trigger_key
@@ -38,16 +54,10 @@ Test group_granule_ids:
     ...             "failed": 123,
     ...             "report": {
     ...                 "HLS.L30.ABC.v2.0.B01.tif": {
-    ...                     "granuleId": "HLS.L30.ABC.v2.0",
-    ...                     "status": "failed"
     ...                 },
     ...                 "HLS.L30.ABC.v2.0.B02.tif": {
-    ...                     "granuleId": "HLS.L30.ABC.v2.0",
-    ...                     "status": "failed"
     ...                 },
     ...                 "HLS.L30.XYZ.v2.0.B01.tif": {
-    ...                     "granuleId": "HLS.L30.XYZ.v2.0",
-    ...                     "status": "failed"
     ...                 },
     ...             }
     ...         },
@@ -56,12 +66,8 @@ Test group_granule_ids:
     ...             "failed": 123,
     ...             "report": {
     ...                 "HLS.S30.ABC.v2.0.B01.tif": {
-    ...                     "granuleId": "HLS.S30.ABC.v2.0",
-    ...                     "status": "failed"
     ...                 },
     ...                 "HLS.S30.ABC.v2.0.B02.tif": {
-    ...                     "granuleId": "HLS.S30.ABC.v2.0",
-    ...                     "status": "failed"
     ...                 }
     ...             }
     ...         },

@@ -89,8 +89,8 @@ def group_granule_ids(
             tuple(
                 sorted(
                     {
-                        file_info["granuleId"]
-                        for file_info in collection_info["report"].values()
+                        granule_id_for_file(filename)
+                        for filename in collection_info["report"]
                     }
                 )
             ),
@@ -98,6 +98,19 @@ def group_granule_ids(
         for collection_report in report
         for collection_id, collection_info in collection_report.items()
     }
+
+
+def granule_id_for_file(filename: str) -> str:
+    """Determine the granule ID for a file."""
+    import re
+
+    # Example: HLS.S30.T15XWH.2024237T194859.v2.0_stac.json
+    # Match everything through to the version number vX[.Y[...]] (e.g., v2.0),
+    # ignoring all characters following the version number.
+    if not (m := re.match(r"^(?P<granule_id>.+\.v\d(?:\.\d)*)", filename)):
+        raise ValueError(f"Unable to determine granule ID for file {filename!r}")
+
+    return m["granule_id"]
 
 
 def notification_trigger_key(granule_id: str) -> str:
