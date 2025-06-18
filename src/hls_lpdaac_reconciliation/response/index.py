@@ -15,6 +15,7 @@ from hls_lpdaac_reconciliation.response import (
     extract_report_location,
     group_granule_ids,
     notification_trigger_key,
+    summarize_report,
 )
 
 
@@ -34,7 +35,7 @@ def handler(
     *,
     hls_forward_bucket: Optional[str] = None,
     hls_historical_bucket: Optional[str] = None,
-) -> Mapping[str, Mapping[Status, Sequence[str]]]:
+) -> Mapping[str, Mapping[Status, int]]:
     """Handle AWS SNS message from LPDAAC regarding Cumulus ingestion reconciliation.
 
     Skip message if the subject of the message contains `"Ok"`.  In this case, there
@@ -66,7 +67,7 @@ def handler(
     Returns
     -------
     Mapping from collection ID (`"<SHORT_NAME>___<VERSION>"`) to a sub-mapping from
-    granule `Status` to sequence of granule IDs resulting in each status after
+    granule `Status` to the number of granule IDs resulting in each status after
     processing.
     """
     sns_message = event["Records"][0]["Sns"]
@@ -88,7 +89,7 @@ def handler(
         else hls_forward_bucket or os.environ["HLS_FORWARD_BUCKET"]
     )
 
-    summary = process_report(report, data_bucket_name)
+    summary = summarize_report(process_report(report, data_bucket_name))
     print(f"Processing summary: {summary}")
 
     return summary
@@ -181,9 +182,9 @@ def process_collection(
 
     Arguments
     ---------
-    granule_ids:
+    granule_ids
         Sequence of IDs of granules to possibly trigger reingestion for
-    data_bucket_name:
+    data_bucket_name
         Name of source S3 bucket containing the granule files, including the
         "trigger" file for triggering LPDAAC notification
 

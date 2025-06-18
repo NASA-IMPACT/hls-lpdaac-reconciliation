@@ -1,5 +1,16 @@
+from __future__ import annotations
+
 import re
-from typing import Literal, Mapping, Sequence
+from collections.abc import Callable
+from typing import TYPE_CHECKING, Literal, Mapping, Sequence, TypeVar
+
+K = TypeVar("K")
+V = TypeVar("V")
+W = TypeVar("W")
+
+
+if TYPE_CHECKING:
+    from hls_lpdaac_reconciliation.response.index import Status
 
 
 def extract_report_location(message: str) -> tuple[str, str]:
@@ -43,7 +54,7 @@ def group_granule_ids(
                 Mapping[str, Mapping[Literal["granuleId"], str]],
             ],
         ]
-    ]
+    ],
 ) -> Mapping[str, tuple[int, Sequence[str]]]:
     """Group unique granule IDs by collection from a report.
 
@@ -125,3 +136,57 @@ def notification_trigger_key(granule_id: str) -> str:
     return (
         f"{instrument}{'_VI' if vi else ''}/data/{date}/{granule_id}/{granule_id}.json"
     )
+
+
+def summarize_report(
+    processed_report: Mapping[str, Mapping[Status, Sequence[str]]],
+) -> Mapping[str, Mapping[Status, int]]:
+    """Summarize granule counts per status and collection.
+
+    Since it is possible for an input report to be very large (due to a large
+    number of missing granules), we want to avoid logging such potentially large
+    output.  Therefore, we want to summarize the results by providing granule
+    counts rather than lists of granule IDs.
+
+    We map an input like this:
+
+    ```plain
+    "<SHORT_NAME>___<VERSION>": {
+        <Status.MISSING: 'missing'>: ["<GRANULE_ID_1>", ..., "<GRANULE_ID_N>"],
+        ...
+    },
+    ```
+
+    to a summary like this:
+
+    ```plain
+    "<SHORT_NAME>___<VERSION>": {
+        <Status.MISSING: 'missing'>: 12345,
+        ...
+    },
+    ```
+    """
+    return map_values(
+        processed_report,
+        lambda granule_ids_by_status: map_values(granule_ids_by_status, len),
+    )
+
+
+def map_values(mapping: Mapping[K, V], f: Callable[[V], W]) -> Mapping[K, W]:
+    """Map the values of a mapping using a function.
+
+    Parameters
+    ----------
+    mapping
+        A mapping where values will be transformed.
+    f
+        Unary function to use for transforming a value from `mapping` to a new
+        value.
+
+    Returns
+    -------
+    Mapping[K, W]
+        A new mapping with the same keys as `mapping`, but with values produced
+        by passing values from `mapping` through the function `f`.
+    """
+    return {k: f(v) for k, v in mapping.items()}
