@@ -1,3 +1,4 @@
+# pyright: reportTypedDictNotRequiredAccess=false
 import json
 
 from aws_lambda_typing.events import S3Event
@@ -10,9 +11,9 @@ def test_request(s3_event: S3Event, sns_topic: Topic, sqs_queue: Queue) -> None:
     # See http://docs.getmoto.org/en/latest/docs/getting_started.html#what-about-those-pesky-imports
     from hls_lpdaac_reconciliation.request.index import handler
 
-    s3 = s3_event["Records"][0]["s3"]  # type: ignore
+    s3 = s3_event["Records"][0]["s3"]
     bucket = s3["bucket"]["name"]
-    key = s3["object"]["key"]  # type: ignore
+    key = s3["object"]["key"]
 
     # Subscribe to the topic with an SQS queue so we can confirm that the handler
     # published a message to the topic by reading the message from the queue.
