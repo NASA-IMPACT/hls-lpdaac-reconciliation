@@ -4,7 +4,7 @@ import json
 import os
 from enum import StrEnum, auto
 from functools import reduce
-from typing import Any, Mapping, Optional, Sequence, TYPE_CHECKING
+from typing import Any, Mapping, Optional, Sequence, TYPE_CHECKING, cast
 
 import boto3
 
@@ -125,7 +125,11 @@ def read_report(bucket_name: str, key: str) -> Sequence[Mapping[str, Any]]:
 
     print(f"Reading report from s3://{bucket_name}/{key}")
     obj = s3_resource.Object(bucket_name, key)
-    return json.loads(obj.get()["Body"].read().decode("utf-8"))
+
+    return cast(
+        Sequence[Mapping[str, Any]],
+        json.loads(obj.get()["Body"].read().decode("utf-8")),
+    )
 
 
 def process_report(

@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import Any
 
 from aws_cdk import CfnOutput, RemovalPolicy, Stack
 from aws_cdk import aws_iam as iam
@@ -15,8 +15,8 @@ class HlsLpdaacReconciliationStackIT(Stack):
         scope: Construct,
         construct_id: str,
         *,
-        managed_policy_name: Optional[str] = None,
-        **kwargs,
+        managed_policy_name: str | None = None,
+        **kwargs: Any,
     ) -> None:
         super().__init__(scope, construct_id, **kwargs)
 

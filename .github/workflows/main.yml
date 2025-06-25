@@ -8,7 +8,6 @@ on:
   push:
     branches:
       - main
-      - develop
     tags-ignore:
       - "*"
     paths:
@@ -27,7 +26,6 @@ on:
       - synchronize
     branches:
       - main
-      - develop
     paths:
       - ".github/workflows/*"
       - "cdk/**"
@@ -46,131 +44,64 @@ defaults:
   run:
     shell: bash
 
-jobs:
-  config:
-    # This is a hack to work around the lack of support for other possiblities for
-    # avoiding duplication of configuration values:
-    #
-    # (1) YAML anchors (https://yaml.org/spec/1.1/current.html#id899912) and aliases
-    #     (https://yaml.org/spec/1.1/current.html#id902561)
-    # (2) Availability of `env` context within `jobs.<job-id>.with.<with-id>` (see
-    #     https://docs.github.com/en/actions/learn-github-actions/contexts#context-availability)
-    # (3) Custom actions within the same repository.  While this can be used, the issue
-    #     is that Dependabot will ignore actions or reusable workflows referenced
-    #     locally (for example, ./.github/actions/foo.yml), meaning that it won't
-    #     automatically detect when new action versions are available, and thus won't
-    #     automatically create PRs to bump action versions (see
-    #     https://docs.github.com/en/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file#github-actions)
-    #
-    # Alternative hack: https://github.com/actions/runner/issues/1182#issuecomment-1262870831
-    runs-on: ubuntu-22.04
-    outputs:
-      PYTHON_VERSION: "${{ steps.python.outputs.PYTHON_VERSION }}"
-      TOX_MIN_VERSION: "${{ steps.tox.outputs.TOX_MIN_VERSION }}"
-    steps:
-      - id: python
-        name: Set Python version
-        run: echo "PYTHON_VERSION=3.12" >> "$GITHUB_OUTPUT"
-      - id: tox
-        name: Set minimum tox version
-        # `allowlist_externals` replaces `whitelist_externals`
-        run: echo "TOX_MIN_VERSION=3.18.0" >> "$GITHUB_OUTPUT"
+env:
+  UV_LINK_MODE: copy
+  UV_NO_PROGRESS: 1
 
+jobs:
   unit-tests:
-    if: github.event_name != 'release'
-    runs-on: ubuntu-22.04
-    needs: config
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
     steps:
-      - name: Checkout source
+      - name: Checkout sources
         uses: actions/checkout@v4
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "${{ needs.config.outputs.PYTHON_VERSION }}"
-          cache: pip
-          cache-dependency-path: setup.py
-      - name: Install dependencies
-        run: |
-          python -m pip install --root-user-action ignore --upgrade pip
-          python -m pip install --root-user-action ignore "tox>=${{ needs.config.outputs.TOX_MIN_VERSION }}"
+
+      - name: Install tooling and dependencies
+        uses: ./.github/actions/install
+
       - name: Run unit tests
-        run: |
-          make unit-tests
+        run: make unit-tests
 
   integration-tests:
-    if: github.event_name != 'release'
-    runs-on: ubuntu-22.04
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
     environment: dev
-    needs: config
     steps:
-      - name: Checkout source
+      - name: Checkout sources
         uses: actions/checkout@v4
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "${{ needs.config.outputs.PYTHON_VERSION }}"
-          cache: pip
-          cache-dependency-path: setup.py
-      - name: Install dependencies
-        run: |
-          python -m pip install --root-user-action ignore --upgrade pip
-          python -m pip install --root-user-action ignore "tox>=${{ needs.config.outputs.TOX_MIN_VERSION }}"
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v4
-        with:
-          aws-region: ${{ vars.AWS_DEFAULT_REGION }}
-          role-to-assume: ${{ vars.AWS_ROLE_TO_ASSUME_ARN }}
-          role-session-name: ${{ github.actor }}
-      - name: Convert secrets to environment variables
-        env:
-          SECRETS_JSON: ${{ toJson(secrets) }}
-        run: |
-          while read -rd $'' line; do
-            echo "$line" >> $GITHUB_ENV
-          done < <(
-            jq -r <<<"$SECRETS_JSON" 'to_entries|map("\(.key)=\(.value)\u0000")[]'
-          )
-      - name: Convert vars to environment variables
-        env:
-          VARS_JSON: ${{ toJson(vars) }}
-        run: |
-          while read -rd $'' line; do
-            echo "$line" >> $GITHUB_ENV
-          done < <(
-            jq -r <<<"$VARS_JSON" 'to_entries|map("\(.key)=\(.value)\u0000")[]'
-          )
-      - name: Get user's email address
-        id: get-email-address
-        uses: actions/github-script@v7
-        with:
-          script: |
-            const { id, login } = ${{ toJson(github.event.sender) }};
-            const { email } = (await github.rest.users.getByUsername({
-              username: "${{ github.event.sender.login }}"
-            })).data;
 
-            return email ?? `${id}+${login}@users.noreply.github.com`;
-          result-encoding: string
-      - name: Deploy integration tests CDK app
-        env:
-          HLS_LPDAAC_NOTIFICATION_EMAIL_ADDRESS: ${{ steps.get-email-address.outputs.result }}
-        run: make deploy-it
+      - name: Deploy integration tests stack
+        uses: ./.github/actions/deploy
+        with:
+          aws_region: "${{ vars.AWS_DEFAULT_REGION }}"
+          aws_role_to_assume_arn: "${{ vars.AWS_ROLE_TO_ASSUME_ARN }}"
+          aws_role_session_name: "${{ github.actor }}"
+          vars_json: "${{ toJson(vars) }}"
+          secrets_json: "${{ toJson(secrets) }}"
+          command: make deploy-it
+
       - name: Run integration tests
         run: make integration-tests
-      - name: Destroy integration tests CDK app
-        if: "${{ always() }}"
-        env:
-          HLS_LPDAAC_NOTIFICATION_EMAIL_ADDRESS: ${{ steps.get-email-address.outputs.result }}
+
+      - name: Destroy integration tests stack
+        if: "${{ !cancelled() }}"
         run: make destroy-it
 
-  deploy-prod:
-    # Deploy to Prod only on publishing a release (tag) on `main` branch
-    if: github.event_name == 'release' && github.event.action == 'published'
-    needs:
-      - config
-    uses: ./.github/workflows/deploy.yml
-    with:
-      environment: prod
-      PYTHON_VERSION: "${{ needs.config.outputs.PYTHON_VERSION }}"
-      TOX_MIN_VERSION: "${{ needs.config.outputs.TOX_MIN_VERSION }}"
-    secrets: inherit
+  deploy:
+    # Deploy to Prod only on publishing a release (tag)
+    if: github.event_name == 'release'
+    runs-on: ubuntu-latest
+    environment: prod
+    steps:
+      - name: Checkout sources
+        uses: actions/checkout@v4
+
+      - name: Deploy production stack
+        uses: ./.github/actions/deploy
+        with:
+          aws_region: "${{ vars.AWS_DEFAULT_REGION }}"
+          aws_role_to_assume_arn: "${{ vars.AWS_ROLE_TO_ASSUME_ARN }}"
+          aws_role_session_name: "${{ github.actor }}"
+          vars_json: "${{ toJson(vars) }}"
+          secrets_json: "${{ toJson(secrets) }}"
+          command: make deploy

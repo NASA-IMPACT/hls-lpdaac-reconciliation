@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import Any
 
 from aws_cdk import Duration, Stack
 from aws_cdk import aws_iam as iam
@@ -24,8 +24,8 @@ class HlsLpdaacReconciliationStack(Stack):
         lpdaac_response_topic_arn: str,
         lpdaac_reconciliation_reports_bucket: str,
         notification_email_address: str,
-        managed_policy_name: Optional[str] = None,
-        **kwargs,
+        managed_policy_name: str | None = None,
+        **kwargs: Any,
     ) -> None:
         super().__init__(scope, construct_id, **kwargs)
 
