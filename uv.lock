@@ -112,6 +112,9 @@ wheels = [
 ]
 
 [package.optional-dependencies]
+glue = [
+    { name = "mypy-boto3-glue" },
+]
 iam = [
     { name = "mypy-boto3-iam" },
 ]
@@ -338,7 +341,7 @@ dependencies = [
 dev = [
     { name = "aws-lambda-typing" },
     { name = "boto3" },
-    { name = "boto3-stubs", extra = ["iam", "lambda", "s3", "sns", "sqs"] },
+    { name = "boto3-stubs", extra = ["glue", "iam", "lambda", "s3", "sns", "sqs"] },
     { name = "botocore-stubs" },
     { name = "moto", extra = ["s3"] },
     { name = "mypy" },
@@ -360,7 +363,7 @@ requires-dist = [
 dev = [
     { name = "aws-lambda-typing", specifier = ">=2.20.0" },
     { name = "boto3", specifier = ">=1.38.41" },
-    { name = "boto3-stubs", extras = ["iam", "lambda", "s3", "sns", "sqs"], specifier = ">=1.38.41" },
+    { name = "boto3-stubs", extras = ["glue", "iam", "lambda", "s3", "sns", "sqs"], specifier = ">=1.38.41" },
     { name = "botocore-stubs", specifier = ">=1.38.30" },
     { name = "moto", extras = ["s3", "sns", "sqs"], specifier = ">=5.1.6" },
     { name = "mypy", specifier = ">=1.16.1" },
@@ -536,6 +539,15 @@ wheels = [
     { url = "https://files.pythonhosted.org/packages/df/f0/2bd41e174b5fd93bc9de9a28e4fb673113633b8a7f3a607fa4a73595e468/mypy-1.16.1-cp312-cp312-musllinux_1_2_x86_64.whl", hash = "sha256:dedb6229b2c9086247e21a83c309754b9058b438704ad2f6807f0d8227f6ebdd", size = 12903328, upload-time = "2025-06-16T16:34:35.099Z" },
     { url = "https://files.pythonhosted.org/packages/61/81/5572108a7bec2c46b8aff7e9b524f371fe6ab5efb534d38d6b37b5490da8/mypy-1.16.1-cp312-cp312-win_amd64.whl", hash = "sha256:1f0435cf920e287ff68af3d10a118a73f212deb2ce087619eb4e648116d1fe9b", size = 9562321, upload-time = "2025-06-16T16:48:58.823Z" },
     { url = "https://files.pythonhosted.org/packages/cf/d3/53e684e78e07c1a2bf7105715e5edd09ce951fc3f47cf9ed095ec1b7a037/mypy-1.16.1-py3-none-any.whl", hash = "sha256:5fc2ac4027d0ef28d6ba69a0343737a23c4d1b83672bf38d1fe237bdc0643b37", size = 2265923, upload-time = "2025-06-16T16:48:02.366Z" },
+]
+
+[[package]]
+name = "mypy-boto3-glue"
+version = "1.38.42"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/a9/f6/42cb4f3d448d80858957844225d9a0237aada5e4c4de741e8b07a098d542/mypy_boto3_glue-1.38.42.tar.gz", hash = "sha256:c34967cd54ddd5d8d8afc1464eaa847b6430c32b7424559199c5af3d9006b4f1", size = 122809, upload-time = "2025-06-23T19:28:08.964Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/0a/20/386f428d03791603625dbffbacedb8787adbb2b1a0f5081214116aac7af4/mypy_boto3_glue-1.38.42-py3-none-any.whl", hash = "sha256:f49401710e8795a5d12ae0ad14bb6a96fd8ac23477853569421253a51a8e790c", size = 130397, upload-time = "2025-06-23T19:28:06.139Z" },
 ]
 
 [[package]]

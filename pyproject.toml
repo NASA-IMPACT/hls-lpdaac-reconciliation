@@ -21,7 +21,7 @@ dependencies = ["aws-cdk-lib>=2.202.0", "constructs>=10.4.2"]
 dev = [
     "aws-lambda-typing>=2.20.0",
     "boto3>=1.38.41",
-    "boto3-stubs[iam,lambda,s3,sns,sqs]>=1.38.41",
+    "boto3-stubs[glue,iam,lambda,s3,sns,sqs]>=1.38.41",
     "botocore-stubs>=1.38.30",
     "moto[s3,sns,sqs]>=5.1.6",
     "mypy>=1.16.1",
