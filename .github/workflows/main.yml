@@ -72,7 +72,7 @@ jobs:
 
       - name: Get commit short SHA
         run: |
-          echo "GITHUB_SHORT_SHA=$(echo ${{ github.sha }} | cut -c 1-7)" >> $GITHUB_ENV
+          echo "HLS_LPDAAC_STACK_OVERRIDE=test-$(echo ${{ github.sha }} | cut -c 1-7)" >> $GITHUB_ENV
 
       - name: Deploy integration tests stack
         uses: ./.github/actions/deploy
@@ -80,7 +80,7 @@ jobs:
           aws_region: "${{ vars.AWS_DEFAULT_REGION }}"
           aws_role_to_assume_arn: "${{ vars.AWS_ROLE_TO_ASSUME_ARN }}"
           aws_role_session_name: "${{ github.actor }}"
-          stack_name: "test-${{ env.GITHUB_SHORT_SHA }}"
+          stack_name: "${{ env.HLS_LPDAAC_STACK_OVERRIDE }}"
           vars_json: "${{ toJson(vars) }}"
           secrets_json: "${{ toJson(secrets) }}"
           command: make deploy-it
@@ -90,6 +90,8 @@ jobs:
 
       - name: Destroy integration tests stack
         if: "${{ !cancelled() }}"
+        env:
+          HLS_LPDAAC_STACK: "${{ env.HLS_LPDAAC_STACK_OVERRIDE }}"
         run: make destroy-it
 
   deploy-prod:
