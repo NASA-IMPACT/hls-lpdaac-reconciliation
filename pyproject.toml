@@ -50,3 +50,8 @@ addopts = [
 ]
 doctest_optionflags = ["ELLIPSIS", "NORMALIZE_WHITESPACE", "NUMBER"]
 testpaths = ["tests/unit"]
+filterwarnings =  [
+    # See https://docs.python.org/3/library/warnings.html#the-warnings-filter
+    # action:[message regex]:[category]:[module]:[lineno]
+    'ignore:datetime.datetime.utcnow\(\) is deprecated:DeprecationWarning:botocore.*'
+]
