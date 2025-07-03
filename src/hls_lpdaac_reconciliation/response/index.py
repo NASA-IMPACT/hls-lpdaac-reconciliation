@@ -2,9 +2,11 @@ from __future__ import annotations
 
 import json
 import os
+from collections.abc import Mapping, MutableMapping, MutableSequence, Sequence
+from concurrent.futures import ThreadPoolExecutor
 from enum import StrEnum, auto
 from functools import reduce
-from typing import Any, Mapping, Optional, Sequence, TYPE_CHECKING, cast
+from typing import Any, TYPE_CHECKING, cast
 
 import boto3
 
@@ -24,6 +26,9 @@ class Status(StrEnum):
     TRIGGERED = auto()
     MISSING = auto()
 
+    def __repr__(self) -> str:
+        return self.name
+
 
 s3_client = boto3.client("s3")
 s3_resource = boto3.resource("s3")
@@ -33,8 +38,8 @@ def handler(
     event: SNSEvent,
     _context: Any,
     *,
-    hls_forward_bucket: Optional[str] = None,
-    hls_historical_bucket: Optional[str] = None,
+    hls_forward_bucket: str | None = None,
+    hls_historical_bucket: str | None = None,
 ) -> Mapping[str, Mapping[Status, int]]:
     """Handle AWS SNS message from LPDAAC regarding Cumulus ingestion reconciliation.
 
@@ -90,7 +95,7 @@ def handler(
     )
 
     summary = summarize_report(process_report(report, data_bucket_name))
-    print(f"Processing summary: {summary}")
+    print(json.dumps(summary))
 
     return summary
 
@@ -181,7 +186,7 @@ def process_collection(
     *,
     granule_ids: Sequence[str],
     data_bucket_name: str,
-) -> Mapping[Status, Sequence[str]]:
+) -> MutableMapping[Status, MutableSequence[str]]:
     """Trigger reingestion for every granule in a list.
 
     Arguments
@@ -203,16 +208,31 @@ def process_collection(
     """
 
     def group_by_status(
-        acc: Mapping[Status, Sequence[str]], granule_id: str
-    ) -> Mapping[Status, Sequence[str]]:
-        status = process_granule(
-            granule_id=granule_id,
-            data_bucket_name=data_bucket_name,
+        acc: MutableMapping[Status, MutableSequence[str]],
+        granule_status: tuple[str, Status],
+    ) -> MutableMapping[Status, MutableSequence[str]]:
+        granule_id, status = granule_status
+        ids = acc.get(status, [])
+        ids.append(granule_id)
+        acc[status] = ids
+
+        return acc
+
+    with ThreadPoolExecutor() as executor:
+        # Produce an iterator of granule_id/status pairs (2-tuples).  We do the
+        # pairing within the function passed to map because the ordering
+        # produced by ThreadPoolExecutor.map is not guaranteed to be the same
+        # ordering as the input, thus the alternativie approach of zipping
+        # granule IDs and statuses afterwards might produce incorrect pairs.
+        granule_statuses = executor.map(
+            lambda id_: (
+                str(id_),  # Use str simply to aid type analysis
+                process_granule(granule_id=id_, data_bucket_name=data_bucket_name),
+            ),
+            granule_ids,
         )
 
-        return {**acc, status: [*acc.get(status, []), granule_id]}
-
-    return reduce(group_by_status, granule_ids, {})
+    return reduce(group_by_status, granule_statuses, {})
 
 
 def process_granule(*, granule_id: str, data_bucket_name: str) -> Status:
@@ -244,11 +264,6 @@ def process_granule(*, granule_id: str, data_bucket_name: str) -> Status:
             MetadataDirective="REPLACE",
         )
         return Status.TRIGGERED
-
-    print(
-        f"{granule_id} needs to be resubmitted to the step function execution: "
-        f"notification trigger file not found: s3://{data_bucket_name}/{key}"
-    )
 
     return Status.MISSING
 

@@ -10,6 +10,8 @@ inputs:
   aws_role_session_name:
     description: AWS role session name
     required: true
+  stack_name:
+    description: Name of the stack to deploy (intended only for uniquely naming integration test stacks)
   vars_json:
     description: Environment variables as a JSON object
   secrets_json:
@@ -67,5 +69,7 @@ runs:
 
     - name: Deploy stack
       shell: bash
+      env:
+        HLS_LPDAAC_STACK: ${{ inputs.stack_name || env.HLS_LPDAAC_STACK }}
       run: |
         ${{ inputs.command }}

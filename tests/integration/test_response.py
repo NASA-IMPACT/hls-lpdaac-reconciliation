@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from collections.abc import Mapping
+from collections.abc import Sequence
 from datetime import datetime
 from pathlib import Path
 from time import sleep
@@ -21,40 +21,41 @@ def wait_until_modified(
 
 
 def test_response_handler(
-    cdk_outputs: Mapping[str, str], s3: S3Client, sns: SNSClient
+    s3: S3Client,
+    sns: SNSClient,
+    hls_bucket: str,
+    lpdaac_bucket: str,
+    response_topic_arn: str,
+    trigger_keys: Sequence[str],
+    report_path: Path,
 ) -> None:
-    hls_bucket = cdk_outputs["HlsForwardBucketName"]
-    lpdaac_bucket = cdk_outputs["LpdaacReconciliationReportsBucketName"]
-    topic_arn = cdk_outputs["LpdaacResponseTopicArn"]
+    # Get timestamps of when the trigger files were created by the fixture.
+    createds = [
+        s3.head_object(Bucket=hls_bucket, Key=key)["LastModified"]
+        for key in trigger_keys
+    ]
 
-    # Write trigger file (contents don't matter; we just need a file to "touch")
-    trigger_key = "S30/data/2124237/HLS.S30.T15XWH.2124237T194859.v2.0/HLS.S30.T15XWH.2124237T194859.v2.0.json"
-    s3.put_object(Bucket=hls_bucket, Key=trigger_key, Body=bytes())
-    # Read trigger file to get "original" timestamp
-    trigger_object = s3.head_object(Bucket=hls_bucket, Key=trigger_key)
-    created = trigger_object["LastModified"]
-
-    # Write reconciliation report file to the LPDAAC bucket
-    report_fixture = Path("tests") / "fixtures" / "HLS_reconcile_2024239_2.0.json"
+    # Write reconciliation report file to the LPDAAC bucket.
     report_key = "reports/HLS_reconcile_2024239_2.0.json"
-    s3.put_object(
-        Bucket=lpdaac_bucket, Key=report_key, Body=report_fixture.read_bytes()
-    )
+    s3.put_object(Bucket=lpdaac_bucket, Key=report_key, Body=report_path.read_bytes())
 
     # Send message to topic about the report in the LPDAAC bucket, which should
     # trigger "response" lambda with the message, causing the lambda to then
     # "touch" the trigger file in the HLS bucket.
     message_fixture = Path("tests") / "fixtures" / "message-discrepancies.txt"
     message = message_fixture.read_text().format(bucket=lpdaac_bucket)
-    sns.publish(Message=message, TopicArn=topic_arn)
+    sns.publish(Message=message, TopicArn=response_topic_arn)
 
-    # Read trigger file to get "touched" timestamp
-    touched = wait_until_modified(s3, since=created, bucket=hls_bucket, key=trigger_key)
+    # Count trigger files to make sure no additional trigger files were created.
+    listing = s3.list_objects_v2(Bucket=hls_bucket, Prefix="S30/")
+    key_count = listing["KeyCount"]
+    assert key_count == len(trigger_keys), f"expected {len(trigger_keys)} trigger files"
 
-    # Count trigger files to make sure no additional trigger files were created
-    key_count = s3.list_objects_v2(Bucket=hls_bucket, Prefix="S30/", MaxKeys=2)[
-        "KeyCount"
-    ]
-
-    assert touched > created, "trigger file was not modified"
-    assert key_count == 1, "expected exactly 1 trigger file"
+    # Get last modified timestamps of the trigger files to make sure they were
+    # "touched" since they were created.
+    assert all(
+        [
+            wait_until_modified(s3, since=created, bucket=hls_bucket, key=key) > created
+            for key, created in zip(trigger_keys, createds)
+        ]
+    ), "at least 1 trigger file was not 'touched'"

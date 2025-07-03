@@ -70,12 +70,17 @@ jobs:
       - name: Checkout sources
         uses: actions/checkout@v4
 
+      - name: Get commit short SHA
+        run: |
+          echo "GITHUB_SHORT_SHA=$(echo ${{ github.sha }} | cut -c 1-7)" >> $GITHUB_ENV
+
       - name: Deploy integration tests stack
         uses: ./.github/actions/deploy
         with:
           aws_region: "${{ vars.AWS_DEFAULT_REGION }}"
           aws_role_to_assume_arn: "${{ vars.AWS_ROLE_TO_ASSUME_ARN }}"
           aws_role_session_name: "${{ github.actor }}"
+          stack_name: "test-${{ env.GITHUB_SHORT_SHA }}"
           vars_json: "${{ toJson(vars) }}"
           secrets_json: "${{ toJson(secrets) }}"
           command: make deploy-it
@@ -87,7 +92,7 @@ jobs:
         if: "${{ !cancelled() }}"
         run: make destroy-it
 
-  deploy:
+  deploy-prod:
     # Deploy to Prod only on publishing a release (tag)
     if: github.event_name == 'release'
     runs-on: ubuntu-latest

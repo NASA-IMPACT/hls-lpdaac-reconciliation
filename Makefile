@@ -2,7 +2,7 @@ SHELL=/usr/bin/env bash
 UV=uv run $(UV_OPTS)
 UV_OPTS?=--no-progress
 
-.PHONY: help integration-tests unit-tests
+.PHONY: help integration-tests unit-tests update-npm update-cdk
 .DEFAULT_GOAL := help
 
 help: Makefile
@@ -19,7 +19,15 @@ help: Makefile
 .venv/bin/npm:
 	$(UV) nodeenv --node lts --python-virtualenv
 
+## update-npm: Install the current LTS version of npm
+update-npm:
+	$(UV) nodeenv --node lts --python-virtualenv
+
 .venv/bin/cdk: .venv/bin/npm
+	$(UV) npm install --location global "aws-cdk@latest"
+
+## update-cdk: Install latest version of the AWS CDK CLI
+update-cdk:
 	$(UV) npm install --location global "aws-cdk@latest"
 
 ## unit-tests: Run unit tests
