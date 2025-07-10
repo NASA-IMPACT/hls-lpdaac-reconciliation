@@ -41,13 +41,39 @@ class HlsLpdaacReconciliationStack(Stack):
             )
 
         # ----------------------------------------------------------------------
-        # Request reconciliation report
+        # Generate HLS product inventory report
         # ----------------------------------------------------------------------
 
         # Bucket where HLS inventory reports are written.
         inventory_reports_bucket = s3.Bucket.from_bucket_name(
             self, "HlsInventoryReportsBucket", hls_inventory_reports_bucket
         )
+
+        # Lambda function that generates a "rpt" report file derived from an Athena
+        # query against the HLS product S3 inventory.
+        inventory_report_lambda = lambda_.Function(
+            self,
+            "InventoryReportHandler",
+            code=lambda_.Code.from_asset("src", exclude=["**/*.egg-info"]),
+            handler="hls_lpdaac_reconciliation/generate_report/index.handler",
+            runtime=lambda_.Runtime.PYTHON_3_12,
+            memory_size=512,
+            timeout=Duration.minutes(15),
+            environment={
+                "QUERY_OUTPUT_PREFIX": f"s3://{hls_inventory_reports_bucket}/queries",
+                "REPORT_OUTPUT_PREFIX": f"s3://{hls_inventory_reports_bucket}/reconciliation_reports",
+                "HLS_PRODUCT_VERSION": "2.0",
+            },
+        )
+        inventory_reports_bucket.grant_read_write(inventory_report_lambda)
+        inventory_report_lambda.role.add_managed_policy(
+            iam.ManagedPolicy.from_aws_managed_policy_name("AmazonAthenaFullAccess")
+        )
+
+        # ----------------------------------------------------------------------
+        # Request reconciliation report
+        # ----------------------------------------------------------------------
+
         # LPDAAC topic to send notifications of new inventory reports.
         lpdaac_request_topic = sns.Topic.from_topic_arn(
             self, "LpdaacRequestTopic", topic_arn=lpdaac_request_topic_arn
