@@ -43,7 +43,7 @@ AWS short-term access keys:
 
 Set the following environment variables:
 
-- `HLS_STACK_NAME`: A unique value, such as a username or unique nickname,
+- `HLS_LPDAAC_STACK`: A unique value, such as a username or unique nickname,
   which will be used as a prefix for your integration tests stack.
 - `HLS_LPDAAC_NOTIFICATION_EMAIL_ADDRESS`: Your email address, so you can
   receive email notifications during the integration test for handling
