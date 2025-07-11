@@ -78,7 +78,7 @@ class AthenaQueryResults:
                 writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
 
                 i = 0
-                for i, row in enumerate(self._fetch_results()):
+                for i, row in enumerate(self._fetch_results(), 1):
                     if i % 10_000 == 0:
                         print(f"... wrote row {i} of report")
                     writer.writerow(row)
@@ -283,9 +283,9 @@ def handler(
     * `product_version` overrides the `HLS_PRODUCT_VERSION` envvar
     """
     if report_start_date_str := event.get("report_start_date"):
-        report_start_date = dt.datetime.fromisoformat(report_start_date_str)
+        report_start_date = dt.datetime.fromisoformat(report_start_date_str).date()
     else:
-        report_start_date = dt.datetime.now() - dt.timedelta(days=2)
+        report_start_date = dt.datetime.now().date() - dt.timedelta(days=2)
     report_end_date = report_start_date + dt.timedelta(days=1)
 
     inventory_table_name = inventory_table_name or os.environ["INVENTORY_TABLE_NAME"]
@@ -305,9 +305,10 @@ def handler(
     product_version = product_version or os.environ["HLS_PRODUCT_VERSION"]
     report_output_location = (
         f"{report_output_prefix}/{report_start_date:%Y%j}/"
-        f"HLS_reconcile_{report_start_date:%Y%j}_{product_version}.csv"
+        f"HLS_reconcile_{report_start_date:%Y%j}_{product_version}.rpt"
     )
 
+    print(f"Generating report for {report_start_date} to {report_end_date}")
     generate_report(
         catalog_name="AwsDataCatalog",
         database_name="default",
