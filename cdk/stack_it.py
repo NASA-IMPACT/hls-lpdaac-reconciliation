@@ -46,8 +46,30 @@ class HlsLpdaacReconciliationStackIT(Stack):
             subs.SqsSubscription(lpdaac_request_queue)
         )
 
-        # Set outputs for use within integration tests
+        self.hls_forward_bucket_inventory_id = "hls_v2_parquet"
+        self.hls_forward_bucket.add_inventory(
+            enabled=True,
+            destination=s3.InventoryDestination(
+                bucket=s3.Bucket.from_bucket_name(
+                    self,
+                    "HlsInventoryReportsBucket",
+                    self.hls_inventory_reports_bucket.bucket_name,
+                ),
+                prefix=None,
+            ),
+            inventory_id=self.hls_forward_bucket_inventory_id,
+            format=s3.InventoryFormat.PARQUET,
+            frequency=s3.InventoryFrequency.DAILY,
+            objects_prefix=None,
+            optional_fields=["Size", "LastModifiedDate"],
+        )
 
+        # Set outputs for use within integration tests
+        CfnOutput(
+            self,
+            "HlsInventoryReportId",
+            value=self.hls_forward_bucket_inventory_id,
+        )
         CfnOutput(
             self,
             "HlsInventoryReportsBucketName",
