@@ -80,6 +80,21 @@ class HlsLpdaacReconciliationStack(Stack):
             iam.ManagedPolicy.from_aws_managed_policy_name("AmazonAthenaFullAccess")
         )
 
+        # Trigger inventory report as soon as the S3 inventory report has been published.
+        # We assume that the checksum of the manifest can act as a "sentinel file".
+        inventory_report_lambda.add_event_source(
+            sources.S3EventSourceV2(
+                inventory_reports_bucket,
+                events=[s3.EventType.OBJECT_CREATED],
+                filters=[
+                    s3.NotificationKeyFilter(
+                        prefix=f"{hls_forward_bucket}/{hls_inventory_reports_id}/",
+                        suffix="manifest.checksum",
+                    ),
+                ],
+            )
+        )
+
         # ----------------------------------------------------------------------
         # Request reconciliation report
         # ----------------------------------------------------------------------
