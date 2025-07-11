@@ -6,6 +6,7 @@ import aws_cdk as cdk
 from stack import HlsLpdaacReconciliationStack
 
 stack_name = os.environ["HLS_LPDAAC_STACK"]
+inventory_reports_id = os.environ["HLS_LPDAAC_INVENTORY_REPORTS_ID"]
 inventory_reports_bucket = os.environ["HLS_LPDAAC_INVENTORY_REPORTS_BUCKET"]
 reconciliation_reports_bucket = os.environ["HLS_LPDAAC_RECONCILIATION_REPORTS_BUCKET"]
 forward_bucket = os.environ["HLS_LPDAAC_FORWARD_BUCKET"]
@@ -18,6 +19,7 @@ managed_policy_name = os.getenv("HLS_LPDAAC_MANAGED_POLICY_NAME", "mcp-tenantOpe
 HlsLpdaacReconciliationStack(
     app := cdk.App(),
     f"{stack_name}-lpdaac-reconciliation",
+    hls_inventory_reports_id=inventory_reports_id,
     hls_inventory_reports_bucket=inventory_reports_bucket,
     hls_forward_bucket=forward_bucket,
     hls_historical_bucket=historical_bucket,
