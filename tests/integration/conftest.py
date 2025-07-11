@@ -103,5 +103,10 @@ def hls_inventory_reports_bucket(cdk_outputs: dict[str, str]) -> str:
 
 
 @pytest.fixture
+def hls_inventory_reports_id(cdk_outputs: dict[str, str]) -> str:
+    return cdk_outputs["HlsInventoryReportId"]
+
+
+@pytest.fixture
 def lpdaac_request_queue_url(cdk_outputs: dict[str, str]) -> str:
     return cdk_outputs["LpdaacRequestQueueUrl"]
