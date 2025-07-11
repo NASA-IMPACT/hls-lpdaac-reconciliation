@@ -206,7 +206,7 @@ def generate_report(
     parsed AS (
         SELECT regexp_extract(key, '[^/]+$') as filename,
             size,
-            date_format(last_modified_date, '%Y-%m-%dT%H:%m:%sZ') AS last_modified,
+            date_format(last_modified_date, '%Y-%m-%dT%H:%i:%sZ') AS last_modified,
             'NA' as checksum
         FROM inventory
         WHERE REGEXP_LIKE(

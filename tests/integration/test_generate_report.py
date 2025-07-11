@@ -42,8 +42,8 @@ def create_fake_s3_inventory_data(hls_bucket: str) -> pd.DataFrame:
     last_modified_date = dt.datetime.now(dt.UTC) - dt.timedelta(days=2)
 
     records = []
-    for product_id, satellite_id, file_extension in product(
-        product_ids, satellite_ids, file_extensions
+    for i, (product_id, satellite_id, file_extension) in enumerate(
+        product(product_ids, satellite_ids, file_extensions)
     ):
         prefix = f"{satellite_id}_VI" if "VI" in product_id else satellite_id
         granule_id = (
@@ -53,7 +53,7 @@ def create_fake_s3_inventory_data(hls_bucket: str) -> pd.DataFrame:
             {
                 "bucket": hls_bucket,
                 "key": f"{prefix}/data/{last_modified_date:%Y%j}/{granule_id}/{granule_id}{file_extension}",
-                "size": 1234,
+                "size": 1234 + i,
                 "last_modified_date": last_modified_date,
             }
         )
@@ -185,16 +185,26 @@ def test_inventory_report_generation(
                 "version": str,
                 "size": int,
             },
+            parse_dates=["last_modified"],
         )
 
     assert df_report.shape[0] == df_fake_inventory.shape[0]
-    assert (df_report["version"] == "2.0").all()
     assert set(df_report["short_name"].unique()) == {
         "HLSL30",
         "HLSS30",
         "HLS-VIL30",
         "HLS-VIS30",
     }
+    assert (df_report["version"] == "2.0").all()
+    assert (
+        df_report["filename"]
+        == df_fake_inventory["key"].str.rsplit("/", n=1, expand=True)[1]
+    ).all()
+    assert (df_report["size"] == df_fake_inventory["size"]).all()
+    assert (
+        (df_report["last_modified"] - df_fake_inventory["last_modified_date"])
+        < pd.Timedelta(seconds=1)  # we lose miliseconds in Athena report
+    ).all()
     assert df_report["checksum"].isna().all()
 
     # Ensure our request handler also generates a message, which we
