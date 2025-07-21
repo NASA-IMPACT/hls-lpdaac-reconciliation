@@ -1,3 +1,4 @@
+# pyright: reportTypedDictNotRequiredAccess=false
 from __future__ import annotations
 
 import json
@@ -98,8 +99,22 @@ def trigger_keys(
 
 
 @pytest.fixture
-def hls_inventory_reports_bucket(cdk_outputs: dict[str, str]) -> str:
-    return cdk_outputs["HlsInventoryReportsBucketName"]
+def hls_inventory_reports_bucket(
+    s3: S3Client,
+    cdk_outputs: dict[str, str],
+) -> Iterator[str]:
+    yield (bucket := cdk_outputs["HlsInventoryReportsBucketName"])
+
+    paginator = s3.get_paginator("list_objects_v2")
+
+    for page in paginator.paginate(Bucket=bucket):
+        for obj in page.get("Contents", []):
+            s3.delete_object(Bucket=bucket, Key=obj["Key"])
+
+
+@pytest.fixture
+def hls_inventory_reports_id(cdk_outputs: dict[str, str]) -> str:
+    return cdk_outputs["HlsInventoryReportId"]
 
 
 @pytest.fixture

@@ -18,6 +18,7 @@ stack_it = HlsLpdaacReconciliationStackIT(
 HlsLpdaacReconciliationStack(
     app,
     f"{stack_name}-lpdaac-reconciliation-it",
+    hls_inventory_reports_id=stack_it.hls_forward_bucket_inventory_id,
     hls_inventory_reports_bucket=stack_it.hls_inventory_reports_bucket.bucket_name,
     hls_forward_bucket=stack_it.hls_forward_bucket.bucket_name,
     hls_historical_bucket=stack_it.hls_historical_bucket.bucket_name,
@@ -25,6 +26,8 @@ HlsLpdaacReconciliationStack(
     lpdaac_response_topic_arn=stack_it.lpdaac_response_topic.topic_arn,
     lpdaac_reconciliation_reports_bucket=stack_it.lpdaac_reports_bucket.bucket_name,
     notification_email_address=notification_email_address,
+    # Always produce a ".rpt" extension that triggers notifications
+    report_extension=".rpt",
     managed_policy_name=managed_policy_name,
 )
 
