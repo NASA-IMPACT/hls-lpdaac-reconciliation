@@ -26,6 +26,7 @@ dev = [
     "moto[s3,sns,sqs]>=5.1.6",
     "mypy>=1.16.1",
     "pandas>=2.3.1",
+    "pandas-stubs>=2.3.0.250703",
     "pre-commit>=4.2.0",
     "pyarrow>=20.0.0",
     "pytest>=8.4.1",
@@ -36,8 +37,8 @@ dev = [
 ]
 
 [tool.mypy]
-files = ["cdk", "src"]
-mypy_path = ["cdk", "src"]
+files = ["cdk", "src", "tests"]
+mypy_path = ["cdk", "src", "tests"]
 explicit_package_bases = true
 strict = true
 

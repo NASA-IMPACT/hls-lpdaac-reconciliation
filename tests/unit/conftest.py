@@ -15,7 +15,7 @@ from mypy_boto3_sqs.service_resource import Queue
 
 
 @pytest.fixture
-def aws_credentials():
+def aws_credentials() -> None:
     """Mocked AWS Credentials for moto."""
     os.environ["AWS_ACCESS_KEY_ID"] = "testing"
     os.environ["AWS_SECRET_ACCESS_KEY"] = "testing"
@@ -25,7 +25,7 @@ def aws_credentials():
 
 
 @pytest.fixture
-def s3_resource(aws_credentials) -> Iterator[S3ServiceResource]:
+def s3_resource(aws_credentials: None) -> Iterator[S3ServiceResource]:
     with mock_aws():
         yield boto3.resource("s3")
 
@@ -39,7 +39,7 @@ def s3_bucket(s3_resource: S3ServiceResource) -> Bucket:
 
 
 @pytest.fixture
-def sns_resource(aws_credentials) -> Iterator[SNSServiceResource]:
+def sns_resource(aws_credentials: None) -> Iterator[SNSServiceResource]:
     with mock_aws():
         yield boto3.resource("sns")
 
@@ -50,7 +50,7 @@ def sns_topic(sns_resource: SNSServiceResource) -> Topic:
 
 
 @pytest.fixture
-def sqs_resource(aws_credentials) -> Iterator[SQSServiceResource]:
+def sqs_resource(aws_credentials: None) -> Iterator[SQSServiceResource]:
     with mock_aws():
         yield boto3.resource("sqs")
 

@@ -1,0 +1,53 @@
+Test `row_values`:
+
+    >>> from hls_lpdaac_reconciliation.generate_report import row_values
+
+    >>> row_values({"Data": []})
+    ()
+
+    >>> row = {"Data": [{"VarCharValue": "val00"}, {"VarCharValue": "val01"}]}
+    >>> row_values(row)
+    ('val00', 'val01')
+
+Test `as_records`:
+
+    >>> from hls_lpdaac_reconciliation.generate_report import as_records
+
+    >>> rows = [{"Data": [{"VarCharValue": "col0"}, {"VarCharValue": "col1"}]},
+    ...         {"Data": [{"VarCharValue": "val00"}, {"VarCharValue": "val01"}]},
+    ...         {"Data": [{"VarCharValue": "val10"}, {"VarCharValue": "val11"}]}]
+    >>> list(as_records(rows))
+    [{'col0': 'val00', 'col1': 'val01'},
+     {'col0': 'val10', 'col1': 'val11'}]
+
+Test `to_csv`:
+
+    >>> import csv
+    >>> from pathlib import Path
+    >>> from tempfile import TemporaryDirectory
+    >>> from hls_lpdaac_reconciliation.generate_report import REPORT_FIELD_NAMES, to_csv
+
+    >>> record = {"checksum": "NA",
+    ...           "filename": "foo.tif",
+    ...           "last_modified": "2025-07-18T18:06:42.123Z",
+    ...           "short_name": "HLSS30_VI",
+    ...           "size": "1234",
+    ...           "version": "v2.0"}
+
+    >>> with TemporaryDirectory() as tmpdir:
+    ...     csvpath = Path(tmpdir) / "report.csv"
+    ...     nrows = to_csv(csvpath, [record])
+    ...
+    ...     with csvpath.open() as csvfile:
+    ...         reader = csv.DictReader(csvfile, fieldnames=REPORT_FIELD_NAMES)
+    ...         records = list(reader)
+    >>> nrows
+    1
+
+    >>> records
+    [{'short_name': 'HLSS30_VI',
+      'version': 'v2.0',
+      'filename': 'foo.tif',
+      'size': '1234',
+      'last_modified': '2025-07-18T18:06:42.123Z',
+      'checksum': 'NA'}]

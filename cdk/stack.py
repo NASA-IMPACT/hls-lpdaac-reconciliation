@@ -72,11 +72,11 @@ class HlsLpdaacReconciliationStack(Stack):
                 "QUERY_OUTPUT_PREFIX": f"s3://{hls_inventory_reports_bucket}/queries",
                 "REPORT_OUTPUT_PREFIX": f"s3://{hls_inventory_reports_bucket}/reconciliation_reports",
                 "HLS_PRODUCT_VERSION": "2.0",
-                "INVENTORY_TABLE_NAME": inventory_table_name,
+                "INVENTORY_TABLE_NAME": inventory_table_name,  # type: ignore
             },
         )
         inventory_reports_bucket.grant_read_write(inventory_report_lambda)
-        inventory_report_lambda.role.add_managed_policy(
+        inventory_report_lambda.role.add_managed_policy(  # type: ignore
             iam.ManagedPolicy.from_aws_managed_policy_name("AmazonAthenaFullAccess")
         )
 
