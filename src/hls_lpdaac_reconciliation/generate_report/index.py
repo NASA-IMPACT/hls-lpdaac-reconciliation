@@ -177,8 +177,6 @@ def generate_report(
     ORDER BY last_modified_date
     """
 
-    # athena = AthenaQueryClient(catalog_name=catalog_name, database_name=database_name)
-
     query_id = execute_query(
         athena,
         catalog=catalog,
@@ -248,9 +246,10 @@ def handler(event: dict[str, Any], _context: object) -> None:
 
     product_prefixes: Sequence[str] | None = event.get("product_prefixes")
     product_version = os.environ["HLS_PRODUCT_VERSION"]
+    report_extension = os.getenv("HLS_LPDAAC_REPORT_EXTENSION", ".rpt")
     report_output_location = (
         f"{report_output_prefix}/{report_start_date:%Y%j}/"
-        f"HLS_reconcile_{report_start_date:%Y%j}_{product_version}.rpt"
+        f"HLS_reconcile_{report_start_date:%Y%j}_{product_version}{report_extension}"
     )
 
     generate_report(

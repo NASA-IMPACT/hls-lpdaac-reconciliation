@@ -26,6 +26,7 @@ class HlsLpdaacReconciliationStack(Stack):
         lpdaac_response_topic_arn: str,
         lpdaac_reconciliation_reports_bucket: str,
         notification_email_address: str,
+        report_extension: str = ".rpt",
         managed_policy_name: str | None = None,
         **kwargs: Any,
     ) -> None:
@@ -72,6 +73,7 @@ class HlsLpdaacReconciliationStack(Stack):
                 "QUERY_OUTPUT_PREFIX": f"s3://{hls_inventory_reports_bucket}/queries",
                 "REPORT_OUTPUT_PREFIX": f"s3://{hls_inventory_reports_bucket}/reconciliation_reports",
                 "HLS_PRODUCT_VERSION": "2.0",
+                "HLS_LPDAAC_REPORT_EXTENSION": report_extension,
                 "INVENTORY_TABLE_NAME": inventory_table_name,  # type: ignore
             },
         )

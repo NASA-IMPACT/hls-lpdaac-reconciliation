@@ -26,6 +26,8 @@ HlsLpdaacReconciliationStack(
     lpdaac_response_topic_arn=stack_it.lpdaac_response_topic.topic_arn,
     lpdaac_reconciliation_reports_bucket=stack_it.lpdaac_reports_bucket.bucket_name,
     notification_email_address=notification_email_address,
+    # Always produce a ".rpt" extension that triggers notifications
+    report_extension=".rpt",
     managed_policy_name=managed_policy_name,
 )
 

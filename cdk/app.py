@@ -15,6 +15,9 @@ request_topic_arn = os.environ["HLS_LPDAAC_REQUEST_TOPIC_ARN"]
 response_topic_arn = os.environ["HLS_LPDAAC_RESPONSE_TOPIC_ARN"]
 notification_email_address = os.environ["HLS_LPDAAC_NOTIFICATION_EMAIL_ADDRESS"]
 managed_policy_name = os.getenv("HLS_LPDAAC_MANAGED_POLICY_NAME", "mcp-tenantOperator")
+# Add ability to override report extension to prevent triggering LPDAAC notifications.
+# This is used to help side by side test
+report_extension = os.getenv("HLS_LPDAAC_REPORT_SUFFIX", ".rpt")
 
 HlsLpdaacReconciliationStack(
     app := cdk.App(),
@@ -27,6 +30,7 @@ HlsLpdaacReconciliationStack(
     lpdaac_response_topic_arn=response_topic_arn,
     lpdaac_reconciliation_reports_bucket=reconciliation_reports_bucket,
     notification_email_address=notification_email_address,
+    report_extension=report_extension,
     managed_policy_name=managed_policy_name,
 )
 
