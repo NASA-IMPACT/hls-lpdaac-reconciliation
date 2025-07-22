@@ -189,10 +189,10 @@ class HlsLpdaacReconciliationStack(Stack):
                 parameters={
                     "projection.enabled": "true",
                     "projection.dt.type": "date",
-                    "projection.dt.format": "yyyy-MM-dd",
-                    "projection.dt.range": "2025-06-03,NOW",
+                    "projection.dt.format": "yyyy-MM-dd-HH-mm",
+                    "projection.dt.range": "2025-06-03-00-00,NOW",
                     "projection.dt.interval": "1",
-                    "projection.dt.interval.unit": "DAYS",
+                    "projection.dt.interval.unit": "HOURS",
                 },
                 partition_keys=[
                     CfnTable.ColumnProperty(name="dt", type="string"),
