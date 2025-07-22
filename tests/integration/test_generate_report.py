@@ -27,11 +27,11 @@ def df_inventory(hls_bucket: str) -> pd.DataFrame:
     last_modified_date = dt.datetime.now(dt.UTC) - dt.timedelta(days=2)
     records = []
 
-    for i, (product_id, satellite_id, file_extension) in enumerate(
-        product(product_ids, satellite_ids, file_extensions)
+    for i, product_id, satellite_id, file_extension in product(
+        range(100), product_ids, satellite_ids, file_extensions
     ):
         granule_id = (
-            f"{product_id}.{satellite_id}.{last_modified_date:%Y%jT%H%M%S}.v2.0"
+            f"{product_id}.{satellite_id}.{last_modified_date:%Y%jT%H%M%S}_{i:03d}.v2.0"
         )
         key = "/".join(
             [
@@ -47,7 +47,7 @@ def df_inventory(hls_bucket: str) -> pd.DataFrame:
                 "bucket": hls_bucket,
                 "key": key,
                 "size": 1234 + i,
-                "last_modified_date": last_modified_date,
+                "last_modified_date": last_modified_date + pd.Timedelta(seconds=i),
             }
         )
 
@@ -124,19 +124,6 @@ def test_inventory_report_generation(
     4. Once the report file exists, we download the report and compare against our faked
        S3 inventory data.
     """
-    # We expect our report to exclude *.v2.0.json files, which are the files
-    # that trigger granule notifications to LP DAAC, but are not included as
-    # granule files themselves.
-    df_fake_inventory = df_fake_inventory.query(
-        "not key.str.endswith('v2.0.json')"
-    ).reset_index()
-
-    report_start_date = dt.datetime.now() - dt.timedelta(days=2)
-    expected_report_key = (
-        f"reconciliation_reports/{report_start_date:%Y%j}/"
-        f"HLS_reconcile_{report_start_date:%Y%j}_2.0.rpt"
-    )
-
     # Ensure our request handler generates a message, which we must delete to
     # avoid interfering with other tests.  We do this before any assertions to
     # make sure the message is deleted even if the test fails.
@@ -159,6 +146,22 @@ def test_inventory_report_generation(
     # Now that we've confirmed that we've received a message regarding creation
     # of a new inventory report (and deleted the message), we can test that the
     # report contents are what we expect them to be.
+
+    report_start_date = dt.datetime.now() - dt.timedelta(days=2)
+    expected_report_key = (
+        f"reconciliation_reports/{report_start_date:%Y%j}/"
+        f"HLS_reconcile_{report_start_date:%Y%j}_2.0.rpt"
+    )
+
+    # We expect our report to exclude *.v2.0.json files, which are the files
+    # that trigger granule notifications to LP DAAC, but are not included as
+    # granule files themselves.
+    df_fake_inventory = (
+        df_fake_inventory.query("not key.str.endswith('v2.0.json')")
+        .assign(filename=lambda df: df["key"].str.rsplit("/", n=1, expand=True)[1])
+        # We'll also sort the actual data by filename so we can accurately compare them
+        .sort_values("filename", ignore_index=True)
+    )
 
     with NamedTemporaryFile() as tmp_report_file:
         s3.download_file(
@@ -187,14 +190,22 @@ def test_inventory_report_generation(
             keep_default_na=False,
         )
 
+    # Make sure rows are returned in ascending order by last_modified
+    assert (
+        df_report["last_modified"]
+        == df_report["last_modified"].sort_values(ignore_index=True)
+    ).all()
+
+    # Now sort by filename for accurate comparison to fake inventory
+    df_report = df_report.sort_values("filename", ignore_index=True)
+
     unique_short_names = {"HLSL30", "HLSS30", "HLSL30_VI", "HLSS30_VI"}
-    fake_filename = df_fake_inventory["key"].str.rsplit("/", n=1, expand=True)[1]
     date_diff = df_fake_inventory["last_modified_date"] - df_report["last_modified"]
 
     assert len(df_report) == len(df_fake_inventory)
     assert set(df_report["short_name"]) == unique_short_names
     assert (df_report["version"] == "2.0").all()
-    assert (df_report["filename"] == fake_filename).all()
+    assert (df_report["filename"] == df_fake_inventory["filename"]).all()
     assert (df_report["size"] == df_fake_inventory["size"]).all()
     # Our output produces time down to only milliseconds (3 decimal places, not 6)
     assert (abs(date_diff) < pd.Timedelta(milliseconds=1)).all()
