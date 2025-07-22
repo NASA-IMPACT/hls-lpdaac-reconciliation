@@ -47,7 +47,7 @@ def df_inventory(hls_bucket: str) -> pd.DataFrame:
                 "bucket": hls_bucket,
                 "key": key,
                 "size": 1234 + i,
-                "last_modified_date": last_modified_date,
+                "last_modified_date": last_modified_date + pd.Timedelta(seconds=i),
             }
         )
 
@@ -159,8 +159,8 @@ def test_inventory_report_generation(
     df_fake_inventory = (
         df_fake_inventory.query("not key.str.endswith('v2.0.json')")
         .assign(filename=lambda df: df["key"].str.rsplit("/", n=1, expand=True)[1])
-        .sort_values("filename")
-        .reset_index()
+        # We'll also sort the actual data by filename so we can accurately compare them
+        .sort_values("filename", ignore_index=True)
     )
 
     with NamedTemporaryFile() as tmp_report_file:
@@ -169,30 +169,35 @@ def test_inventory_report_generation(
             Key=expected_report_key,
             Filename=tmp_report_file.name,
         )
-        df_report = (
-            pd.read_csv(
-                tmp_report_file.name,
-                header=None,
-                names=[
-                    "short_name",
-                    "version",
-                    "filename",
-                    "size",
-                    "last_modified",
-                    "checksum",
-                ],
-                dtype={
-                    "version": str,
-                    "size": int,
-                },
-                parse_dates=["last_modified"],
-                # Do NOT convert "NA" checksum values to NaNs (i.e., keep "NA" strings
-                # so we can assert that they're all literally "NA" strings).
-                keep_default_na=False,
-            )
-            .sort_values("filename")
-            .reset_index()
+        df_report = pd.read_csv(
+            tmp_report_file.name,
+            header=None,
+            names=[
+                "short_name",
+                "version",
+                "filename",
+                "size",
+                "last_modified",
+                "checksum",
+            ],
+            dtype={
+                "version": str,
+                "size": int,
+            },
+            parse_dates=["last_modified"],
+            # Do NOT convert "NA" checksum values to NaNs (i.e., keep "NA" strings
+            # so we can assert that they're all literally "NA" strings).
+            keep_default_na=False,
         )
+
+    # Make sure rows are returned in ascending order by last_modified
+    assert (
+        df_report["last_modified"]
+        == df_report["last_modified"].sort_values(ignore_index=True)
+    ).all()
+
+    # Now sort by filename for accurate comparison to fake inventory
+    df_report = df_report.sort_values("filename", ignore_index=True)
 
     unique_short_names = {"HLSL30", "HLSS30", "HLSL30_VI", "HLSS30_VI"}
     date_diff = df_fake_inventory["last_modified_date"] - df_report["last_modified"]
