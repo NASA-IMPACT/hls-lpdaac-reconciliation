@@ -74,7 +74,7 @@ def df_fake_inventory(
       - s3://{inventory-bucket}/{data-bucket}/{inventory-id}/{report-date}/manifest.json
       - s3://{inventory-bucket}/{data-bucket}/{inventory-id}/{report-date}/manifest.checksum
     """
-    report_date = "2025-06-03"
+    report_date = "2025-06-03-01-00"
     inventory_parquet_key = (
         f"{hls_bucket}/{hls_inventory_reports_id}/data/{uuid4()}.parquet"
     )
