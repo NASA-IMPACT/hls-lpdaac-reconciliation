@@ -13,6 +13,7 @@ import boto3
 
 if TYPE_CHECKING:  # pragma: no cover
     from mypy_boto3_athena.client import AthenaClient
+    from mypy_boto3_athena.type_defs import RowTypeDef
     from mypy_boto3_s3.client import S3Client
 
 from hls_lpdaac_reconciliation.generate_report import as_records, to_csv
@@ -20,7 +21,7 @@ from hls_lpdaac_reconciliation.generate_report import as_records, to_csv
 _DEFAULT_PRODUCT_PREFIXES: Final[Sequence[str]] = ("S30", "L30", "S30_VI", "L30_VI")
 
 
-def fetch_records(athena: AthenaClient, query_id: str) -> Iterator[dict[str, str]]:
+def fetch_rows(athena: AthenaClient, query_id: str) -> Iterator[RowTypeDef]:
     """Fetch rows from a query as "records" (dicts).
 
     Assumes the query has already completed successfully.
@@ -30,7 +31,7 @@ def fetch_records(athena: AthenaClient, query_id: str) -> Iterator[dict[str, str
         QueryExecutionId=query_id,
         PaginationConfig={"PageSize": 1_000},
     ):
-        yield from as_records(page["ResultSet"]["Rows"])
+        yield from page["ResultSet"]["Rows"]
 
 
 def write_records_to_s3(
@@ -184,7 +185,7 @@ def generate_report(
         sql=sql,
         output_prefix=query_output_prefix,
     )
-    records = fetch_records(athena, query_id)
+    records = as_records(fetch_rows(athena, query_id))
     write_records_to_s3(s3, records, report_output_location)
 
 
