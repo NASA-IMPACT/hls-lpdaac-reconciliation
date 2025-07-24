@@ -113,8 +113,8 @@ def generate_report(
     athena: AthenaClient,
     s3: S3Client,
     table: str,
-    start_date: dt.datetime,
-    end_date: dt.datetime,
+    start_date: dt.date,
+    end_date: dt.date,
     report_output_location: str,
     query_output_prefix: str,
     catalog: str = "AwsDataCatalog",
@@ -235,7 +235,7 @@ def handler(event: dict[str, Any], _context: object) -> None:
         dt.datetime.fromisoformat(report_start_date_str)
         if (report_start_date_str := event.get("report_start_date"))
         else dt.datetime.now() - dt.timedelta(days=2)
-    )
+    ).date()
     report_end_date = report_start_date + dt.timedelta(days=1)
     inventory_table_name = os.environ["INVENTORY_TABLE_NAME"]
     query_output_prefix = os.environ["QUERY_OUTPUT_PREFIX"]
