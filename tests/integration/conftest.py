@@ -71,7 +71,7 @@ def report_path() -> Path:
     return Path("tests") / "fixtures" / "HLS_reconcile_2024239_2.0.json"
 
 
-@pytest.fixture
+@pytest.fixture(scope="session")
 def trigger_keys(
     s3: S3Client, hls_bucket: str, report_path: Path
 ) -> Iterator[Sequence[str]]:
@@ -98,7 +98,7 @@ def trigger_keys(
         s3.delete_object(Bucket=hls_bucket, Key=key)
 
 
-@pytest.fixture
+@pytest.fixture(scope="session")
 def hls_inventory_reports_bucket(
     s3: S3Client,
     cdk_outputs: dict[str, str],
@@ -112,11 +112,11 @@ def hls_inventory_reports_bucket(
             s3.delete_object(Bucket=bucket, Key=obj["Key"])
 
 
-@pytest.fixture
+@pytest.fixture(scope="session")
 def hls_inventory_reports_id(cdk_outputs: dict[str, str]) -> str:
     return cdk_outputs["HlsInventoryReportId"]
 
 
-@pytest.fixture
+@pytest.fixture(scope="session")
 def lpdaac_request_queue_url(cdk_outputs: dict[str, str]) -> str:
     return cdk_outputs["LpdaacRequestQueueUrl"]

@@ -2,8 +2,10 @@
 from __future__ import annotations
 
 import datetime as dt
+import json
+from collections.abc import Iterator, Sequence
 from itertools import product
-from tempfile import NamedTemporaryFile
+from pathlib import Path
 from uuid import uuid4
 
 import pandas as pd
@@ -12,8 +14,43 @@ from mypy_boto3_s3 import S3Client
 from mypy_boto3_sqs import SQSClient
 
 
-@pytest.fixture
-def df_inventory(hls_bucket: str) -> pd.DataFrame:
+def pytest_generate_tests(metafunc: pytest.Metafunc) -> None:
+    # We dynamically parameterize report_uri values since they must be generated
+    # by first generating our inventory fixture.  This indirection allows our
+    # report_df fixture (below) to depend on our report_uri fixture, which in
+    # turn depends on our inventory fixture, so that our test_report test
+    # function can be dynamically parameterized with each report_df.
+    if "report_uri" in metafunc.fixturenames:
+        metafunc.parametrize(
+            "report_uri",
+            ["L30", "L30_VI", "S30", "S30_VI"],
+            indirect=True,
+            scope="session",
+        )
+
+
+def consume_messages(sqs: SQSClient, queue_url: str) -> Iterator[str]:
+    timeout = dt.datetime.now() + dt.timedelta(seconds=20)
+
+    # Since we expect to generate multiple report files, each triggering a
+    # distinct message, the first call to sqs.receive_message might return a
+    # message before all messages are queued, so we'll call repeatedly until we
+    # don't get any more messages, or we reach our time limit.
+    while (time_remaining := (timeout - dt.datetime.now())) > dt.timedelta():
+        for message in sqs.receive_message(
+            QueueUrl=queue_url,
+            MaxNumberOfMessages=10,
+            WaitTimeSeconds=time_remaining.seconds,
+        ).get("Messages", []):
+            receipt = message["ReceiptHandle"]
+            sqs.delete_message(QueueUrl=queue_url, ReceiptHandle=receipt)
+
+            # Yield the message payload (we don't care about anything else)
+            yield json.loads(message.get("Body", "{}")).get("Message", "")
+
+
+@pytest.fixture(scope="session")
+def hls_bucket_listing(hls_bucket: str) -> Sequence[object]:
     product_ids = ["HLS", "HLS-VI"]
     satellite_ids = ["L30", "S30"]
     file_extensions = [
@@ -51,16 +88,17 @@ def df_inventory(hls_bucket: str) -> pd.DataFrame:
             }
         )
 
-    return pd.DataFrame.from_records(records)
+    return records
 
 
-@pytest.fixture
-def df_fake_inventory(
+@pytest.fixture(scope="session")
+def inventory_df(
     s3: S3Client,
     hls_bucket: str,
     hls_inventory_reports_id: str,
     hls_inventory_reports_bucket: str,
-    df_inventory: pd.DataFrame,
+    hls_bucket_listing: Sequence[object],
+    tmp_path_factory: pytest.TempPathFactory,
 ) -> pd.DataFrame:
     """Create a fake S3 inventory for some bucket.
 
@@ -75,18 +113,15 @@ def df_fake_inventory(
       - s3://{inventory-bucket}/{data-bucket}/{inventory-id}/{report-date}/manifest.checksum
     """
     report_date = "2025-06-03-01-00"
+    inventory = pd.DataFrame.from_records(hls_bucket_listing)
     inventory_parquet_key = (
         f"{hls_bucket}/{hls_inventory_reports_id}/data/{uuid4()}.parquet"
     )
 
     # Part 1 - the report data
-    with NamedTemporaryFile() as tmp_inventory:
-        df_inventory.to_parquet(tmp_inventory.name)
-        s3.upload_file(
-            tmp_inventory.name,
-            hls_inventory_reports_bucket,
-            inventory_parquet_key,
-        )
+    tmp_file = tmp_path_factory.getbasetemp() / "inventory.parquet"
+    inventory.to_parquet(tmp_file)
+    s3.upload_file(str(tmp_file), hls_inventory_reports_bucket, inventory_parquet_key)
 
     # Part 2 - the "hive" partitioned layout symlinking to the data
     s3.put_object(
@@ -103,15 +138,79 @@ def df_fake_inventory(
             Body=b"test",
         )
 
-    return df_inventory
+    # Now that we've written the inventory report, we'll remove the *.v2.0.json
+    # files because we expect our reports for LP DAAC not to contain them.
+    # We'll also add a filename column and sort by it, since we expect the
+    # generated reports to be sorted by filename.
+    return (
+        inventory.query("not key.str.endswith('v2.0.json')")
+        .assign(filename=lambda df: df["key"].str.rsplit("/", n=1, expand=True)[1])
+        .sort_values("filename", ignore_index=True)
+    )
+
+
+@pytest.fixture(scope="session")
+def report_uris(
+    # Dependency that should eventually result in "report" messages in the queue
+    inventory_df: pd.DataFrame,
+    sqs: SQSClient,
+    lpdaac_request_queue_url: str,
+) -> Sequence[str]:
+    uris = tuple(
+        json.loads(message)["report"]["uri"]
+        for message in consume_messages(sqs, lpdaac_request_queue_url)
+    )
+
+    # We expect 1 for each of our 4 products (L30, L30_VI, S30, S30_VI)
+    assert len(uris) == 4
+
+    return uris
+
+
+@pytest.fixture
+def report_uri(
+    report_uris: Sequence[str],
+    request: pytest.FixtureRequest,
+) -> str:
+    # We expect the request parameter to be a product (e.g., "L30"), and we'll
+    # look for the report URI corresponding to the product.  This allows us to
+    # dynamically parameterize testing report outputs, so each can be tested
+    # independently.
+    product = request.param
+    return next(uri for uri in report_uris if f"{product}_2.0" in uri)
+
+
+@pytest.fixture
+def report_df(s3: S3Client, report_uri: str, tmp_path: Path) -> pd.DataFrame:
+    bucket, key = report_uri.removeprefix("s3://").split("/", 1)
+    tmp_csv = tmp_path / "report.csv"
+    s3.download_file(Bucket=bucket, Key=key, Filename=str(tmp_csv))
+
+    return pd.read_csv(
+        tmp_csv,
+        header=None,
+        names=[
+            "short_name",
+            "version",
+            "filename",
+            "size",
+            "last_modified",
+            "checksum",
+        ],
+        dtype={
+            "version": str,
+            "size": int,
+        },
+        parse_dates=["last_modified"],
+        # Do NOT convert "NA" checksum values to NaNs (i.e., keep "NA" strings
+        # so we can assert that they're all literally "NA" strings).
+        keep_default_na=False,
+    )
 
 
 def test_inventory_report_generation(
-    s3: S3Client,
-    df_fake_inventory: pd.DataFrame,
-    hls_inventory_reports_bucket: str,
-    sqs: SQSClient,
-    lpdaac_request_queue_url: str,
+    inventory_df: pd.DataFrame,
+    report_df: pd.DataFrame,
 ) -> None:
     """Ensure we generate a HLS product report when a S3 inventory is published.
 
@@ -124,89 +223,22 @@ def test_inventory_report_generation(
     4. Once the report file exists, we download the report and compare against our faked
        S3 inventory data.
     """
-    # Ensure our request handler generates a message, which we must delete to
-    # avoid interfering with other tests.  We do this before any assertions to
-    # make sure the message is deleted even if the test fails.
+    # The report should be for 1 specific product
+    short_names: set[str] = set(report_df["short_name"])
+    assert len(short_names) == 1
+    product = list(short_names)[0].removeprefix("HLS")
 
-    messages = sqs.receive_message(
-        QueueUrl=lpdaac_request_queue_url,
-        # We use a max value greater than 1 so that we can assert that there is
-        # actually only 1 message in the queue.  That is, if we get more than 1
-        # message, then something is wrong.
-        MaxNumberOfMessages=2,
-        WaitTimeSeconds=20,
-    ).get("Messages", [])
+    # Select only inventory files related to report's product
+    product_inventory_df = inventory_df.query(
+        f"key.str.startswith('{product}/')"
+    ).reset_index()
 
-    for message in messages:
-        receipt = message["ReceiptHandle"]
-        sqs.delete_message(QueueUrl=lpdaac_request_queue_url, ReceiptHandle=receipt)
+    date_diff = product_inventory_df["last_modified_date"] - report_df["last_modified"]
 
-    assert len(messages) == 1
-
-    # Now that we've confirmed that we've received a message regarding creation
-    # of a new inventory report (and deleted the message), we can test that the
-    # report contents are what we expect them to be.
-
-    report_start_date = dt.datetime.now() - dt.timedelta(days=2)
-    expected_report_key = (
-        f"reconciliation_reports/{report_start_date:%Y%j}/"
-        f"HLS_reconcile_{report_start_date:%Y%j}_2.0.rpt"
-    )
-
-    # We expect our report to exclude *.v2.0.json files, which are the files
-    # that trigger granule notifications to LP DAAC, but are not included as
-    # granule files themselves.
-    df_fake_inventory = (
-        df_fake_inventory.query("not key.str.endswith('v2.0.json')")
-        .assign(filename=lambda df: df["key"].str.rsplit("/", n=1, expand=True)[1])
-        # We'll also sort the actual data by filename so we can accurately compare them
-        .sort_values("filename", ignore_index=True)
-    )
-
-    with NamedTemporaryFile() as tmp_report_file:
-        s3.download_file(
-            Bucket=hls_inventory_reports_bucket,
-            Key=expected_report_key,
-            Filename=tmp_report_file.name,
-        )
-        df_report = pd.read_csv(
-            tmp_report_file.name,
-            header=None,
-            names=[
-                "short_name",
-                "version",
-                "filename",
-                "size",
-                "last_modified",
-                "checksum",
-            ],
-            dtype={
-                "version": str,
-                "size": int,
-            },
-            parse_dates=["last_modified"],
-            # Do NOT convert "NA" checksum values to NaNs (i.e., keep "NA" strings
-            # so we can assert that they're all literally "NA" strings).
-            keep_default_na=False,
-        )
-
-    # Make sure rows are returned in ascending order by last_modified
-    assert (
-        df_report["last_modified"]
-        == df_report["last_modified"].sort_values(ignore_index=True)
-    ).all()
-
-    # Now sort by filename for accurate comparison to fake inventory
-    df_report = df_report.sort_values("filename", ignore_index=True)
-
-    unique_short_names = {"HLSL30", "HLSS30", "HLSL30_VI", "HLSS30_VI"}
-    date_diff = df_fake_inventory["last_modified_date"] - df_report["last_modified"]
-
-    assert len(df_report) == len(df_fake_inventory)
-    assert set(df_report["short_name"]) == unique_short_names
-    assert (df_report["version"] == "2.0").all()
-    assert (df_report["filename"] == df_fake_inventory["filename"]).all()
-    assert (df_report["size"] == df_fake_inventory["size"]).all()
+    assert len(report_df) == len(product_inventory_df)
+    assert (report_df["version"] == "2.0").all()
+    assert (report_df["filename"] == product_inventory_df["filename"]).all()
+    assert (report_df["size"] == product_inventory_df["size"]).all()
     # Our output produces time down to only milliseconds (3 decimal places, not 6)
     assert (abs(date_diff) < pd.Timedelta(milliseconds=1)).all()
-    assert (df_report["checksum"] == "NA").all()
+    assert (report_df["checksum"] == "NA").all()
