@@ -5,6 +5,7 @@ import datetime as dt
 import os
 import time
 from collections.abc import Iterable, Iterator, Sequence
+from itertools import groupby
 from pathlib import Path
 from tempfile import TemporaryDirectory
 from typing import TYPE_CHECKING, Any, Final
@@ -47,15 +48,13 @@ def write_records_to_s3(
 
     with TemporaryDirectory() as tmp_dir:
         tmp_dest = Path(tmp_dir) / "report.rpt"
-        nrows = to_csv(tmp_dest, records)
 
-        print(f"Completed writing {nrows} rows to report CSV file.")
-
-        if nrows:
+        if nrows := to_csv(tmp_dest, records):
+            print(f"Completed writing {nrows} rows to report CSV file.")
             s3.upload_file(str(tmp_dest), bucket, key)
             print(f"Uploaded report with {nrows} rows to {object_url}")
         else:
-            print("No rows returned. Nothing to report.")
+            print("No rows returned. Nothing to see here.")
 
 
 def execute_query(
@@ -115,7 +114,7 @@ def generate_report(
     table: str,
     start_date: dt.date,
     end_date: dt.date,
-    report_output_location: str,
+    report_output_url_format: str,
     query_output_prefix: str,
     catalog: str = "AwsDataCatalog",
     database: str = "default",
@@ -139,8 +138,10 @@ def generate_report(
         Starting date of the report
     end_date
         Ending date of the report
-    report_output_location
-        S3 path where the final reconciliation report will be written
+    report_output_url_format
+        Format string for the S3 URL where each reconciliation report will be
+        written, with a placeholder for `product` (to be replaced with `"L30"`,
+        `"L30_VI"`, `"S30"`, or `"S30_VI"`)
     query_output_prefix
         S3 prefix for the Athena query results
     product_prefixes
@@ -175,7 +176,10 @@ def generate_report(
             TIMESTAMP '{start_date:%Y-%m-%d}'
             AND TIMESTAMP '{end_date:%Y-%m-%d}'
         AND regexp_like(key, '{key_pattern}')
-    ORDER BY last_modified_date
+    -- Order by key (and thus, product) first, so we can leverage itertools.groupby
+    -- to efficiently write a separate report file for each product.  This also
+    -- keeps related granule files adjacent to each other to help LP DAAC.
+    ORDER BY key, last_modified_date
     """
 
     query_id = execute_query(
@@ -186,7 +190,14 @@ def generate_report(
         output_prefix=query_output_prefix,
     )
     records = as_records(fetch_rows(athena, query_id))
-    write_records_to_s3(s3, records, report_output_location)
+
+    # groupby *assumes* items are in sorted order, so it can remain completely
+    # lazy, which is why we sorted first by short_name in our query above.
+    for product, product_records in groupby(
+        records, lambda rec: rec["short_name"].removeprefix("HLS")
+    ):
+        product_report_url = report_output_url_format.format(product=product)
+        write_records_to_s3(s3, product_records, product_report_url)
 
 
 def handler(event: dict[str, Any], _context: object) -> None:
@@ -248,9 +259,10 @@ def handler(event: dict[str, Any], _context: object) -> None:
     product_prefixes: Sequence[str] | None = event.get("product_prefixes")
     product_version = os.environ["HLS_PRODUCT_VERSION"]
     report_extension = os.getenv("HLS_LPDAAC_REPORT_EXTENSION", ".rpt")
-    report_output_location = (
+    report_output_url_format = (
         f"{report_output_prefix}/{report_start_date:%Y%j}/"
-        f"HLS_reconcile_{report_start_date:%Y%j}_{product_version}{report_extension}"
+        f"HLS_reconcile_{report_start_date:%Y%j}_{{product}}"
+        f"_{product_version}{report_extension}"
     )
 
     generate_report(
@@ -259,7 +271,7 @@ def handler(event: dict[str, Any], _context: object) -> None:
         table=inventory_table_name,
         start_date=report_start_date,
         end_date=report_end_date,
-        report_output_location=report_output_location,
+        report_output_url_format=report_output_url_format,
         query_output_prefix=query_output_prefix,
         product_prefixes=product_prefixes,
     )
