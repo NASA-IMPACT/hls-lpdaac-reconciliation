@@ -17,7 +17,7 @@ if TYPE_CHECKING:  # pragma: no cover
     from mypy_boto3_athena.type_defs import RowTypeDef
     from mypy_boto3_s3.client import S3Client
 
-from hls_lpdaac_reconciliation.generate_report import as_records, to_csv
+from hls_lpdaac_reconciliation.generate_report import as_records, parse_date, to_csv
 
 _DEFAULT_PRODUCT_PREFIXES: Final[Sequence[str]] = ("S30", "L30", "S30_VI", "L30_VI")
 
@@ -243,10 +243,10 @@ def handler(event: dict[str, Any], _context: object) -> None:
     - `HLS_PRODUCT_VERSION` (HLS version, excluding the `v` prefix -- e.g., "2.0")
     """
     report_start_date = (
-        dt.datetime.fromisoformat(report_start_date_str)
+        parse_date(report_start_date_str)
         if (report_start_date_str := event.get("report_start_date"))
-        else dt.datetime.now() - dt.timedelta(days=2)
-    ).date()
+        else (dt.datetime.now() - dt.timedelta(days=2)).date()
+    )
     report_end_date = report_start_date + dt.timedelta(days=1)
     inventory_table_name = os.environ["INVENTORY_TABLE_NAME"]
     query_output_prefix = os.environ["QUERY_OUTPUT_PREFIX"]

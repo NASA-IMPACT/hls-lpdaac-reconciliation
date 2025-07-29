@@ -1,0 +1,82 @@
+name: Generate Inventory Report
+
+on:
+  workflow_dispatch:
+    inputs:
+      last-modified-date:
+        description: >
+          Last modified date of inventory objects to select, either formated as
+          YYYY-MM-DD (e.g., 2025-06-10) or YYYYDDD (e.g., 2025161, equivalent to
+          2025-06-10), where DDD is day of year.  (Default: 2 days ago)
+        required: false
+        type: string
+      products:
+        description: >
+          Comma-separated list of products to produce reports for.  (Default:
+          L30, L30_VI, S30, S30_VI)
+        required: false
+        type: string
+      lambda-function-name:
+        description: Name or ARN of the report-generator Lambda function
+        required: false
+        type: string
+        # TODO Find reliable means of looking this up in a job step
+        default: hls-lpdaac-reconciliation-InventoryReportHandler89-HlYwwIOfV3yw
+      dry-run:
+        description: >
+          If true, perform a "dry run" invocation of the report generator Lambda
+          function.
+        required: false
+        type: boolean
+        default: false
+
+permissions:
+  id-token: write # required for requesting the JWT
+  contents: read # required for actions/checkout
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  generate-reports:
+    runs-on: ubuntu-latest
+    environment: prod
+    steps:
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-region: "${{ vars.AWS_DEFAULT_REGION }}"
+          role-to-assume: "${{ vars.AWS_ROLE_TO_ASSUME_ARN }}"
+          role-session-name: "${{ github.actor }}"
+
+      - name: Construct Lambda function payload
+        shell: python
+        run: |
+          from datetime import datetime as dt
+          import datetime
+          import json
+
+          report_start_date = "${{ inputs.last-modified-date }}"
+          products = [
+              product.strip()
+              for product in "${{ inputs.products }}".split(",")
+              if product
+          ]
+          payload = {
+              **(dict(report_start_date=report_start_date) if report_start_date else {}),
+              **(dict(product_prefixes=products) if products else {}),
+          }
+
+          with open("${{ env.GITHUB_ENV }}", "a") as f:
+              f.write(f"PAYLOAD={json.dumps(payload)}\n")
+
+      - name: Invoke report generator
+        run: |
+          aws lambda invoke \
+              --function-name ${{ inputs.lambda-function-name }} \
+              --invocation-type ${{ inputs.dry-run && 'DryRun' || 'Event' }} \
+              --cli-binary-format raw-in-base64-out \
+              --payload '${{ env.PAYLOAD }}' \
+              --output json \
+              lambda-event-output.json

@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import csv
+import datetime as dt
 from collections.abc import Iterable, Iterator, Sequence
 from pathlib import Path
 
@@ -18,6 +19,23 @@ REPORT_FIELD_NAMES: Sequence[str] = (
     "last_modified",
     "checksum",
 )
+
+
+def parse_date(date_str: str) -> dt.date:
+    """Parse string formatted as an ISO date or as year+doy (%Y%j) into a date.
+
+    Examples
+    --------
+    >>> parse_date("2025-07-29")
+    datetime.date(2025, 7, 29)
+    >>> parse_date("2025161")
+    datetime.date(2025, 6, 10)
+    """
+
+    try:
+        return dt.datetime.fromisoformat(date_str).date()
+    except ValueError:
+        return dt.datetime.strptime(date_str, "%Y%j").date()
 
 
 def row_values(row: RowTypeDef) -> Sequence[str]:

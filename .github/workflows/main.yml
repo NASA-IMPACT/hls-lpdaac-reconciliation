@@ -1,4 +1,4 @@
-name: HLS LPDAAC Reconciliation Report
+name: Test and Deploy Stack
 
 on:
   workflow_dispatch:
