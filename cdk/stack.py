@@ -1,6 +1,6 @@
 from typing import Any, cast
 
-from aws_cdk import Duration, RemovalPolicy, Stack
+from aws_cdk import CfnOutput, Duration, RemovalPolicy, Stack
 from aws_cdk import aws_glue as glue
 from aws_cdk import aws_iam as iam
 from aws_cdk import aws_lambda as lambda_
@@ -171,6 +171,12 @@ class HlsLpdaacReconciliationStack(Stack):
         s3.Bucket.from_bucket_name(
             self, "LpdaacReconciliationReports", lpdaac_reconciliation_reports_bucket
         ).grant_read(lpdaac_response_lambda)
+
+        CfnOutput(
+            self,
+            "InventoryReportGenerator",
+            value=inventory_report_lambda.function_name,
+        )
 
     def make_inventory_table(self, *, location: str) -> glue.CfnTable:
         from aws_cdk.aws_glue import CfnTable

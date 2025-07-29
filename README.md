@@ -1,5 +1,7 @@
 # HLS LPDAAC Reconciliation
 
+## Development
+
 HLS LPDAAC Reconciliation is an AWS CloudFormation stack deployed via the AWS
 CDK to the HLS account in MCP.  As such, deployment occurs only via GitHub
 Workflows.
@@ -93,3 +95,31 @@ automatically use your public GitHub email address as the value of the
 `HLS_LPDAAC_NOTIFICATION_EMAIL_ADDRESS` environment variable, so there is no
 need to set this variable in the GitHub repository's `dev` environment.  It is
 set only in the `prod` environment.
+
+## Manually Generating an Inventory Report
+
+Although inventory reports are generated automatically, there may be a need to
+manually generate a report for a specific date and/or specific products.
+
+This can be done via the command line via the
+[GitHub CLI](https://cli.github.com/), which you must install, if you haven't
+already done so, as follows:
+
+```plain
+gh workflow run inventory.yml [-f last-modified-date=LAST_MOD_DATE] [-f products=PRODUCTS] [-f dry-run=DRY_RUN]
+```
+
+where:
+
+- `LAST_MOD_DATE` selects all files with the specified last modified date for
+  inclusion in the generated report(s).  It may be formatted as either
+  `YYYY-MM-DD` or as `YYYYDDD` (no dash), where `DDD` is the day of year.  If
+  not specified, this defaults to 2 days prior to the current date.
+- `PRODUCTS` is a comma-separated list of products to generate reports for,
+  defaulting to all products (L30,L30_VI,S30,S30_VI), if not specified.
+- `DRY_RUN` must be either `true` or `false`.  If `true`, the Lambda function
+  that generates reports will be invoked with an invocation type of `DryRun`
+  rather than `Event`, meaning that the command will be visible in the GitHub
+  workflow logs, but the function will not be executed.  If not specified, this
+  defaults to `false`, meaning that the function will be invoked with an
+  invocation type of `Event`.
