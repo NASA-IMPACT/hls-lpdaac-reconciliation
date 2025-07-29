@@ -16,12 +16,6 @@ on:
           L30, L30_VI, S30, S30_VI)
         required: false
         type: string
-      lambda-function-name:
-        description: Name or ARN of the report-generator Lambda function
-        required: false
-        type: string
-        # TODO Find reliable means of looking this up in a job step
-        default: hls-lpdaac-reconciliation-InventoryReportHandler89-HlYwwIOfV3yw
       dry-run:
         description: >
           If true, perform a "dry run" invocation of the report generator Lambda
@@ -71,10 +65,25 @@ jobs:
           with open("${{ env.GITHUB_ENV }}", "a") as f:
               f.write(f"PAYLOAD={json.dumps(payload)}\n")
 
-      - name: Invoke report generator
+      - name: Determine name of report generator Lambda function
+        run: |
+          # The value of stack_name must match the construct_id argument passed
+          # to the HlsLpdaacReconciliationStack constructor in cdk/app.py.
+          stack_name=${{ env.HLS_LPDAAC_STACK }}-lpdaac-reconciliation
+
+          function_name=$(
+              aws cloudformation describe-stacks \
+                  --stack-name ${stack_name} \
+                  --query "Stacks[0].Outputs[?OutputKey == 'InventoryReportGenerator'].OutputValue" \
+                  --output text
+          )
+
+          echo FUNCTION_NAME=${function_name} >> $GITHUB_ENV
+
+      - name: Invoke report generator Lambda function
         run: |
           aws lambda invoke \
-              --function-name ${{ inputs.lambda-function-name }} \
+              --function-name ${{ env.FUNCTION_NAME }} \
               --invocation-type ${{ inputs.dry-run && 'DryRun' || 'Event' }} \
               --cli-binary-format raw-in-base64-out \
               --payload '${{ env.PAYLOAD }}' \
