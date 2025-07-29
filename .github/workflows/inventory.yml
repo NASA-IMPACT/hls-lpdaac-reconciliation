@@ -50,6 +50,7 @@ jobs:
           from datetime import datetime as dt
           import datetime
           import json
+          import os
 
           report_start_date = "${{ inputs.last-modified-date }}"
           products = [
@@ -62,8 +63,8 @@ jobs:
               **(dict(product_prefixes=products) if products else {}),
           }
 
-          with open("${{ env.GITHUB_ENV }}", "a") as f:
-              f.write(f"PAYLOAD={json.dumps(payload)}\n")
+          with open(os.environ["GITHUB_ENV"], "a") as env_file:
+              print(f"PAYLOAD={json.dumps(payload)}", file=env_file)
 
       - name: Determine name of report generator Lambda function
         run: |
