@@ -70,7 +70,7 @@ jobs:
         run: |
           # The value of stack_name must match the construct_id argument passed
           # to the HlsLpdaacReconciliationStack constructor in cdk/app.py.
-          stack_name=${{ env.HLS_LPDAAC_STACK }}-lpdaac-reconciliation
+          stack_name=${{ vars.HLS_LPDAAC_STACK }}-lpdaac-reconciliation
 
           function_name=$(
               aws cloudformation describe-stacks \
