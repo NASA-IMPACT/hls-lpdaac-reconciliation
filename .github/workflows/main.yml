@@ -54,7 +54,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout sources
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
 
       - name: Install tooling and dependencies
         uses: ./.github/actions/install
@@ -68,7 +68,7 @@ jobs:
     environment: dev
     steps:
       - name: Checkout sources
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
 
       - name: Get commit short SHA
         run: |
@@ -101,7 +101,7 @@ jobs:
     environment: prod
     steps:
       - name: Checkout sources
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
 
       - name: Deploy production stack
         uses: ./.github/actions/deploy
