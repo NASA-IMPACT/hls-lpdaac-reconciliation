@@ -161,9 +161,8 @@ def report_uris(
         for message in consume_messages(sqs, lpdaac_request_queue_url)
     )
 
-    # We have 4 products (L30, L30_VI, S30, S30_VI), but should only expect 1
-    # message in the queue corresponding to the `inventory_df`
-    assert len(uris) == 1
+    # We expect 1 for each of our 4 products (L30, L30_VI, S30, S30_VI)
+    assert len(uris) == 4
 
     return uris
 
