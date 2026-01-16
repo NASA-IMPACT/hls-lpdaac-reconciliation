@@ -40,7 +40,8 @@ def consume_messages(sqs: SQSClient, queue_url: str) -> Iterator[str]:
         for message in sqs.receive_message(
             QueueUrl=queue_url,
             MaxNumberOfMessages=10,
-            WaitTimeSeconds=time_remaining.seconds,
+            # WaitTimeSeconds must be between 0 and 20
+            WaitTimeSeconds=min(time_remaining.seconds, 20),
         ).get("Messages", []):
             receipt = message["ReceiptHandle"]
             sqs.delete_message(QueueUrl=queue_url, ReceiptHandle=receipt)
