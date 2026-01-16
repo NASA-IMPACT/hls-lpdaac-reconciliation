@@ -263,6 +263,7 @@ def process_granule(*, granule_id: str, data_bucket_name: str) -> Status:
             CopySource=f"{data_bucket_name}/{key}",
             MetadataDirective="REPLACE",
         )
+        print(f"Re-touched granule_id={granule_id}")
         return Status.TRIGGERED
 
     return Status.MISSING
