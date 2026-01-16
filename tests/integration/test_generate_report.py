@@ -30,7 +30,7 @@ def pytest_generate_tests(metafunc: pytest.Metafunc) -> None:
 
 
 def consume_messages(sqs: SQSClient, queue_url: str) -> Iterator[str]:
-    timeout = dt.datetime.now() + dt.timedelta(seconds=20)
+    timeout = dt.datetime.now() + dt.timedelta(seconds=30)
 
     # Since we expect to generate multiple report files, each triggering a
     # distinct message, the first call to sqs.receive_message might return a
