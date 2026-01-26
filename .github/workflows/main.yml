@@ -68,7 +68,7 @@ jobs:
     environment: dev
     steps:
       - name: Checkout sources
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
 
       - name: Get commit short SHA
         run: |
@@ -119,7 +119,7 @@ jobs:
     environment: prod
     steps:
       - name: Checkout sources
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
 
       - name: Convert secrets and vars to environment variables
         shell: python
