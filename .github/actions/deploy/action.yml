@@ -19,7 +19,7 @@ runs:
   using: composite
   steps:
     - name: Configure AWS credentials
-      uses: aws-actions/configure-aws-credentials@v4
+      uses: aws-actions/configure-aws-credentials@v5
       with:
         aws-region: "${{ inputs.aws_region || 'us-west-2' }}"
         role-to-assume: "${{ inputs.aws_role_to_assume_arn }}"
