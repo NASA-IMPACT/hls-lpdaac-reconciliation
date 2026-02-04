@@ -12,10 +12,6 @@ inputs:
     required: true
   stack_name:
     description: Name of the stack to deploy (intended only for uniquely naming integration test stacks)
-  vars_json:
-    description: Environment variables as a JSON object
-  secrets_json:
-    description: Secrets as a JSON object
   command:
     description: Bash command to deploy stack
 
@@ -23,25 +19,11 @@ runs:
   using: composite
   steps:
     - name: Configure AWS credentials
-      uses: aws-actions/configure-aws-credentials@v4
+      uses: aws-actions/configure-aws-credentials@v5
       with:
         aws-region: "${{ inputs.aws_region || 'us-west-2' }}"
         role-to-assume: "${{ inputs.aws_role_to_assume_arn }}"
         role-session-name: "${{ inputs.aws_role_session_name }}"
-
-    - name: Convert secrets to environment variables
-      shell: bash
-      run: |
-        while read -rd $'' line; do
-          echo "$line" >> $GITHUB_ENV
-        done < <(jq -r <<<'${{ inputs.secrets_json }}' 'to_entries|map("\(.key)=\(.value)\u0000")[]')
-
-    - name: Convert vars to environment variables
-      shell: bash
-      run: |
-        while read -rd $'' line; do
-          echo "$line" >> $GITHUB_ENV
-        done < <(jq -r <<<'${{ inputs.vars_json }}' 'to_entries|map("\(.key)=\(.value)\u0000")[]')
 
     - name: Get user's email address
       if: ${{ ! env.HLS_LPDAAC_NOTIFICATION_EMAIL_ADDRESS }}

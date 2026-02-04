@@ -15,7 +15,7 @@ runs:
         cache-dependency-glob: uv.lock
 
     - name: Install Python
-      uses: actions/setup-python@v5
+      uses: actions/setup-python@v6
       with:
         python-version-file: pyproject.toml
 

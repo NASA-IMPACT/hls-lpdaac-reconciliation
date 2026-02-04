@@ -68,11 +68,31 @@ jobs:
     environment: dev
     steps:
       - name: Checkout sources
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
 
       - name: Get commit short SHA
         run: |
           echo "HLS_LPDAAC_STACK_OVERRIDE=test-$(echo ${{ github.sha }} | cut -c 1-7)" >> $GITHUB_ENV
+
+      - name: Convert secrets and vars to environment variables
+        shell: python
+        run: |
+          import os
+
+          secrets_and_vars = {
+              **${{ toJson(secrets) }},
+              **${{ toJson(vars) }},
+          }
+
+          with open(os.environ["GITHUB_ENV"], "a") as env_file:
+              for name, value in secrets_and_vars.items():
+                  # If the value contains a newline, use the delimiter syntax
+                  # https://docs.github.com/en/actions/reference/workflows-and-actions/workflow-commands#multiline-strings
+                  if "\n" in value:
+                      print(f"{name}<<EOF\n{value}\nEOF", file=env_file)
+                  else:
+                      # Standard format for single lines
+                      print(f"{name}={value}", file=env_file)
 
       - name: Deploy integration tests stack
         uses: ./.github/actions/deploy
@@ -81,8 +101,6 @@ jobs:
           aws_role_to_assume_arn: "${{ vars.AWS_ROLE_TO_ASSUME_ARN }}"
           aws_role_session_name: "${{ github.actor }}"
           stack_name: "${{ env.HLS_LPDAAC_STACK_OVERRIDE }}"
-          vars_json: "${{ toJson(vars) }}"
-          secrets_json: "${{ toJson(secrets) }}"
           command: make deploy-it
 
       - name: Run integration tests
@@ -101,7 +119,27 @@ jobs:
     environment: prod
     steps:
       - name: Checkout sources
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
+
+      - name: Convert secrets and vars to environment variables
+        shell: python
+        run: |
+          import os
+
+          secrets_and_vars = {
+              **${{ toJson(secrets) }},
+              **${{ toJson(vars) }},
+          }
+
+          with open(os.environ["GITHUB_ENV"], "a") as env_file:
+              for name, value in secrets_and_vars.items():
+                  # If the value contains a newline, use the delimiter syntax
+                  # https://docs.github.com/en/actions/reference/workflows-and-actions/workflow-commands#multiline-strings
+                  if "\n" in value:
+                      print(f"{name}<<EOF\n{value}\nEOF", file=env_file)
+                  else:
+                      # Standard format for single lines
+                      print(f"{name}={value}", file=env_file)
 
       - name: Deploy production stack
         uses: ./.github/actions/deploy
@@ -109,6 +147,4 @@ jobs:
           aws_region: "${{ vars.AWS_DEFAULT_REGION }}"
           aws_role_to_assume_arn: "${{ vars.AWS_ROLE_TO_ASSUME_ARN }}"
           aws_role_session_name: "${{ github.actor }}"
-          vars_json: "${{ toJson(vars) }}"
-          secrets_json: "${{ toJson(secrets) }}"
           command: make deploy
