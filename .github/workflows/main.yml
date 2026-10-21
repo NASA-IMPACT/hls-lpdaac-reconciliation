@@ -102,6 +102,7 @@ jobs:
           aws_role_session_name: "${{ github.actor }}"
           stack_name: "${{ env.HLS_LPDAAC_STACK_OVERRIDE }}"
           command: make deploy-it
+          use_actor_email: true
 
       - name: Run integration tests
         run: make integration-tests
