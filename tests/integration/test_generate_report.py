@@ -4,7 +4,7 @@ from __future__ import annotations
 import datetime as dt
 import json
 from collections.abc import Iterator, Sequence
-from itertools import product
+from itertools import islice, product
 from pathlib import Path
 from uuid import uuid4
 
@@ -29,14 +29,17 @@ def pytest_generate_tests(metafunc: pytest.Metafunc) -> None:
         )
 
 
-def consume_messages(sqs: SQSClient, queue_url: str) -> Iterator[str]:
-    timeout = dt.datetime.now() + dt.timedelta(seconds=30)
+def consume_messages(
+    sqs: SQSClient, queue_url: str, *, timeout: dt.timedelta
+) -> Iterator[str]:
+    deadline = dt.datetime.now() + timeout
 
     # Since we expect to generate multiple report files, each triggering a
     # distinct message, the first call to sqs.receive_message might return a
     # message before all messages are queued, so we'll call repeatedly until we
-    # don't get any more messages, or we reach our time limit.
-    while (time_remaining := (timeout - dt.datetime.now())) > dt.timedelta():
+    # reach our time limit.  Callers expecting a known number of messages should
+    # stop consuming once they have them, rather than waiting for the deadline.
+    while (time_remaining := (deadline - dt.datetime.now())) > dt.timedelta():
         for message in sqs.receive_message(
             QueueUrl=queue_url,
             MaxNumberOfMessages=10,
@@ -157,13 +160,18 @@ def report_uris(
     sqs: SQSClient,
     lpdaac_request_queue_url: str,
 ) -> Sequence[str]:
+    # We expect 1 for each of our 4 products (L30, L30_VI, S30, S30_VI).  The
+    # timeout is generous because the report generator's Athena query alone can
+    # take 30+ seconds.
+    n_expected = 4
+    messages = consume_messages(
+        sqs, lpdaac_request_queue_url, timeout=dt.timedelta(minutes=3)
+    )
     uris = tuple(
-        json.loads(message)["report"]["uri"]
-        for message in consume_messages(sqs, lpdaac_request_queue_url)
+        json.loads(message)["report"]["uri"] for message in islice(messages, n_expected)
     )
 
-    # We expect 1 for each of our 4 products (L30, L30_VI, S30, S30_VI)
-    assert len(uris) == 4
+    assert len(uris) == n_expected
 
     return uris
 

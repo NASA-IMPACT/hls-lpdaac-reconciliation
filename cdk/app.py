@@ -14,7 +14,9 @@ historical_bucket = os.environ["HLS_LPDAAC_HISTORICAL_BUCKET"]
 request_topic_arn = os.environ["HLS_LPDAAC_REQUEST_TOPIC_ARN"]
 response_topic_arn = os.environ["HLS_LPDAAC_RESPONSE_TOPIC_ARN"]
 notification_email_address = os.environ["HLS_LPDAAC_NOTIFICATION_EMAIL_ADDRESS"]
-managed_policy_name = os.getenv("HLS_LPDAAC_MANAGED_POLICY_NAME", "mcp-tenantOperator")
+managed_policy_name = os.getenv(
+    "HLS_LPDAAC_MANAGED_POLICY_NAME", "mcp-tenantOperator-APIG"
+)
 # Add ability to override report extension to prevent triggering LPDAAC notifications.
 # This is used to help side by side test
 report_extension = os.getenv("HLS_LPDAAC_REPORT_SUFFIX", ".rpt")

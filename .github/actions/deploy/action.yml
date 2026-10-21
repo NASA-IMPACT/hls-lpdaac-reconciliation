@@ -14,10 +14,23 @@ inputs:
     description: Name of the stack to deploy (intended only for uniquely naming integration test stacks)
   command:
     description: Bash command to deploy stack
+  use_actor_email:
+    description: >
+      If true, send notifications to the email address of the user who
+      triggered the workflow.  Otherwise, HLS_LPDAAC_NOTIFICATION_EMAIL_ADDRESS
+      must be set in the environment.
+    default: "false"
 
 runs:
   using: composite
   steps:
+    - name: Check notification email address is set
+      if: ${{ inputs.use_actor_email != 'true' && ! env.HLS_LPDAAC_NOTIFICATION_EMAIL_ADDRESS }}
+      shell: bash
+      run: |
+        echo "::error::HLS_LPDAAC_NOTIFICATION_EMAIL_ADDRESS must be set when use_actor_email is not 'true'"
+        exit 1
+
     - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v5
       with:
@@ -26,7 +39,7 @@ runs:
         role-session-name: "${{ inputs.aws_role_session_name }}"
 
     - name: Get user's email address
-      if: ${{ ! env.HLS_LPDAAC_NOTIFICATION_EMAIL_ADDRESS }}
+      if: ${{ inputs.use_actor_email == 'true' }}
       id: get-email-address
       uses: actions/github-script@v7
       with:
@@ -40,7 +53,7 @@ runs:
         result-encoding: string
 
     - name: Export user's email address to environment
-      if: ${{ ! env.HLS_LPDAAC_NOTIFICATION_EMAIL_ADDRESS }}
+      if: ${{ inputs.use_actor_email == 'true' }}
       shell: bash
       run: echo "HLS_LPDAAC_NOTIFICATION_EMAIL_ADDRESS=${{ steps.get-email-address.outputs.result }}" >> $GITHUB_ENV
 
