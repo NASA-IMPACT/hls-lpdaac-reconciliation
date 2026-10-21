@@ -16,8 +16,8 @@ on:
       - "src/**"
       - "cdk.json"
       - "Makefile"
-      - "setup.py"
-      - "tox.ini"
+      - "pyproject.toml"
+      - "uv.lock"
   pull_request:
     types:
       - edited
@@ -32,8 +32,8 @@ on:
       - "src/**"
       - "cdk.json"
       - "Makefile"
-      - "setup.py"
-      - "tox.ini"
+      - "pyproject.toml"
+      - "uv.lock"
 
 # See https://docs.github.com/en/actions/deployment/security-hardening-your-deployments/configuring-openid-connect-in-amazon-web-services#updating-your-github-actions-workflow
 permissions:
