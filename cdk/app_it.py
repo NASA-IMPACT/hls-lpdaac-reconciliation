@@ -7,7 +7,9 @@ from stack_it import HlsLpdaacReconciliationStackIT
 
 stack_name = os.environ["HLS_LPDAAC_STACK"]
 notification_email_address = os.environ["HLS_LPDAAC_NOTIFICATION_EMAIL_ADDRESS"]
-managed_policy_name = os.getenv("HLS_LPDAAC_MANAGED_POLICY_NAME", "mcp-tenantOperator")
+managed_policy_name = os.getenv(
+    "HLS_LPDAAC_MANAGED_POLICY_NAME", "mcp-tenantOperator-APIG"
+)
 
 stack_it = HlsLpdaacReconciliationStackIT(
     app := cdk.App(),
