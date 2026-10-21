@@ -112,6 +112,43 @@ jobs:
           HLS_LPDAAC_STACK: "${{ env.HLS_LPDAAC_STACK_OVERRIDE }}"
         run: make destroy-it
 
+  deploy-dev:
+    # Deploy to Dev only on push (merge) to main
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    environment: dev
+    steps:
+      - name: Checkout sources
+        uses: actions/checkout@v6
+
+      - name: Convert secrets and vars to environment variables
+        shell: python
+        run: |
+          import os
+
+          secrets_and_vars = {
+              **${{ toJson(secrets) }},
+              **${{ toJson(vars) }},
+          }
+
+          with open(os.environ["GITHUB_ENV"], "a") as env_file:
+              for name, value in secrets_and_vars.items():
+                  # If the value contains a newline, use the delimiter syntax
+                  # https://docs.github.com/en/actions/reference/workflows-and-actions/workflow-commands#multiline-strings
+                  if "\n" in value:
+                      print(f"{name}<<EOF\n{value}\nEOF", file=env_file)
+                  else:
+                      # Standard format for single lines
+                      print(f"{name}={value}", file=env_file)
+
+      - name: Deploy dev stack
+        uses: ./.github/actions/deploy
+        with:
+          aws_region: "${{ vars.AWS_DEFAULT_REGION }}"
+          aws_role_to_assume_arn: "${{ vars.AWS_ROLE_TO_ASSUME_ARN }}"
+          aws_role_session_name: "${{ github.actor }}"
+          command: make deploy
+
   deploy-prod:
     # Deploy to Prod only on publishing a release (tag)
     if: github.event_name == 'release'
