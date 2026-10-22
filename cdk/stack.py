@@ -5,6 +5,7 @@ from aws_cdk import aws_glue as glue
 from aws_cdk import aws_iam as iam
 from aws_cdk import aws_lambda as lambda_
 from aws_cdk import aws_lambda_event_sources as sources
+from aws_cdk import aws_logs as logs
 from aws_cdk import aws_s3 as s3
 from aws_cdk import aws_s3_notifications as s3n
 from aws_cdk import aws_sns as sns
@@ -64,6 +65,7 @@ class HlsLpdaacReconciliationStack(Stack):
         inventory_report_lambda = lambda_.Function(
             self,
             "InventoryReportHandler",
+            log_group=self.make_log_group("InventoryReportHandlerLogGroup"),
             code=lambda_.Code.from_asset("src", exclude=["**/*.egg-info"]),
             handler="hls_lpdaac_reconciliation/generate_report/index.handler",
             runtime=lambda_.Runtime.PYTHON_3_12,
@@ -110,6 +112,7 @@ class HlsLpdaacReconciliationStack(Stack):
         lpdaac_request_lambda = lambda_.Function(
             self,
             "ReconciliationRequestHandler",
+            log_group=self.make_log_group("ReconciliationRequestHandlerLogGroup"),
             code=lambda_.Code.from_asset("src", exclude=["**/*.egg-info"]),
             handler="hls_lpdaac_reconciliation/request/index.handler",
             runtime=lambda_.Runtime.PYTHON_3_12,
@@ -136,6 +139,7 @@ class HlsLpdaacReconciliationStack(Stack):
         lpdaac_response_lambda = lambda_.Function(
             self,
             "ReconciliationResponseHandler",
+            log_group=self.make_log_group("ReconciliationResponseHandlerLogGroup"),
             code=lambda_.Code.from_asset("src", exclude=["**/*.egg-info"]),
             handler="hls_lpdaac_reconciliation/response/index.handler",
             runtime=lambda_.Runtime.PYTHON_3_12,
@@ -176,6 +180,14 @@ class HlsLpdaacReconciliationStack(Stack):
             self,
             "InventoryReportGenerator",
             value=inventory_report_lambda.function_name,
+        )
+
+    def make_log_group(self, construct_id: str) -> logs.LogGroup:
+        return logs.LogGroup(
+            self,
+            construct_id,
+            retention=logs.RetentionDays.THREE_MONTHS,
+            removal_policy=RemovalPolicy.RETAIN_ON_UPDATE_OR_DELETE,
         )
 
     def make_inventory_table(self, *, location: str) -> glue.CfnTable:
