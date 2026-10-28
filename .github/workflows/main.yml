@@ -62,8 +62,24 @@ jobs:
       - name: Run unit tests
         run: make unit-tests
 
+  dependabot-metadata:
+    if: github.event_name == 'pull_request' && github.event.pull_request.user.login == 'dependabot[bot]'
+    runs-on: ubuntu-latest
+    outputs:
+      dependency-type: ${{ steps.metadata.outputs.dependency-type }}
+    steps:
+      - name: Fetch Dependabot metadata
+        id: metadata
+        uses: dependabot/fetch-metadata@v3
+
   integration-tests:
-    if: github.event_name == 'pull_request'
+    # Skip for Dependabot updates of dev dependencies, which are not deployed.
+    # Runs when dependabot-metadata is skipped (non-Dependabot PRs) or fails.
+    needs: dependabot-metadata
+    if: >-
+      !cancelled()
+      && github.event_name == 'pull_request'
+      && needs.dependabot-metadata.outputs.dependency-type != 'direct:development'
     runs-on: ubuntu-latest
     environment: dev
     steps:
