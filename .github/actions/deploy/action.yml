@@ -31,12 +31,22 @@ runs:
         echo "::error::HLS_LPDAAC_NOTIFICATION_EMAIL_ADDRESS must be set when use_actor_email is not 'true'"
         exit 1
 
+    - name: Sanitize role session name
+      id: session-name
+      shell: bash
+      env:
+        SESSION_NAME: ${{ inputs.aws_role_session_name }}
+      run: |
+        # STS requires 2-64 chars matching [\w+=,.@-] (e.g., "dependabot[bot]" is rejected)
+        sanitized="${SESSION_NAME//[^A-Za-z0-9_+=,.@-]/-}"
+        echo "value=${sanitized:0:64}" >> $GITHUB_OUTPUT
+
     - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v6
       with:
         aws-region: "${{ inputs.aws_region || 'us-west-2' }}"
         role-to-assume: "${{ inputs.aws_role_to_assume_arn }}"
-        role-session-name: "${{ inputs.aws_role_session_name }}"
+        role-session-name: "${{ steps.session-name.outputs.value }}"
 
     - name: Get user's email address
       if: ${{ inputs.use_actor_email == 'true' }}
