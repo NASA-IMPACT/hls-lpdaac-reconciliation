@@ -90,18 +90,15 @@ jobs:
         run: |
           echo "HLS_LPDAAC_STACK_OVERRIDE=test-$(echo ${{ github.sha }} | cut -c 1-7)" >> $GITHUB_ENV
 
-      - name: Convert secrets and vars to environment variables
+      - name: Convert vars to environment variables
         shell: python
         run: |
           import os
 
-          secrets_and_vars = {
-              **${{ toJson(secrets) }},
-              **${{ toJson(vars) }},
-          }
+          deploy_vars = ${{ toJson(vars) }}
 
           with open(os.environ["GITHUB_ENV"], "a") as env_file:
-              for name, value in secrets_and_vars.items():
+              for name, value in deploy_vars.items():
                   # If the value contains a newline, use the delimiter syntax
                   # https://docs.github.com/en/actions/reference/workflows-and-actions/workflow-commands#multiline-strings
                   if "\n" in value:
@@ -138,18 +135,15 @@ jobs:
       - name: Checkout sources
         uses: actions/checkout@v7
 
-      - name: Convert secrets and vars to environment variables
+      - name: Convert vars to environment variables
         shell: python
         run: |
           import os
 
-          secrets_and_vars = {
-              **${{ toJson(secrets) }},
-              **${{ toJson(vars) }},
-          }
+          deploy_vars = ${{ toJson(vars) }}
 
           with open(os.environ["GITHUB_ENV"], "a") as env_file:
-              for name, value in secrets_and_vars.items():
+              for name, value in deploy_vars.items():
                   # If the value contains a newline, use the delimiter syntax
                   # https://docs.github.com/en/actions/reference/workflows-and-actions/workflow-commands#multiline-strings
                   if "\n" in value:
@@ -175,18 +169,15 @@ jobs:
       - name: Checkout sources
         uses: actions/checkout@v7
 
-      - name: Convert secrets and vars to environment variables
+      - name: Convert vars to environment variables
         shell: python
         run: |
           import os
 
-          secrets_and_vars = {
-              **${{ toJson(secrets) }},
-              **${{ toJson(vars) }},
-          }
+          deploy_vars = ${{ toJson(vars) }}
 
           with open(os.environ["GITHUB_ENV"], "a") as env_file:
-              for name, value in secrets_and_vars.items():
+              for name, value in deploy_vars.items():
                   # If the value contains a newline, use the delimiter syntax
                   # https://docs.github.com/en/actions/reference/workflows-and-actions/workflow-commands#multiline-strings
                   if "\n" in value:
